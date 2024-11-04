@@ -25,6 +25,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
 // Route::resource('/admin/user',  UsersController::class)->middleware('auth');
 
-Route::resource('/admin',  Route::('/user') ? UsersController::class : (Route::has('/eventParticipan') ? EventParticipantsController::class : (Route::has('/event') ? EventsController::class : AdminController::class)))->middleware('auth');
+Route::resource('/admin',  Route::has('/user') ? UsersController::class : (Route::has('/eventParticipan') ? EventParticipantsController::class : (Route::has('/event') ? EventsController::class : AdminController::class)))->middleware('auth');
 // Route::resource('/admin/eventParticipan', EventParticipants::class)->middleware('auth');
 // Route::resource('/admin/event', EventsController::class)->middleware('auth');
