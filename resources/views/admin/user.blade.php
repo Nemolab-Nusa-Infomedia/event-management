@@ -76,21 +76,41 @@
 
 @section('js')
 <script>
-    $(document).ready(function() {
+   $(document).ready(function() {
         $('#userTable').DataTable();
 
-        $('#changeRole').click(function() {
+        $('.changeRole').click(function() {
+            console.log();
+            const id = $(this).data('id');
             $('#userForm')[0].reset();
-            $('#method').val('POST');
             $('#userModal').modal('show');
 
-            $.getJSON("http://localhost:8000/admin/user/" + id,
+            $.getJSON("http://localhost:8000/user/" + id,
                 function(data, textStatus, jqXHR) {
-
-                    alert("Tes")
+                    $('#username').val(data.name);
+                    $('#name').val(data.name);
+                    $('#role').val(data.role);
+                    $('#id_user').val(data.id);
+                    $('#email').val(data.email);
                 }
             );
 
+        });
+        $('#userForm').on('submit', function(e) {
+            e.preventDefault();
+            const id = $('#id_user').val();
+            const url = "http://localhost:8000/user/" + id;
+            $.ajax({
+                type: 'PUT',
+                url: url,
+                data: $(this).serialize(),
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
         });
     });
 </script>
