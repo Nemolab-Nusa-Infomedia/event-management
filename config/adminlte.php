@@ -326,6 +326,11 @@ return [
                 'url' => 'admin/event',
                 'icon' => 'fas fa-calendar'
             ],
+            [
+                'text' => 'Participants',
+                'url' => 'admin/eventParticipan',
+                'icon' => 'fas fa-users'
+            ]
         // [
         //     'type' => 'sidebar-menu-search',
         //     'text' => 'search',

@@ -12,11 +12,17 @@ class EventParticipantsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $participants = EventParticipants::all();
-        // return view('participants.index', compact('participants'));
-    }
+
+     public function index()
+{
+    $participants = EventParticipants::with(['user', 'event'])->get();
+    return view('admin.eventParticipan', compact('participants'));
+}
+    // public function index()
+    // {
+    //     $participants = EventParticipants::all();
+    //     return view('participants.index', compact('participants'));
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -65,12 +71,18 @@ class EventParticipantsController extends Controller
     public function update(UpdateEventParticipantsRequest $request, EventParticipants $eventParticipants)
     {
         $request->validate([
-            'event_id' => 'required|exists:events,id',
+            'status' => 'required|in:pending,confirm',
         ]);
+    
+        $eventParticipants->update($request->only('status'));
+        return redirect()->route('eventParticipan.index')->with('success', 'Participant updated successfully.');
+        // $request->validate([
+        //     'event_id' => 'required|exists:events,id',
+        // ]);
 
-        $eventParticipants->update($request->all());
+        // $eventParticipants->update($request->all());
 
-        return redirect()->route('home.index')->with('success', 'Participant updated successfully.');
+        // return redirect()->route('home.index')->with('success', 'Participant updated successfully.');
     }
 
     /**
