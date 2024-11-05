@@ -317,10 +317,15 @@ return [
                 'icon' => 'fas fa-house-user'
             ],
             [
+                'text' => 'Users',
+                'url' => 'admin/user',
+                'icon' => 'fas fa-users',
+            ],
+            [
                 'text' => 'Events',
-                'url' => 'events',
+                'url' => 'admin/event',
                 'icon' => 'fas fa-calendar'
-            ]
+            ],
         // [
         //     'type' => 'sidebar-menu-search',
         //     'text' => 'search',
@@ -440,7 +445,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
