@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<!-- footer -->
 @section('content')
 <div class="container">
     <div class="d-flex align-items-center">
