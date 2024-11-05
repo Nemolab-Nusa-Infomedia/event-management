@@ -327,10 +327,10 @@ return [
                 'icon' => 'fas fa-calendar'
             ],
             [
-                'text' => 'Participans',
-                'url' => 'admin/eventParticipan.blade',
+                'text' => 'Participants',
+                'url' => 'admin/eventParticipan',
                 'icon' => 'fas fa-users'
-            ],
+            ]
         // [
         //     'type' => 'sidebar-menu-search',
         //     'text' => 'search',
