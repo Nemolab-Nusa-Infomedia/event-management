@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-        {{$no = 1}}
+        @php($no = 1)
         @foreach ($user as $item)
         <tr>
             <td>{{ $no}}</td>
@@ -36,7 +36,7 @@
                 </form> -->
             </td>
         </tr>
-        {{$no++}}
+        @php($no++)
         @endforeach
     </tbody>
 </table>

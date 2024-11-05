@@ -3,65 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Tampilkan semua pengguna
     public function index()
     {
         $user = User::all();
-        return view('admin.index', compact('user'));
+        return view('admin.user', compact('user'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Form untuk membuat pengguna baru
     public function create()
     {
-        //
+        return view('home.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreUserRequest $request)
+    // Simpan pengguna baru
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password), // Enkripsi password
+        ]);
+
+        return redirect()->route('home.index')->with('success', 'User created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $User)
+    // Tampilkan detail pengguna
+    public function show(User $user)
     {
-        //
+        return view('users.show', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $User)
+    // Form untuk mengedit pengguna
+    public function edit(User $user)
     {
-        //
+        return view('users.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUserRequest $request, User $User)
+    // Perbarui data pengguna
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password ? Hash::make($request->password) : $user->password,
+            'role' => $request->role,
+        ]);
+
+        return redirect()->route('home.index')->with('success', 'User updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $User)
+    // Hapus pengguna
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('home.index')->with('success', 'User deleted successfully.');
     }
 }
