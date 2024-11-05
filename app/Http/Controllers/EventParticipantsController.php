@@ -71,12 +71,18 @@ class EventParticipantsController extends Controller
     public function update(UpdateEventParticipantsRequest $request, EventParticipants $eventParticipants)
     {
         $request->validate([
-            'event_id' => 'required|exists:events,id',
+            'status' => 'required|in:pending,confirm',
         ]);
+    
+        $eventParticipants->update($request->only('status'));
+        return redirect()->route('eventParticipan.index')->with('success', 'Participant updated successfully.');
+        // $request->validate([
+        //     'event_id' => 'required|exists:events,id',
+        // ]);
 
-        $eventParticipants->update($request->all());
+        // $eventParticipants->update($request->all());
 
-        return redirect()->route('home.index')->with('success', 'Participant updated successfully.');
+        // return redirect()->route('home.index')->with('success', 'Participant updated successfully.');
     }
 
     /**
