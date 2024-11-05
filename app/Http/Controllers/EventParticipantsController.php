@@ -12,11 +12,17 @@ class EventParticipantsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $participants = EventParticipants::all();
-        // return view('participants.index', compact('participants'));
-    }
+
+     public function index()
+{
+    $participants = EventParticipants::with(['user', 'event'])->get();
+    return view('admin.eventParticipan', compact('participants'));
+}
+    // public function index()
+    // {
+    //     $participants = EventParticipants::all();
+    //     return view('participants.index', compact('participants'));
+    // }
 
     /**
      * Show the form for creating a new resource.

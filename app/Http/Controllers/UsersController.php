@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -18,25 +20,33 @@ class UsersController extends Controller
     // Form untuk membuat pengguna baru
     public function create()
     {
-        return view('home.create');
+        return view('auth.register');
+        // return view('home.create');
     }
 
     // Simpan pengguna baru
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|confirmed|min:8',
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password), // Enkripsi password
+        // Buat pengguna baru
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
         ]);
 
-        return redirect()->route('home.index')->with('success', 'User created successfully.');
+        // Trigger event untuk mengirim email verifikasi
+        event(new Registered($user));
+
+        // Redirect ke halaman verifikasi
+        return redirect()->route('verification.notice');
+
+        // return redirect()->route('home.index')->with('success', 'User created successfully.');
     }
 
     // Tampilkan detail pengguna
@@ -74,5 +84,10 @@ class UsersController extends Controller
     {
         $user->delete();
         return redirect()->route('home.index')->with('success', 'User deleted successfully.');
+    }
+
+    public function verifyEmail()
+    {
+        return view('auth.verify');
     }
 }
