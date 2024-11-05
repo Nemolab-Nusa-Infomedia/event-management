@@ -28,7 +28,7 @@
             <td>{{ $item->name }}</td>
             <td>{{ $item->role }}</td>
             <td>
-                <button class="btn btn-primary" id="changeRole" data-id="{{ $item->id}}">Change Role</button>
+                <button class="btn btn-primary changeRole" data-id="{{ $item->id}}">Change Role</button>
                 <!-- <form action="{{ route('user.destroy', $item->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
