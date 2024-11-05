@@ -32,7 +32,7 @@
                 <td>{{ $item->event_end }}</td>
                 <td>{{ $item->location }}</td>
                 <td>
-                    <a href="" class="btn btn-success"><i class="fas fa-pen"></i> Edit</a>
+                    <a href="{{ route('event.edit', $item->id) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
                     <a href="" class="btn btn-secondary"><i class="fas fa-users"></i> See Participants</a>    
                     <form action="{{ route('user.destroy', $item->id) }}" method="POST" style="display:inline;">
                     @csrf

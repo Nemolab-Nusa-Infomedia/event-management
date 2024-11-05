@@ -57,7 +57,7 @@ class EventsController extends Controller
 
         $event->update($request->all());
 
-        return redirect()->route('home.index')->with('success', 'Event updated successfully.');
+        return redirect()->route('user.index')->with('success', 'Event updated successfully.');
     }
 
     public function destroy(Events $event)

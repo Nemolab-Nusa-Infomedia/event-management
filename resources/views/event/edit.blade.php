@@ -27,7 +27,7 @@
         <label for="" class="form-label">Location</label>
         <textarea class="form-control" name="" id="" rows="3"></textarea>
     </div>
-    <a href="{{ route('event.create') }}" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Add Event</a>
+    <a href="{{ route('event.update', $event->id) }}" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Save</a>
     <a href="{{ route('event.index') }}" class="btn btn-danger mb-3"><i class="fas "><i class="fas fa-backward"></i> Back</a>
 @stop
 
