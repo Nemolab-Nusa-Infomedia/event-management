@@ -15,7 +15,7 @@ class EventParticipantsController extends Controller
     public function index()
     {
         $participants = EventParticipants::all();
-        return view('participants.index', compact('participants'));
+        // return view('participants.index', compact('participants'));
     }
 
     /**
@@ -39,7 +39,7 @@ class EventParticipantsController extends Controller
 
         EventParticipants::create($request->all());
 
-        return redirect()->route('participants.index')->with('success', 'Participant added successfully.');
+        return redirect()->route('home.index')->with('success', 'Participant added successfully.');
     }
 
     /**
@@ -70,7 +70,7 @@ class EventParticipantsController extends Controller
 
         $eventParticipants->update($request->all());
 
-        return redirect()->route('participants.index')->with('success', 'Participant updated successfully.');
+        return redirect()->route('home.index')->with('success', 'Participant updated successfully.');
     }
 
     /**
@@ -79,6 +79,6 @@ class EventParticipantsController extends Controller
     public function destroy(EventParticipants $eventParticipants)
     {
         $eventParticipants->delete();
-        return redirect()->route('participants.index')->with('success', 'Participant deleted successfully.');
+        return redirect()->route('home.index')->with('success', 'Participant deleted successfully.');
     }
 }

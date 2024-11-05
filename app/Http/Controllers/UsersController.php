@@ -18,7 +18,7 @@ class UsersController extends Controller
     // Form untuk membuat pengguna baru
     public function create()
     {
-        return view('users.create');
+        return view('home.create');
     }
 
     // Simpan pengguna baru
@@ -36,7 +36,7 @@ class UsersController extends Controller
             'password' => Hash::make($request->password), // Enkripsi password
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()->route('home.index')->with('success', 'User created successfully.');
     }
 
     // Tampilkan detail pengguna
@@ -63,15 +63,16 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password ? Hash::make($request->password) : $user->password,
+            'role' => $request->role,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('home.index')->with('success', 'User updated successfully.');
     }
 
     // Hapus pengguna
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('home.index')->with('success', 'User deleted successfully.');
     }
 }
