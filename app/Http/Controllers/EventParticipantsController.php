@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EventParticipants;
+// use App\Models\Events;
 use App\Http\Requests\StoreEventParticipantsRequest;
 use App\Http\Requests\UpdateEventParticipantsRequest;
 
@@ -13,7 +14,8 @@ class EventParticipantsController extends Controller
      */
     public function index()
     {
-        //
+        $participants = EventParticipants::all();
+        return view('participants.index', compact('participants'));
     }
 
     /**
@@ -21,7 +23,8 @@ class EventParticipantsController extends Controller
      */
     public function create()
     {
-        //
+        $participants = EventParticipants::all();
+        return view('participants.create', compact('events'));
     }
 
     /**
@@ -29,7 +32,14 @@ class EventParticipantsController extends Controller
      */
     public function store(StoreEventParticipantsRequest $request)
     {
-        //
+        $request->validate([
+            'event_id' => 'required|exists:events,id',
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        EventParticipants::create($request->all());
+
+        return redirect()->route('participants.index')->with('success', 'Participant added successfully.');
     }
 
     /**
@@ -37,7 +47,7 @@ class EventParticipantsController extends Controller
      */
     public function show(EventParticipants $eventParticipants)
     {
-        //
+        return view('participants.show', compact('participant'));
     }
 
     /**
@@ -45,7 +55,8 @@ class EventParticipantsController extends Controller
      */
     public function edit(EventParticipants $eventParticipants)
     {
-        //
+        $participants = EventParticipants::all();
+        return view('participants.edit', compact('participant', 'events'));
     }
 
     /**
@@ -53,7 +64,13 @@ class EventParticipantsController extends Controller
      */
     public function update(UpdateEventParticipantsRequest $request, EventParticipants $eventParticipants)
     {
-        //
+        $request->validate([
+            'event_id' => 'required|exists:events,id',
+        ]);
+
+        $eventParticipants->update($request->all());
+
+        return redirect()->route('participants.index')->with('success', 'Participant updated successfully.');
     }
 
     /**
@@ -61,6 +78,7 @@ class EventParticipantsController extends Controller
      */
     public function destroy(EventParticipants $eventParticipants)
     {
-        //
+        $eventParticipants->delete();
+        return redirect()->route('participants.index')->with('success', 'Participant deleted successfully.');
     }
 }

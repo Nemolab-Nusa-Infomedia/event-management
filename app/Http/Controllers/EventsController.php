@@ -3,64 +3,59 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
-use App\Http\Requests\StoreEventsRequest;
-use App\Http\Requests\UpdateEventsRequest;
+use Illuminate\Http\Request;
 
 class EventsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $events = Events::all();
+        return view('events.index', compact('events'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('events.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreEventsRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'event_name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'event_date' => 'required|date',
+        ]);
+
+        Events::create($request->all());
+
+        return redirect()->route('events.index')->with('success', 'Event created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Events $events)
+    public function show(Events $event)
     {
-        //
+        return view('events.show', compact('event'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Events $events)
+    public function edit(Events $event)
     {
-        //
+        return view('events.edit', compact('event'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateEventsRequest $request, Events $events)
+    public function update(Request $request, Events $event)
     {
-        //
+        $request->validate([
+            'event_name' => 'required|string|max:255',
+            'event_date' => 'required|date',
+        ]);
+
+        $event->update($request->all());
+
+        return redirect()->route('events.index')->with('success', 'Event updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Events $events)
+    public function destroy(Events $event)
     {
-        //
+        $event->delete();
+        return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
     }
 }
