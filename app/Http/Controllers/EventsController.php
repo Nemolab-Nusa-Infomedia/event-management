@@ -9,8 +9,8 @@ class EventsController extends Controller
 {
     public function index()
     {
-        $events = Events::all();
-        return view('events.index', compact('events'));
+        $event = Events::all();
+        return view('admin.event', compact('event'));
     }
 
     public function create()
@@ -21,9 +21,12 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'event_name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'event_date' => 'required|date',
+            'id_master',
+            'name',
+            'event_date',
+            'event_start',
+            'event_end',
+            'location',
         ]);
 
         Events::create($request->all());
@@ -44,8 +47,12 @@ class EventsController extends Controller
     public function update(Request $request, Events $event)
     {
         $request->validate([
-            'event_name' => 'required|string|max:255',
-            'event_date' => 'required|date',
+            'id_master',
+            'name',
+            'event_date',
+            'event_start',
+            'event_end',
+            'location',
         ]);
 
         $event->update($request->all());

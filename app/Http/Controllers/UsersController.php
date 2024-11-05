@@ -11,8 +11,8 @@ class UsersController extends Controller
     // Tampilkan semua pengguna
     public function index()
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
+        $user = User::all();
+        return view('admin.user', compact('user'));
     }
 
     // Form untuk membuat pengguna baru
