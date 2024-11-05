@@ -13,12 +13,12 @@
         <thead>
             <tr>
                 <td>No</td>
-                <td>Nama</td>
-                <td>Tanggal</td>
-                <td>Mulai</td>
-                <td>Selesai</td>
-                <td>Lokasi</td>
-                <td>Aksi</td>
+                <td>Name</td>
+                <td>Date</td>
+                <td>Start</td>
+                <td>End</td>
+                <td>Location</td>
+                <td>Action</td>
             </tr>
         </thead>
         <tbody>
@@ -33,7 +33,7 @@
                 <td>{{ $item->location }}</td>
                 <td>
                     <button class="btn btn-primary"><i class="fas fa-pen"></i> Edit</button>
-                    <button class="btn btn-secondary"><i class="fas fa-users"></i> Lihat Peserta</button>    
+                    <button class="btn btn-secondary"><i class="fas fa-users"></i> See Participants</button>    
                     <form action="{{ route('user.destroy', $item->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
@@ -45,7 +45,7 @@
             @endforeach
         </tbody>
       </table>
-      <button class="btn btn-danger">Kembali</button>
+      <button class="btn btn-danger"><i class="fas fa-backward"></i> Back</button>
 @stop
 
 @section('css')
