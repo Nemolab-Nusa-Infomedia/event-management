@@ -328,7 +328,7 @@ return [
             ],
             [
                 'text' => 'Participans',
-                'url' => 'admin/eventParticipan.blade',
+                'url' => 'admin/eventParticipan',
                 'icon' => 'fas fa-users'
             ],
         // [
