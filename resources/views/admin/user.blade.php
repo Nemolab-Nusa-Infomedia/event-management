@@ -28,7 +28,7 @@
             <td>{{ $item->name }}</td>
             <td>{{ $item->role }}</td>
             <td>
-                <button class="btn btn-primary changeRole" data-id="{{ $item->id}}">Change Role</button>
+                <button class="btn btn-primary" id="changeRole" data-id="{{ $item->id}}">Change Role</button>
                 <!-- <form action="{{ route('user.destroy', $item->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
@@ -41,13 +41,13 @@
     </tbody>
 </table>
 
-<!-- Create/Edit Modal -->
+<!-- Change Role Modal -->
 <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="userModalLabel">Add Kelas</h5>
+                <h5 class="modal-title" id="userModalLabel">Change Role</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -59,8 +59,12 @@
                     <input type="hidden" name="id" id="id_user">
 
                     <div class="form-group">
-                        <label for="nama">Nama User</label>
-                        <input type="text" class="form-control" name="nama" id="nama_user" required>
+                        <label for="name">User Name</label>
+                        <input type="text" class="form-control" name="name" id="nama_user" disabled>
+                        <label for="role">Role</label>
+                        <select type="text" class="form-control" name="role" id="role" disabled required>
+                            <option value=""></option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
@@ -75,42 +79,18 @@
     $(document).ready(function() {
         $('#userTable').DataTable();
 
-        $('#createUser').click(function() {
+        $('#changeRole').click(function() {
             $('#userForm')[0].reset();
             $('#method').val('POST');
-            $('#userModalLabel').text('Add User');
             $('#userModal').modal('show');
-        });
 
-        $('.edituser').click(function() {
-            const id = $(this).data('id');
-            $.get("{{ route('user.index') }}/" + id + "/edit", function(data) {
-                $('#id_user').val(data.id);
-                $('#nama_user').val(data.nama);
-                $('#method').val('PUT');
-                $('#userModalLabel').text('Edit User');
-                $('#userModal').modal('show');
-            });
-        });
+            $.getJSON("http://localhost:8000/admin/user/" + id,
+                function(data, textStatus, jqXHR) {
 
-        $('#userForm').on('submit', function(e) {
-            e.preventDefault();
-            const method = $('#method').val();
-            const id = $('#id_user').val();
-            const url = method === 'POST' ?
-                "{{ route('user.store') }}" :
-                "{{ route('user.update', '') }}/" + id;
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: $(this).serialize(),
-                success: function(response) {
-                    location.reload();
-                },
-                error: function(error) {
-                    console.log(error);
+                    alert("Tes")
                 }
-            });
+            );
+
         });
     });
 </script>

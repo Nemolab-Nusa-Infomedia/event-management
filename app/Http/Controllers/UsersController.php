@@ -42,7 +42,7 @@ class UsersController extends Controller
     // Tampilkan detail pengguna
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        return response()->json($user);
     }
 
     // Form untuk mengedit pengguna
