@@ -320,6 +320,11 @@ return [
                 'text' => 'Events',
                 'url' => 'events',
                 'icon' => 'fas fa-calendar'
+            ],
+            [
+                'text' => 'User',
+                'url' => 'user',
+                'icon' => 'fas fa-users'
             ]
         // [
         //     'type' => 'sidebar-menu-search',
