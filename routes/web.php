@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/admin', AdminController::class);
 });
 
+Route::get('admin/event/{event}/edit', [EventsController::class, 'edit'])->name('event.edit');
 Route::get('/register', [UsersController::class, 'create'])->name('register');
 Route::post('/register', [UsersController::class, 'store']);
 

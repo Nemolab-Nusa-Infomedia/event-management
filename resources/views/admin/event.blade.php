@@ -12,13 +12,13 @@
       <table id="eventTable" class="table table-bordered">
         <thead>
             <tr>
-                <td>No</td>
-                <td>Name</td>
-                <td>Date</td>
-                <td>Start</td>
-                <td>End</td>
-                <td>Location</td>
-                <td>Action</td>
+                <th>No</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Location</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -32,8 +32,8 @@
                 <td>{{ $item->event_end }}</td>
                 <td>{{ $item->location }}</td>
                 <td>
-                    <button class="btn btn-primary"><i class="fas fa-pen"></i> Edit</button>
-                    <button class="btn btn-secondary"><i class="fas fa-users"></i> See Participants</button>    
+                    <a href="" class="btn btn-success"><i class="fas fa-pen"></i> Edit</a>
+                    <a href="" class="btn btn-secondary"><i class="fas fa-users"></i> See Participants</a>    
                     <form action="{{ route('user.destroy', $item->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
