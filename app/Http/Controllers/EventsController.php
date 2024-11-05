@@ -15,7 +15,7 @@ class EventsController extends Controller
 
     public function create()
     {
-        return view('events.create');
+        return view('event.create');
     }
 
     public function store(Request $request)
