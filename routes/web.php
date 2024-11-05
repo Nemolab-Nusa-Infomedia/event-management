@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/admin/user', UsersController::class);
     Route::resource('/admin/eventParticipan', EventParticipantsController::class);
     Route::resource('/admin/event', EventsController::class);
-    Route::resource('/admin', AdminController::class);
+    // Route::resource('/admin', AdminController::class);
 });
 
 Route::get('admin/event/{event}/edit', [EventsController::class, 'edit'])->name('event.edit');

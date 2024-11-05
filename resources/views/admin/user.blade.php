@@ -85,10 +85,11 @@
         $('.changeRole').click(function() {
             console.log();
             const id = $(this).data('id');
+            $('#method').val('PUT');
             $('#userForm')[0].reset();
             $('#userModal').modal('show');
 
-            $.getJSON("http://localhost:8000/admin/user/" + id,
+            $.getJSON("{{route('user.index')}}/" + id,
                 function(data, textStatus, jqXHR) {
                     console.log(data);
                     $('#username').val(data.name);
@@ -103,9 +104,11 @@
         $('#userForm').on('submit', function(e) {
             e.preventDefault();
             const id = $('#id_user').val();
-            const url = "http://localhost:8000/admin/user/" + id;
+            const url = "{{route('user.update', '')}}/" + id;
+            
+            console.log($(this).serialize())
             $.ajax({
-                type: 'PUT',
+                type: 'POST',
                 url: url,
                 data: $(this).serialize(),
                 success: function(response) {

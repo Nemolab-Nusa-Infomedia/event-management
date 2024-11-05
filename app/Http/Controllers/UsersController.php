@@ -76,7 +76,7 @@ class UsersController extends Controller
             'role' => $request->role,
         ]);
 
-        return redirect()->route('home.index')->with('success', 'User updated successfully.');
+        return redirect()->route('user.index')->with('success', 'User updated successfully.');
     }
 
     // Hapus pengguna
