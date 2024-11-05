@@ -85,7 +85,7 @@
             $('#userForm')[0].reset();
             $('#userModal').modal('show');
 
-            $.getJSON("http://localhost:8000/user/" + id,
+            $.getJSON("http://localhost:8000/admin/user/" + id,
                 function(data, textStatus, jqXHR) {
                     $('#username').val(data.name);
                     $('#name').val(data.name);
@@ -99,7 +99,7 @@
         $('#userForm').on('submit', function(e) {
             e.preventDefault();
             const id = $('#id_user').val();
-            const url = "http://localhost:8000/user/" + id;
+            const url = "http://localhost:8000/admin/user/" + id;
             $.ajax({
                 type: 'PUT',
                 url: url,
