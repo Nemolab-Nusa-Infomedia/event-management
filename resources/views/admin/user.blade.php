@@ -57,13 +57,16 @@
                     @csrf
                     <input type="hidden" name="_method" id="method" value="POST">
                     <input type="hidden" name="id" id="id_user">
+                    <input type="hidden" name="name" id="username">
+                    <input type="hidden" name="email" id="email">
 
                     <div class="form-group">
                         <label for="name">User Name</label>
-                        <input type="text" class="form-control" name="name" id="nama_user" disabled>
+                        <input type="text" class="form-control" id="name" disabled>
                         <label for="role">Role</label>
-                        <select type="text" class="form-control" name="role" id="role" disabled required>
-                            <option value=""></option>
+                        <select type="text" class="form-control" name="role" id="role" required>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
@@ -87,6 +90,7 @@
 
             $.getJSON("http://localhost:8000/admin/user/" + id,
                 function(data, textStatus, jqXHR) {
+                    console.log(data);
                     $('#username').val(data.name);
                     $('#name').val(data.name);
                     $('#role').val(data.role);
