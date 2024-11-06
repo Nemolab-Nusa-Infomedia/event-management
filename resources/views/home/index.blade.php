@@ -9,7 +9,7 @@
 @section('content')
 
     <div class="wrapper">
-     <div>
+
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -121,7 +121,6 @@
                 </div>
             </div>
         </section>
-</div>
         <!-- Footer -->
         <footer class="main-footer" style="margin-left: 500px;">
             <strong>Copyright &copy; 2024 Event Management.</strong>
