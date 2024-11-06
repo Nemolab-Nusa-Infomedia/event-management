@@ -13,11 +13,11 @@ class EventParticipantsController extends Controller
      * Display a listing of the resource.
      */
 
-     public function index()
-{
-    $participants = EventParticipants::with(['user', 'event'])->get();
-    return view('admin.eventParticipan', compact('participants'));
-}
+    public function index()
+    {
+        $participants = EventParticipants::with(['user', 'event'])->get();
+        return view('admin.eventParticipan', compact('participants'));
+    }
     // public function index()
     // {
     //     $participants = EventParticipants::all();
@@ -70,12 +70,16 @@ class EventParticipantsController extends Controller
      */
     public function update(UpdateEventParticipantsRequest $request, EventParticipants $eventParticipants)
     {
-        $request->validate([
+        $validated = $request->validate([
             'status' => 'required|in:pending,confirm',
         ]);
-    
-        $eventParticipants->update($request->only('status'));
-        return redirect()->route('eventParticipan.index')->with('success', 'Participant updated successfully.');
+
+        $eventParticipants->update($validated);
+
+        return redirect()
+            ->route('admin.event-participan')
+            ->with('success', 'Participant status updated successfully.');
+
         // $request->validate([
         //     'event_id' => 'required|exists:events,id',
         // ]);
@@ -91,6 +95,9 @@ class EventParticipantsController extends Controller
     public function destroy(EventParticipants $eventParticipants)
     {
         $eventParticipants->delete();
-        return redirect()->route('home.index')->with('success', 'Participant deleted successfully.');
+
+        return redirect()
+            ->route('admin.event-participan')
+            ->with('success', 'Participant removed successfully.');
     }
 }
