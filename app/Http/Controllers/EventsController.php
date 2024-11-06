@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EventParticipants;
 use App\Models\Events;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,9 @@ class EventsController extends Controller
 
     public function show(Events $event)
     {
-        return view('event.show', compact('event'));
+        $eventParticipant = Events::with('EventPartision')->get(['id'], $event->id);
+        $participants = EventParticipants::with('User')->get(['id'],$eventParticipant->id);
+        return view('event.show', compact('participants'));
     }
 
     public function edit(Events $event)
