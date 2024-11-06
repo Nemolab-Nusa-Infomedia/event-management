@@ -3,7 +3,7 @@
 @section('title', 'Peserta (Nama Event)')
 
 @section('content_header')
-<h1>Peserta 'Nama Event'</h1>
+<h1>Peserta event: {{ $event->name }}</h1>
 @stop
 
 @section('content')

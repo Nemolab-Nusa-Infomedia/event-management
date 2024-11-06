@@ -25,12 +25,12 @@ class AppServiceProvider extends ServiceProvider
             
             $event->menu->add([
                 'text' => 'Participants',
-                'url' => 'admin/eventParticipan',
+                'url' => 'admin/event',
                 'icon' => 'fas fa-users',
                 'submenu' => $events->map(function ($event) {
                     return [
                         'text' => $event->name,
-                        'url' => 'admin/eventParticipan/' . $event->id,
+                        'url' => 'admin/event/' . $event->id,
                         'icon' => 'far fa-circle',
                     ];
                 })->toArray()
