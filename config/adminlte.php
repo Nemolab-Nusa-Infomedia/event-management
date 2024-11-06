@@ -329,7 +329,8 @@ return [
             [
                 'text' => 'Participants',
                 'url' => 'admin/eventParticipan',
-                'icon' => 'fas fa-users'
+                'icon' => 'fas fa-users',
+                'submenu' => []
             ]
         // [
         //     'type' => 'sidebar-menu-search',
