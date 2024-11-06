@@ -317,20 +317,14 @@ return [
                 'icon' => 'fas fa-house-user'
             ],
             [
-                'text' => 'Users',
-                'url' => 'admin/user',
-                'icon' => 'fas fa-users',
-            ],
-            [
                 'text' => 'Events',
-                'url' => 'admin/event',
+                'url' => 'user/event',
                 'icon' => 'fas fa-calendar'
             ],
             [
                 'text' => 'Participants',
-                'url' => 'admin/eventParticipan',
-                'icon' => 'fas fa-users',
-                'submenu' => []
+                'url' => 'user/eventParticipan',
+                'icon' => 'fas fa-users'
             ]
         // [
         //     'type' => 'sidebar-menu-search',
