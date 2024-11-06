@@ -15,7 +15,7 @@ class Events extends Model
         'location',
     ];
 
-    public function EventPartision(){
+    public function EventParticipants(){
         return $this->HasMany(EventParticipants::class, 'id_event', 'id');
     }
 }

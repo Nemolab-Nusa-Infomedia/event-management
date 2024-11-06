@@ -44,8 +44,9 @@ class EventsController extends Controller
 
     public function show(Events $event)
     {
-        $eventParticipant = Events::with('EventPartision')->get(['id'], $event->id);
-        $participants = EventParticipants::with('User')->get(['id'],$eventParticipant->id);
+        $eventParticipants = Events::with('EventParticipants')->findOrFail( $event->id);
+        $dataParticipants = EventParticipants::with(relations: 'User')->findMany($eventParticipants['eventParticipants']);
+        $participants = $dataParticipants;
         return view('event.show', compact('participants'));
     }
 
