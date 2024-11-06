@@ -3,16 +3,10 @@
 @section('title', 'Home')
 
 @section('content_header')
-<h1></h1>
+    <h1></h1>
 @stop
 
 @section('content')
-
-    <div class="wrapper">
-
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
                 <!-- Info boxes -->
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
@@ -119,15 +113,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- Footer -->
-        <footer class="main-footer" style="margin-left: 500px;">
-            <strong>Copyright &copy; 2024 Event Management.</strong>
-            All rights reserved.
-        </footer>
-    </div>
-    
 @stop
 
 @section('css')
@@ -137,7 +122,5 @@
 
 @section('js')
 <!-- Required JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/js/adminlte.min.js"></script>
+<script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
 @stop
