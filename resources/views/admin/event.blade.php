@@ -34,7 +34,7 @@
                 <td>
                     <a href="{{ route('event.edit', $item->id) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
                     <a href="{{ route('event.show', $item->id) }}" class="btn btn-secondary"><i class="fas fa-users"></i> See Participants</a>    
-                    <form action="{{ route('user.destroy', $item->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('event.destroy', $item->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
