@@ -3,139 +3,131 @@
 @section('title', 'Home')
 
 @section('content_header')
-    <h1>Welcome To Home</h1>
+<h1>Welcome To Home</h1>
 @stop
 
 @section('content')
-<html> 
-<body class="hold-transition sidebar-mini layout-fixed">
+
     <div class="wrapper">
-        <!-- Navbar -->
-        <!-- Content Wrapper -->
-        <div class="content-wrapper">
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <!-- Info boxes -->
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-info"><i class="fas fa-calendar-alt"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Total Event</span>
-                                    <span class="info-box-number">10</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-success"><i class="fas fa-users"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Total Peserta</span>
-                                    <span class="info-box-number">150</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-warning"><i class="fas fa-clock"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Event Aktif</span>
-                                    <span class="info-box-number">5</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-danger"><i class="fas fa-chart-pie"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Event Selesai</span>
-                                    <span class="info-box-number">5</span>
-                                </div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Info boxes -->
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info"><i class="fas fa-calendar-alt"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Event</span>
+                                <span class="info-box-number">10</span>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Recent Events & Participants -->
-                    <div class="row">
-                        <!-- Recent Events -->
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Event Terbaru</h3>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Nama Event</th>
-                                                <th>Tanggal</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Workshop Programming</td>
-                                                <td>2024-03-15</td>
-                                                <td><span class="badge badge-success">Aktif</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Seminar Digital Marketing</td>
-                                                <td>2024-03-20</td>
-                                                <td><span class="badge badge-warning">Pendaftaran</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="fas fa-users"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Peserta</span>
+                                <span class="info-box-number">150</span>
                             </div>
                         </div>
-
-                        <!-- Recent Participants -->
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Peserta Terbaru</h3>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Nama</th>
-                                                <th>Event</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Workshop Programming</td>
-                                                <td><span class="badge badge-success">Terdaftar</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jane Smith</td>
-                                                <td>Seminar Digital Marketing</td>
-                                                <td><span class="badge badge-info">Menunggu</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning"><i class="fas fa-clock"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Event Aktif</span>
+                                <span class="info-box-number">5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-danger"><i class="fas fa-chart-pie"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Event Selesai</span>
+                                <span class="info-box-number">5</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
 
+                <!-- Recent Events & Participants -->
+                <div class="row">
+                    <!-- Recent Events -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Event Terbaru</h3>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Event</th>
+                                            <th>Tanggal</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Workshop Programming</td>
+                                            <td>2024-03-15</td>
+                                            <td><span class="badge badge-success">Aktif</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Seminar Digital Marketing</td>
+                                            <td>2024-03-20</td>
+                                            <td><span class="badge badge-warning">Pendaftaran</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Participants -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Peserta Terbaru</h3>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>Event</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>John Doe</td>
+                                            <td>Workshop Programming</td>
+                                            <td><span class="badge badge-success">Terdaftar</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jane Smith</td>
+                                            <td>Seminar Digital Marketing</td>
+                                            <td><span class="badge badge-info">Menunggu</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- Footer -->
-        <footer class="main-footer">
+        <footer class="main-footer" style="margin-left: 500px;">
             <strong>Copyright &copy; 2024 Event Management.</strong>
             All rights reserved.
         </footer>
     </div>
-
-    <!-- Required JavaScript -->
-</body>
-</html>
+    
 @stop
 
 @section('css')
@@ -144,6 +136,7 @@
 @stop
 
 @section('js')
+<!-- Required JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/js/adminlte.min.js"></script>
