@@ -17,11 +17,11 @@ class EventParticipants extends Model
         'updated_at' => 'datetime',
     ];
     
-    public function User(){
+    public function user(){
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
     
-    public function Event(){
+    public function event(){
         return $this->belongsTo(Events::class, 'id_event', 'id');
     }
 }

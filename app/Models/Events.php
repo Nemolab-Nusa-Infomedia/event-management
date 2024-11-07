@@ -13,9 +13,14 @@ class Events extends Model
         'event_start',
         'event_end',
         'location',
+        'user_id',
     ];
 
-    public function EventParticipants(){
-        return $this->HasMany(EventParticipants::class, 'id_event', 'id');
+    public function eventParticipants(){
+        return $this->hasMany(EventParticipants::class, 'id_event', 'id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
