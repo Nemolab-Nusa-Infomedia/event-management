@@ -53,7 +53,7 @@ class EventParticipantsController extends Controller
      */
     public function show(EventParticipants $eventParticipants)
     {
-        return view('participants.show', compact('participant'));
+        return view('participants.show', compact('eventParticipants'));
     }
 
     /**
