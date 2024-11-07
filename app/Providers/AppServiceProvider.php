@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
             if ($events->isNotEmpty()) {
                 $event->menu->add([
                     'text' => 'Participants',
-                    'url' => 'admin/event',
+                    'url' => '',
                     'icon' => 'fas fa-users',
                     'submenu' => $events->map(function ($event) {
                         return [
