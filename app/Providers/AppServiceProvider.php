@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Events;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Define the admin-only gate
+        Gate::define('admin-only', function ($user) {
+            return $user->role === 'admin';
+        });
+
         $this->app['events']->listen('JeroenNoten\LaravelAdminLte\Events\BuildingMenu', function ($event) {
             // Get authenticated user
             $user = Auth::user();
@@ -34,12 +40,12 @@ class AppServiceProvider extends ServiceProvider
             if ($events->isNotEmpty()) {
                 $event->menu->add([
                     'text' => 'Participants',
-                    'url' => 'admin/event',
+                    'url' => 'admin/eventParticipan',
                     'icon' => 'fas fa-users',
                     'submenu' => $events->map(function ($event) {
                         return [
                             'text' => $event->name,
-                            'url' => 'admin/event/' . $event->id,
+                            'url' => 'admin/eventParticipan/' . $event->id,
                             'icon' => 'far fa-circle',
                         ];
                     })->toArray()

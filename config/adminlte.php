@@ -320,6 +320,7 @@ return [
                 'text' => 'Users',
                 'url' => 'admin/user',
                 'icon' => 'fas fa-users',
+                'can'  => 'admin-only'
             ],
             [
                 'text' => 'Events',
