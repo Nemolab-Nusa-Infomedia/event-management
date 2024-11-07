@@ -45,7 +45,7 @@
             @endforeach
         </tbody>
       </table>
-      <button class="btn btn-danger"><i class="fas fa-backward"></i> Back</button>
+      
 @stop
 
 @section('css')

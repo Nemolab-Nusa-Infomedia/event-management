@@ -9,14 +9,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -24,21 +18,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'role',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -47,8 +31,11 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function UserPartision(){
-        return $this->HasMany(EventParticipants::class, 'id_user', 'id');
+    public function eventParticipants(){
+        return $this->hasMany(EventParticipants::class, 'id_user', 'id');
     }
     
+    public function events(){
+        return $this->hasMany(Events::class, 'id_master', 'id');
+    }
 }

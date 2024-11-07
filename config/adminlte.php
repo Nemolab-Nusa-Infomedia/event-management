@@ -320,11 +320,13 @@ return [
                 'text' => 'Users',
                 'url' => 'admin/user',
                 'icon' => 'fas fa-users',
+                'can'  => 'admin-only'
             ],
             [
                 'text' => 'Events',
                 'url' => 'admin/event',
-                'icon' => 'fas fa-calendar'
+                'icon' => 'fas fa-calendar',
+                'middleware' => ['auth']
             ],
             [
                 'text' => 'Participants',
