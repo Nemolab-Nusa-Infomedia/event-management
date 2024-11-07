@@ -325,7 +325,8 @@ return [
             [
                 'text' => 'Events',
                 'url' => 'admin/event',
-                'icon' => 'fas fa-calendar'
+                'icon' => 'fas fa-calendar',
+                'middleware' => ['auth']
             ],
             [
                 'text' => 'Participants',
