@@ -14,6 +14,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
+        'email_verification_expired_at',
         'password',
         'role',
     ];
@@ -23,6 +24,20 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
+<<<<<<< Updated upstream
+=======
+    protected $dates = [
+        'email_verified_at',
+        'email_verification_expired_at',
+    ];
+
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+>>>>>>> Stashed changes
     protected function casts(): array
     {
         return [
@@ -31,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+<<<<<<< Updated upstream
     public function eventParticipants(){
         return $this->hasMany(EventParticipants::class, 'id_user', 'id');
     }
@@ -39,3 +55,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Events::class, 'id_master', 'id');
     }
 }
+=======
+    public function UserPartision()
+    {
+        return $this->HasMany(EventParticipants::class, 'id_user', 'id');
+    }
+}
+>>>>>>> Stashed changes

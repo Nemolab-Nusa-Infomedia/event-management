@@ -37,6 +37,7 @@ class UsersController extends Controller
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
+            'email_verification_expired_at' => now()->addMinutes(30),
             'password' => bcrypt($validatedData['password']),
         ]);
 
