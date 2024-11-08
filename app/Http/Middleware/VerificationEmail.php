@@ -19,7 +19,7 @@ class VerificationEmail
     {
         if (Auth::check() && Auth::user()->email_verified_at == null) {
             if (Auth::check() && Auth::user()->email_verification_expired_at < now()) {
-                User::where('email_verification_expired_at', '<', now())->delete();
+                User::whereNull('email_verified_at')->where('email_verification_expired_at', '<', now())->delete();
                 return redirect('/register')->with('message', 'Akun Anda telah dihapus karena tidak memverifikasi email dalam waktu yang ditentukan.');
             }
             return redirect()->route('verification.notice')->with('message', 'Harap verifikasi terlebih dahulu');

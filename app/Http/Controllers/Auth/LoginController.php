@@ -36,7 +36,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(VerificationEmail::class);
         $this->middleware('guest')->only('logout');
     }
 }

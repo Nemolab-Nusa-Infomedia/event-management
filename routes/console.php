@@ -10,5 +10,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 Schedule::call(function () {
-    User::where('email_verification_expired_at', '<', now())->delete();
+    User::whereNull('email_verified_at')->where('email_verification_expired_at', '<', now())->delete();
 })->everyMinute();
