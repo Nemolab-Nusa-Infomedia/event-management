@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -70,12 +71,23 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
         ]);
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password ? Hash::make($request->password) : $user->password,
-            'role' => $request->role,
-        ]);
+        if (isset($user['name'])) {
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password ? Hash::make($request->password) : $user->password,
+                'role' => $request->role,
+            ]);
+        } else {
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password ? Hash::make($request->password) : $user->password,
+                'role' => 'user',
+            ];
+
+            User::where('id', Auth::user()->id)->update($data);
+        }
 
         return redirect()->route('user.index')->with('success', 'User updated successfully.');
     }

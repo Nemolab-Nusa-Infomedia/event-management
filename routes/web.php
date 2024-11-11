@@ -7,6 +7,7 @@ use App\Http\Middleware\VerifyRole;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EventParticipantsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\EventsController;
@@ -16,14 +17,16 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Middleware\VerificationEmail;
 
-Route::get('/login', function () {
-    return view('./login/signin');
-});
 
-Route::post('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
+Route::post('/home/logout', [HomeController::class, 'logout'])->name('home.logout');;
+Route::get('/change-email', function () {
+    return view('auth.register');
+})->name('change.email');
+Route::put('/change-email', [UsersController::class, 'update'])->name('change.email');
 
-Route::get('/register', [UsersController::class, 'create'])->name('register');
-Route::post('/register', [UsersController::class, 'store']);
+Route::get('/password/reset', function () {
+    return view('auth.passwords.email');
+})->name('password.email');
 
 // Rute untuk menampilkan halaman verifikasi email
 Route::get('/email/verify', function () {
@@ -48,17 +51,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware(VerificationEmail::class)->group(function(){
- 
+Route::middleware(VerificationEmail::class)->group(function () {
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-    
+
     Route::middleware('auth')->group(function () {
         Route::resource('/admin/user', UsersController::class);
         Route::resource('/admin/eventParticipan', EventParticipantsController::class);
         Route::resource('/admin/event', EventsController::class);
         // Route::resource('/admin', AdminController::class);
     });
-    
+
     Route::get('admin/event/{event}/edit', [EventsController::class, 'edit'])->name('event.edit');
-    
 });
