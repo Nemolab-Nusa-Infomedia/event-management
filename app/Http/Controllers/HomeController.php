@@ -35,7 +35,8 @@ class HomeController extends Controller
         $totalUser = User::all()->count();
         $eventAktif = Events::where('event_date', '=', now()->toDateString())->where('event_start', '<', now())->where('event_end', '>', now())->get()->count();
         $eventSelesai = Events::where('event_date', '<=', now()->toDateString())->where('event_end', '<', now())->get()->count();
-        return view('dashboard', compact(['totalEvent', 'totalUser', 'eventAktif', 'eventSelesai']));
+        $event = Events::all()
+;        return view('dashboard', compact(['totalEvent', 'totalUser', 'eventAktif', 'eventSelesai', 'event']));
     }
 
     public function Logout()
