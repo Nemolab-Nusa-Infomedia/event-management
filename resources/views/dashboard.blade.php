@@ -62,6 +62,7 @@
                                 <th>Nama Event</th>
                                 <th>Tanggal</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,6 +79,7 @@
                                             <span class="badge badge-danger">Selesai</span>
                                         @endif
                                     </td>
+                                    <td><button type="submit" class="badge badge-success border-0"><i class="fas fa-plus"></i> Join</button></td>
                                 </tr>
                             @endforeach
                         </tbody>

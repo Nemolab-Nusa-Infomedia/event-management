@@ -53,6 +53,7 @@
                                             <th>Nama Event</th>
                                             <th>Tanggal</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,11 +61,13 @@
                                             <td>Workshop Programming</td>
                                             <td>2024-03-15</td>
                                             <td><span class="badge badge-success">Aktif</span></td>
+                                            <td><button type="submit" class="badge badge-success border-0"><i class="fas fa-plus"></i> Join</button></td>
                                         </tr>
                                         <tr>
                                             <td>Seminar Digital Marketing</td>
                                             <td>2024-03-20</td>
                                             <td><span class="badge badge-warning">Pendaftaran</span></td>
+                                            <td><button type="submit" class="badge badge-success border-0"><i class="fas fa-plus"></i> Join</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
