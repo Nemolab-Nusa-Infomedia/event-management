@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Events;
 use Illuminate\Http\Request;
 use App\Http\Middleware\VerifyRole;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +31,11 @@ class HomeController extends Controller
         if (Auth::user()->role !== 'admin') {
             return view('home.index');
         }
-        return view('dashboard');
+        $totalEvent = Events::all()->count();
+        $totalUser = User::all()->count();
+        $eventAktif = Events::where('event_date', '=', now()->toDateString())->where('event_start', '<', now())->where('event_end', '>', now())->get()->count();
+        $eventSelesai = Events::where('event_date', '<=', now()->toDateString())->where('event_end', '<', now())->get()->count();
+        return view('dashboard', compact(['totalEvent', 'totalUser', 'eventAktif', 'eventSelesai']));
     }
 
     public function Logout()
