@@ -72,7 +72,7 @@
                                     <td>
                                         @if ($item->event_date == now()->toDateString() && $item->event_start <= now() && $item->event_end > now())
                                             <span class="badge badge-success">Aktif</span>
-                                        @elseif ($item->event_date >= now()->toDateString() && $item->event_start > now())
+                                        @elseif ($item->event_date > now()->toDateString() || ($item->event_date == now()->toDateString() && $item->event_start > now()))
                                             <span class="badge badge-warning">Pendaftaran</span>
                                         @else
                                             <span class="badge badge-danger">Selesai</span>
