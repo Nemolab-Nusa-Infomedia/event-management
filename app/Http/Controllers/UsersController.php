@@ -96,7 +96,7 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('home.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('home.index')->with('danger', 'User deleted successfully.');
     }
 
     public function verifyEmail()

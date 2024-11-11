@@ -18,10 +18,11 @@ class EventsController extends Controller
     {
         if (Auth::user()->role === 'admin') {
             $event = Events::with('user')->get();
+            return view('admin.event', compact('event'));
         } else {
             $event = Events::where('id_master', Auth::id())->get();
+            return view('user.event', compact('event'));
         }
-        return view('admin.event', compact('event'));
     }
 
     public function create()
@@ -104,6 +105,6 @@ class EventsController extends Controller
 
         $event->delete();
         return redirect()->route('event.index')
-            ->with('success', 'Event deleted successfully.');
+            ->with('danger', 'Event deleted successfully.');
     }
 }

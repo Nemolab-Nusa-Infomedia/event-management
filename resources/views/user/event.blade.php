@@ -1,4 +1,4 @@
-@extends('userlte::page')
+@extends('adminlte::page')
 
 @section('title', 'Event Management')
 
@@ -7,7 +7,11 @@
 @stop
 
 @section('content')
-
+    @if (session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+    @elseif (session('danger'))
+    <div class="alert alert-danger">{{ session('danger') }}</div>
+    @endif
         <a href="{{ route('event.create') }}" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Add Event</a>
       <table id="eventTable" class="table table-bordered">
         <thead>
@@ -34,7 +38,7 @@
                 <td>
                     <a href="{{ route('event.edit', $item->id) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
                     <a href="{{ route('event.show', $item->id) }}" class="btn btn-secondary"><i class="fas fa-users"></i> See Participants</a>    
-                    <form action="{{ route('user.destroy', $item->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('event.destroy', $item->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
