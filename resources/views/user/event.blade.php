@@ -1,62 +1,76 @@
-@extends('adminlte::page')
+@extends('layouts.user')
 
 @section('title', 'Event Management')
 
 @section('content_header')
-    <h1>Event</h1>
+    <h1 class="text-2xl font-semibold text-gray-800">Event</h1>
 @stop
 
 @section('content')
     @if (session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+            {{ session('success') }}
+        </div>
     @elseif (session('danger'))
-    <div class="alert alert-danger">{{ session('danger') }}</div>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {{ session('danger') }}
+        </div>
     @endif
-        <a href="{{ route('event.create') }}" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Add Event</a>
-      <table id="eventTable" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Location</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        @php ($no = 1)
-            @foreach ( $event as $item )
-            <tr>
-                <td>{{ $no }}</td>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->event_date }}</td>
-                <td>{{ $item->event_start }}</td>
-                <td>{{ $item->event_end }}</td>
-                <td>{{ $item->location }}</td>
-                <td>
-                    <a href="{{ route('event.edit', $item->id) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
-                    <a href="{{ route('event.show', $item->id) }}" class="btn btn-secondary"><i class="fas fa-users"></i> See Participants</a>    
-                    <form action="{{ route('event.destroy', $item->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus event ini?')"><i class="fas fa-trash"></i> Delete</button>
-                    </form>
-                </td>
-            </tr>
-            @php($no++)
-            @endforeach
-        </tbody>
-      </table>
-      
+    
+    <a href="{{ route('event.create') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mb-3 inline-flex items-center">
+        <i class="fas fa-plus mr-2"></i> Add Event
+    </a>
+
+    <div class="overflow-x-auto">
+        <table id="eventTable" class="min-w-full bg-white border border-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 border-b border-gray-200 text-left">No</th>
+                    <th class="px-4 py-2 border-b border-gray-200 text-left">Name</th>
+                    <th class="px-4 py-2 border-b border-gray-200 text-left">Date</th>
+                    <th class="px-4 py-2 border-b border-gray-200 text-left">Start</th>
+                    <th class="px-4 py-2 border-b border-gray-200 text-left">End</th>
+                    <th class="px-4 py-2 border-b border-gray-200 text-left">Location</th>
+                    <th class="px-4 py-2 border-b border-gray-200 text-left">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php ($no = 1)
+                @foreach ($event as $item)
+                    <tr>
+                        <td class="px-4 py-2 border-b border-gray-200">{{ $no }}</td>
+                        <td class="px-4 py-2 border-b border-gray-200">{{ $item->name }}</td>
+                        <td class="px-4 py-2 border-b border-gray-200">{{ $item->event_date }}</td>
+                        <td class="px-4 py-2 border-b border-gray-200">{{ $item->event_start }}</td>
+                        <td class="px-4 py-2 border-b border-gray-200">{{ $item->event_end }}</td>
+                        <td class="px-4 py-2 border-b border-gray-200">{{ $item->location }}</td>
+                        <td class="px-4 py-2 border-b border-gray-200 space-x-2">
+                            <a href="{{ route('event.edit', $item->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded inline-flex items-center">
+                                <i class="fas fa-pen mr-1"></i> Edit
+                            </a>
+                            <a href="{{ route('event.show', $item->id) }}" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-1 px-3 rounded inline-flex items-center">
+                                <i class="fas fa-users mr-1"></i> See Participants
+                            </a>
+                            <form action="{{ route('event.destroy', $item->id) }}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded inline-flex items-center" onclick="return confirm('Apakah Anda yakin ingin menghapus event ini?')">
+                                    <i class="fas fa-trash mr-1"></i> Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @php($no++)
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 @stop
 
 @section('css')
     {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
 @stop
 
 @section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    <script> console.log("Hi, I'm using the Laravel-AdminLTE package with Tailwind CSS!"); </script>
 @stop
