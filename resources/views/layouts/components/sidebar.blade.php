@@ -73,17 +73,17 @@
     class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidebar">
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-        <ul class="w-full p-0 font-medium">
-            <li class="flex flex-col gap-2">
-                @foreach (config('userNav') as $item)
+        <ul class="w-full p-0 font-medium flex flex-col gap-2">
+            @foreach (config('userNav') as $item)
+                <li>
                     <a href="{{ route($item['link']) }}"
                         class="flex items-center p-2 fill-gray-900 text-gray-900 rounded-lg dark:text-white hover:bg-blue-200 dark:hover:bg-blue-700 hover:text-black hover:fill-black active:bg-blue-300 group @if (Route::is($item['link'])) bg-blue-400 @endif">
                         {!! $item['icon'] !!}
 
                         <span class="ms-3">{{ $item['name'] }}</span>
                     </a>
-                @endforeach
-            </li>
+                </li>
+            @endforeach
         </ul>
     </div>
 </aside>
