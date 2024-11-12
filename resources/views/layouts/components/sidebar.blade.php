@@ -106,14 +106,14 @@
                 </label>
                 <ul
                     class="mx-2 transition-all duration-300 opacity-0 peer-checked:opacity-100 text-sm text-gray-700 bg-gray-50 dark:text-gray-200 hidden peer-checked:block">
-                    @if (isset($event))
+                    @if (isset($myEvents))
                         <li>
                             <p
                                 class="block px-4 py-2">
-                                No Event</p>
+                               {{session('user_role')}} No Event</p>
                         </li>
                     @else
-                        @foreach ($event as $item)
+                        @foreach ($myEvent as $item)
                             <li>
                                 <a href="{{ route('event.show', $item->id) }}"
                                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 active:bg-gray-200 dark:hover:text-white">{{ $item->name }}</a>
