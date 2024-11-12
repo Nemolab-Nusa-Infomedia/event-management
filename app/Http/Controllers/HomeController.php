@@ -33,8 +33,9 @@ class HomeController extends Controller
             $totalEvent = Events::where('id_master', '=', Auth::id())->count();
             $eventAktif = Events::where('id_master', '=', Auth::id())->where('event_date', '=', now()->toDateString())->where('event_start', '<', now())->where('event_end', '>', now())->get()->count();
             $eventSelesai = Events::where('id_master', '=', Auth::id())->where('event_date', '<=', now()->toDateString())->where('event_end', '<', now())->get()->count();
-            $event = Events::where('id_master', '=', Auth::id())->get();
-            return view('home.index', compact('totalEvent', 'eventAktif', 'eventSelesai', 'event'));
+            $event = Events::where('id_master', '!=', Auth::id())->get();
+            $yourEvent = Events::where('id_master', '=', Auth::id())->get();
+            return view('home.index', compact('totalEvent', 'eventAktif', 'eventSelesai', 'event', 'yourEvent'));
         }
 
         $totalEvent = Events::all()->count();
