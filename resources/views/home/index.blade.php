@@ -52,7 +52,7 @@
             <div class="p-4">
                 <table class="min-w-full bg-white border border-gray-200">
                     <thead>
-                        <tr class="bg-gray-100 text-gray-600 uppercase text-sm">
+                        <tr class="bg-gray-100 text-gray-600 uppercase text-sm text-left">
                             <th class="py-3 px-4 border-b">Nama Event</th>
                             <th class="py-3 px-4 border-b">Tanggal</th>
                             <th class="py-3 px-4 border-b">Status</th>
