@@ -1,21 +1,22 @@
 <?php
 
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\EventParticipants;
 use PHPUnit\Event\EventCollection;
+use App\Http\Middleware\AdminCheck;
 use App\Http\Middleware\VerifyRole;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\EventParticipantsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\EventsController;
-use App\Http\Controllers\HomeController;
-use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 use App\Http\Middleware\VerificationEmail;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\EventParticipantsController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 Route::post('/home/logout', [HomeController::class, 'logout'])->name('home.logout');;
@@ -55,12 +56,13 @@ Route::middleware(VerificationEmail::class)->group(function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    Route::middleware('auth')->group(function () {
-        Route::resource('/admin/user', UsersController::class);
-        Route::resource('/admin/eventParticipan', EventParticipantsController::class);
-        Route::resource('/admin/event', EventsController::class);
-        // Route::resource('/admin', AdminController::class);
+    Route::prefix('admin/')->middleware(['auth', AdminCheck::class])->group(function () {
+        Route::resource('user', UsersController::class);
+        Route::resource('eventParticipan', EventParticipantsController::class);
+        Route::resource('event', EventsController::class);
     });
+
+    Route::resource('event', EventsController::class);
 
     Route::get('admin/event/{event}/edit', [EventsController::class, 'edit'])->name('event.edit');
 });
