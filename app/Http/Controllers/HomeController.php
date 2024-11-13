@@ -49,7 +49,7 @@ class HomeController extends Controller
 
     public function joined(){
         $eventId = EventParticipants::has('event')->where('id_user', '=', Auth::id())->get();
-        $event = Events::find($eventId);
+        $event = Events::with('eventParticipants')->find($eventId);
         return view('home.joined', compact('event'));
     }
 

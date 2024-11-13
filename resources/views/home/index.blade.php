@@ -90,6 +90,7 @@
                                     </td>
                                     <td class="py-3 px-4">
                                         @php
+                                        $joined = false;
                                             if (!$item->eventParticipants->isEmpty()):
                                                 foreach ($item->eventParticipants as $participant):
                                                     if ($participant->id_user == Auth::id()) {
