@@ -19,7 +19,7 @@ use App\Http\Controllers\EventParticipantsController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
-Route::post('/home/logout', [HomeController::class, 'logout'])->name('home.logout');;
+Route::get('/home/logout', [HomeController::class, 'logout'])->name('home.logout');;
 Route::get('/change-email', function () {
     return view('auth.register');
 })->name('change.email');
