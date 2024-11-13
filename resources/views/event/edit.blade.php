@@ -3,7 +3,7 @@
 @section('title', 'Edit Event')
 
 @section('content_header')
-    <h1 class="text-2xl font-semibold mb-4">Edit Event</h1>
+    <h1 class="text-2xl font-bold text-gray-700 mb-4">Edit Event: {{ $event->name }}</h1>
 @stop
 
 @section('content')

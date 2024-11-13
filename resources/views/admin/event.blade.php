@@ -7,34 +7,52 @@
 @stop
 
 @section('content')
-    <div class="overflow-x-auto">
-        <table id="eventTable" class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-            <thead>
-                <tr class="bg-gray-100 border-b">
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">No</th>
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Name</th>
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Date</th>
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Start</th>
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">End</th>
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Location</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php ($no = 1)
-                @foreach ($event as $item)
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="px-4 py-2 text-sm text-gray-700">{{ $no }}</td>
-                        <td class="px-4 py-2 text-sm text-gray-700">{{ $item->name }}</td>
-                        <td class="px-4 py-2 text-sm text-gray-700">{{ $item->event_date }}</td>
-                        <td class="px-4 py-2 text-sm text-gray-700">{{ $item->event_start }}</td>
-                        <td class="px-4 py-2 text-sm text-gray-700">{{ $item->event_end }}</td>
-                        <td class="px-4 py-2 text-sm text-gray-700">{{ $item->location }}</td>
-                    </tr>
-                    @php($no++)
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+    
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Event Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Start
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    End
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Location
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($event as $item)
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ $item->name }}
+                </th>
+                <td class="px-6 py-4">
+                    {{ $item->event_date }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ $item->event_start }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ $item->event_end }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ $item->location }}
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
 @stop
 
 @section('css')

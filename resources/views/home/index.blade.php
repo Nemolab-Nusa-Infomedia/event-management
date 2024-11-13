@@ -29,7 +29,7 @@
                         clip-rule="evenodd" />
                 </svg>
                 <div class="ml-4">
-                    <p class="text-sm font-semibold">Event Aktif</p>
+                    <p class="text-sm font-semibold">Active Event</p>
                     <p class="text-lg font-bold">{{ $eventAktif }}</p>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     <path d="M11 6.025a1 1 0 0 0-1.065-.998 8.5 8.5 0 1 0 9.038 9.039A1 1 0 0 0 17.975 13H11V6.025Z" />
                 </svg>
                 <div class="ml-4">
-                    <p class="text-sm font-semibold">Event Selesai</p>
+                    <p class="text-sm font-semibold">Finished Event</p>
                     <p class="text-lg font-bold">{{ $eventSelesai }}</p>
                 </div>
             </div>
@@ -57,14 +57,14 @@
         <div class="w-full px-2">
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <div class="bg-gray-100 p-4">
-                    <h3 class="text-lg font-semibold text-gray-800">Event Terbaru</h3>
+                    <h3 class="text-lg font-semibold text-gray-800">Current Event</h3>
                 </div>
                 <div class="p-4">
                     <table class="min-w-full bg-white border border-gray-200">
                         <thead>
                             <tr class="bg-gray-100 text-gray-600 uppercase text-sm text-left">
-                                <th class="py-3 px-4 border-b">Nama Event</th>
-                                <th class="py-3 px-4 border-b">Tanggal</th>
+                                <th class="py-3 px-4 border-b">Event Name</th>
+                                <th class="py-3 px-4 border-b">Date</th>
                                 <th class="py-3 px-4 border-b">Status</th>
                                 <th class="py-3 px-4 border-b">Action</th>
                             </tr>
@@ -77,15 +77,15 @@
                                     <td class="py-3 px-4">
                                         @if ($item->event_date == now()->toDateString() && $item->event_start <= now() && $item->event_end > now())
                                             <span
-                                                class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Aktif</span>
+                                                class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Active</span>
                                         @elseif (
                                             $item->event_date > now()->toDateString() ||
                                                 ($item->event_date == now()->toDateString() && $item->event_start > now()))
                                             <span
-                                                class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">Pendaftaran</span>
+                                                class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">Registration</span>
                                         @else
                                             <span
-                                                class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">Selesai</span>
+                                                class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">Finished</span>
                                         @endif
                                     </td>
                                     <td class="py-3 px-4">
@@ -136,14 +136,14 @@
         <div class="w-full px-2">
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <div class="bg-gray-100 p-4">
-                    <h3 class="text-lg font-semibold text-gray-800">Event Kamu</h3>
+                    <h3 class="text-lg font-semibold text-gray-800">Your Event</h3>
                 </div>
                 <div class="p-4">
                     <table class="min-w-full bg-white border border-gray-200">
                         <thead>
                             <tr class="bg-gray-100 text-gray-600 uppercase text-sm text-left">
-                                <th class="py-3 px-4 border-b">Nama Event</th>
-                                <th class="py-3 px-4 border-b">Tanggal</th>
+                                <th class="py-3 px-4 border-b">Event Name</th>
+                                <th class="py-3 px-4 border-b">Date</th>
                                 <th class="py-3 px-4 border-b">Status</th>
                             </tr>
                         </thead>
@@ -155,15 +155,15 @@
                                     <td class="py-3 px-4">
                                         @if ($item->event_date == now()->toDateString() && $item->event_start <= now() && $item->event_end > now())
                                             <span
-                                                class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Aktif</span>
+                                                class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Active</span>
                                         @elseif (
                                             $item->event_date > now()->toDateString() ||
                                                 ($item->event_date == now()->toDateString() && $item->event_start > now()))
                                             <span
-                                                class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">Pendaftaran</span>
+                                                class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">Registration</span>
                                         @else
                                             <span
-                                                class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">Selesai</span>
+                                                class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">Finished</span>
                                         @endif
                                     </td>
                                 </tr>
