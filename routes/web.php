@@ -68,4 +68,6 @@ Route::middleware(VerificationEmail::class)->group(function () {
 
     Route::post('/join', [EventParticipantsController::class, 'store'])->name('join');
     Route::get('/joined', [HomeController::class, 'joined'])->name('joined');
+    // Route::get('/joined', [HomeController::class, 'joined'])->name('joined');
+    Route::post('/update-status/{event}', [HomeController::class, 'updateStatus'])->name('update.status');
 });

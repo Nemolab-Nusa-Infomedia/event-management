@@ -41,16 +41,46 @@
                     {{ $item->event_end }}
                 </td>
                 <td class="px-6 py-4">
-                    <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option @if ($item->eventParticipants->status == 'Present') selected @endif value="Present">Present</option>
-                        <option @if ($item->eventParticipants->status == 'Absent') selected @endif value="Absent">Absent</option>
-                        {{ $item->status }}
-                      </select>
+                    <select 
+                        data-event-id="{{ $item->id }}"
+                        class="status-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                        <option value="Present" {{ $item->eventParticipants[0]->status == 'Present' ? 'selected' : '' }}>Present</option>
+                        <option value="Absent" {{ $item->eventParticipants[0]->status == 'Absent' ? 'selected' : '' }}>Absent</option>
+                    </select>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
+
+<script>
+document.querySelectorAll('.status-select').forEach(select => {
+    select.addEventListener('change', function() {
+        const eventId = this.dataset.eventId;
+        const status = this.value;
+        
+        fetch(`/update-status/${eventId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ status: status })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                alert('Status updated successfully');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to update status');
+        });
+    });
+});
+</script>
 
 @stop

@@ -48,11 +48,32 @@ class HomeController extends Controller
     }
 
     public function joined(){
-        $eventId = EventParticipants::has('event')->where('id_user', '=', Auth::id())->get();
-        $event = Events::with('eventParticipants')->find($eventId);
+        $event = Events::whereHas('eventParticipants', function($query) {
+            $query->where('id_user', Auth::id());
+        })->with(['eventParticipants' => function($query) {
+            $query->where('id_user', Auth::id());
+        }])->get();
+        
         return view('home.joined', compact('event'));
+        // return response()->json($event);
     }
 
+    public function updateStatus(Request $request, $eventId)
+{
+    $participant = EventParticipants::where('id_event', $eventId)
+        ->where('id_user', Auth::id())
+        ->first();
+
+    if ($participant) {
+        $participant->update([
+            'status' => $request->status
+        ]);
+        
+        return response()->json(['success' => true]);
+    }
+    
+    return response()->json(['success' => false], 404);
+}
 
     public function Logout()
     {
