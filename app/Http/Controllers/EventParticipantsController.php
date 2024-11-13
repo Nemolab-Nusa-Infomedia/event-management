@@ -22,7 +22,7 @@ class EventParticipantsController extends Controller
             $participants = EventParticipants::with(['user', 'event'])->get();
         } else {
             $participants = EventParticipants::with(['user', 'event'])
-                ->whereHas('event', function($query) {
+                ->whereHas('event', function ($query) {
                     $query->where('id_master', Auth::id());
                 })
                 ->get();
@@ -43,19 +43,18 @@ class EventParticipantsController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id_event' => 'required|exists:events,id',
-            'id_user' => 'required|exists:users,id',
-            'status' => 'required|in:pending,confirm',
+            'id_event' => ['required', 'exists:events,id'],
+            'id_user' => ['required', 'exists:users,id'],
         ]);
 
-        // Check if user has permission to add participants to this event
-        $event = Events::findOrFail($request->id_event);
-        if (Auth::user()->role !== 'admin' && $event->id_master !== Auth::id()) {
-            abort(403, 'Unauthorized action.');
-        }
 
         EventParticipants::create($validated);
 
+        $event = Events::findOrFail($request->id_event);
+        if (Auth::user()->role !== 'admin' && $event->id_master !== Auth::id()) {
+            return redirect()->route('home')
+                ->with('success', 'Participant added successfully.');
+        }
         return redirect()->route('participants.index')
             ->with('success', 'Participant added successfully.');
     }

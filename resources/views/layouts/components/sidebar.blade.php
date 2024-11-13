@@ -108,7 +108,7 @@
                     @if ($myEvents->isEmpty())
                         <li>
                             <p class="block px-4 py-2">
-                                {{ Auth::user()->role }} - No Event</p>
+                                {{ Auth::user()->name }} - No Event</p>
                         </li>
                     @else
                         @foreach ($myEvents as $item)

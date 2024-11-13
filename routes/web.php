@@ -65,4 +65,7 @@ Route::middleware(VerificationEmail::class)->group(function () {
     Route::resource('event', EventsController::class);
 
     Route::get('admin/event/{event}/edit', [EventsController::class, 'edit'])->name('event.edit');
+
+    Route::post('/join', [EventParticipantsController::class, 'store'])->name('join');
+    Route::get('/joined', [HomeController::class, 'joined'])->name('joined');
 });
