@@ -13,39 +13,61 @@
         <div class="mb-4 p-4 text-red-800 bg-red-100 rounded">{{ session('danger') }}</div>
     @endif
 
-    <div class="overflow-x-auto">
-        <table id="userTable" class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-            <thead>
-                <tr class="bg-gray-100 border-b">
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">No</th>
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Name</th>
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Role</th>
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Actions</th>
+    <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        No
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Email
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Role
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Action
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 @php($no = 1)
                 @foreach ($user as $item)
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="px-4 py-2 text-sm text-gray-700">{{ $no }}</td>
-                        <td class="px-4 py-2 text-sm text-gray-700">{{ $item->name }}</td>
-                        <td class="px-4 py-2 text-sm text-gray-700">{{ $item->role }}</td>
-                        <td class="px-4 py-2">
-                            <button class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 changeRole" data-id="{{ $item->id }}">Change Role</button>
-                        </td>
-                    </tr>
-                    @php($no++)
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 py-4">
+                        {{ $no }}
+                    </td>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ $item->name }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ $item->email }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ $item->role }}
+                    </td>
+                    <td>
+                        <button class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 changeRole" data-id="{{ $item->id }}">Change Role</button>
+                    </td>
+                </tr>
+                @php($no++)
                 @endforeach
             </tbody>
         </table>
     </div>
 
+
+
     <!-- Change Role Modal -->
-    <div class="fixed inset-0 bg-black hidden bg-opacity-50 flex items-center justify-center z-50" id="userModal" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
-        <div class="relative w-full max-w-lg bg-white rounded-lg shadow-lg">
-            <div class="px-4 py-3 border-b">
-                <h5 class="text-lg font-semibold" id="userModalLabel">Change Role</h5>
-                <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 close-modal" aria-label="Close">&times;</button>
+    <div class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 dark:bg-opacity-60" id="userModal" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+        <div class="relative w-full max-w-lg bg-white rounded-lg shadow-lg dark:bg-gray-800">
+            <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                <h5 class="text-lg font-semibold text-gray-900 dark:text-gray-200" id="userModalLabel">Change Role</h5>
+                <button type="button" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 close-modal" aria-label="Close">&times;</button>
             </div>
             <div class="p-4">
                 <form id="userForm" class="space-y-4">
@@ -56,22 +78,24 @@
                     <input type="hidden" name="email" id="email">
     
                     <div class="space-y-2">
-                        <label for="name" class="text-sm font-medium text-gray-700">User Name</label>
-                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded" id="name" disabled>
+                        <label for="name" class="text-sm font-medium text-gray-700 dark:text-gray-300">User Name</label>
+                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" id="name" disabled>
                         
-                        <label for="role" class="text-sm font-medium text-gray-700">Role</label>
-                        <select type="text" class="w-full px-3 py-2 border border-gray-300 rounded" name="role" id="role" required>
+                        <label for="role" class="text-sm font-medium text-gray-700 dark:text-gray-300">Role</label>
+                        <select type="text" class="w-full px-3 py-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" name="role" id="role" required>
                             <option value="admin">Admin</option>
                             <option value="user">User</option>
                         </select>
                     </div>
                     <div class="flex justify-end">
-                        <button type="submit" class="px-4 py-2 mt-3 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Save</button>
+                        <button type="submit" class="px-4 py-2 mt-3 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 dark:bg-blue-600 dark:hover:bg-blue-500">Save</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    
+    
     
 
     <script>

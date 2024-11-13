@@ -13,10 +13,10 @@
                             d="M5 7h14M5 12h14M5 17h14" />
                     </svg>
                 </button>
-                <a href="https://flowbite.com" class="flex ms-2 md:me-24">
-                    <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
+                <a href="{{ route('home') }}" class="flex ms-2 md:me-24">
+                    <img src="{{ asset('vendor/img/Logo.png')}}" class="h-8 me-3" alt="FlowBite Logo" />
                     <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
+                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">OURevent</span>
                 </a>
             </div>
             <div class="flex items-center">
@@ -70,7 +70,7 @@
     class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidebar">
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-        <ul class="w-full p-0 font-medium flex flex-col gap-2">
+        <ul class="w-full p-0 font-medium flex flex-col mt-2 gap-2">
             @foreach (config('userNav') as $item)
                 <li>
                     <a href="{{ route($item['link']) }}"

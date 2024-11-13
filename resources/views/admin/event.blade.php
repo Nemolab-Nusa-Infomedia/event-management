@@ -3,7 +3,7 @@
 @section('title', 'Event Management')
 
 @section('content_header')
-    <h1 class="text-2xl font-semibold mb-6">Event Management</h1>
+    <h1 class="text-2xl dark:text-gray-200 font-semibold mb-6">Event Management</h1>
 @stop
 
 @section('content')

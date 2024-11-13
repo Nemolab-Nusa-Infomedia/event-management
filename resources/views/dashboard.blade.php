@@ -77,11 +77,11 @@
                                 <td class="py-3 px-4">{{ $item->event_date }}</td>
                                 <td class="py-3 px-4">
                                     @if ($item->event_date == now()->toDateString() && $item->event_start <= now() && $item->event_end > now())
-                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-700 text-green-800 dark:text-green-200 rounded-full text-xs font-semibold">Aktif</span>
+                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-700 text-green-800 dark:text-green-200 rounded-full text-xs font-semibold">Active</span>
                                     @elseif ($item->event_date > now()->toDateString() || ($item->event_date == now()->toDateString() && $item->event_start > now()))
-                                        <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200 rounded-full text-xs font-semibold">Pendaftaran</span>
+                                        <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200 rounded-full text-xs font-semibold">Registration</span>
                                     @else
-                                        <span class="px-2 py-1 bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200 rounded-full text-xs font-semibold">Selesai</span>
+                                        <span class="px-2 py-1 bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200 rounded-full text-xs font-semibold">Finished</span>
                                     @endif
                                 </td>
                                 <td class="py-3 px-4">

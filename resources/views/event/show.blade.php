@@ -39,12 +39,12 @@
                     {{ $data['user']->email }}
                 </td>
                 @if ($data['status'] == 'Present')
-                    <td class="py-2 px-4 border-b border-gray-300">
+                    <td class="py-2 px-4">
                         <span
                         class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Present</span>                          
                     </td>
                     @else
-                    <td class="py-2 px-4 border-b border-gray-300">
+                    <td class="py-2 px-4">
                         <span
                         class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">Absent</span>                          
                     </td>    
