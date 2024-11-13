@@ -104,16 +104,14 @@
                             d="m1 1 4 4 4-4" />
                     </svg>
                 </label>
-                <ul
-                    class="mx-2 transition-all duration-300 opacity-0 peer-checked:opacity-100 text-sm text-gray-700 bg-gray-50 dark:text-gray-200 hidden peer-checked:block">
-                    @if (isset($myEvents))
+                <ul class="mx-2 transition-all duration-300 opacity-0 peer-checked:opacity-100 text-sm text-gray-700 bg-gray-50 dark:text-gray-200 hidden peer-checked:block">
+                    @if ($myEvents->isEmpty())
                         <li>
-                            <p
-                                class="block px-4 py-2">
-                               {{session('user_role')}} No Event</p>
+                            <p class="block px-4 py-2">
+                                {{ Auth::user()->role }} - No Event</p>
                         </li>
                     @else
-                        @foreach ($myEvent as $item)
+                        @foreach ($myEvents as $item)
                             <li>
                                 <a href="{{ route('event.show', $item->id) }}"
                                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 active:bg-gray-200 dark:hover:text-white">{{ $item->name }}</a>

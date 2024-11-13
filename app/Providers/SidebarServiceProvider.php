@@ -22,8 +22,23 @@ class SidebarServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $user = Auth::user();
-        $myEvents = $user->role == 'admin' ? Events::all() : Events::where('id_master', '=', Auth::id())->orderBy('created_at', 'desc')->get();
-        View::share('myEvents', $myEvents);
+        View::composer('*', function ($view) {
+            // Get authenticated user
+            $user = Auth::user();
+            
+            // Only proceed if user is authenticated
+            if ($user) {
+                // Get events based on user role
+                $myEvents = $user->role === 'admin'
+                    ? Events::all()
+                    : Events::where('id_master', $user->id)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+                
+                $view->with('myEvents', $myEvents);
+            } else {
+                $view->with('myEvents', collect([]));
+            }
+        });
     }
 }
