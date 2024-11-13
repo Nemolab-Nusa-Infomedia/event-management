@@ -3,7 +3,7 @@
 @section('title', 'Add Event')
 
 @section('content_header')
-    <h1 class="text-2xl font-bold text-gray-700 mb-4">Add Event</h1>
+    <h1 class="text-2xl dark:text-gray-200 font-bold text-gray-700 mb-4">Add Event</h1>
 @stop
 
 @section('content')

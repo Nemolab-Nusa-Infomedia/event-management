@@ -55,37 +55,32 @@
     <div class="flex flex-wrap -mx-2">
         <!-- Recent Events -->
         <div class="w-full px-2">
-            <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                <div class="bg-gray-100 p-4">
-                    <h3 class="text-lg font-semibold text-gray-800">Current Event</h3>
+            <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                <div class="bg-gray-100 dark:bg-gray-700 p-4">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Current Event</h3>
                 </div>
                 <div class="p-4">
-                    <table class="min-w-full bg-white border border-gray-200">
+                    <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                         <thead>
-                            <tr class="bg-gray-100 text-gray-600 uppercase text-sm text-left">
-                                <th class="py-3 px-4 border-b">Event Name</th>
-                                <th class="py-3 px-4 border-b">Date</th>
-                                <th class="py-3 px-4 border-b">Status</th>
-                                <th class="py-3 px-4 border-b">Action</th>
+                            <tr class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-sm text-left">
+                                <th class="py-3 px-4 border-b dark:border-gray-700">Event Name</th>
+                                <th class="py-3 px-4 border-b dark:border-gray-700">Date</th>
+                                <th class="py-3 px-4 border-b dark:border-gray-700">Status</th>
+                                <th class="py-3 px-4 border-b dark:border-gray-700">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-gray-700">
+                        <tbody class="text-gray-700 dark:text-gray-300">
                             @foreach ($event as $item)
-                                <tr class="border-b">
+                                <tr class="border-b dark:border-gray-700">
                                     <td class="py-3 px-4">{{ $item->name }}</td>
                                     <td class="py-3 px-4">{{ $item->event_date }}</td>
                                     <td class="py-3 px-4">
                                         @if ($item->event_date == now()->toDateString() && $item->event_start <= now() && $item->event_end > now())
-                                            <span
-                                                class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Active</span>
-                                        @elseif (
-                                            $item->event_date > now()->toDateString() ||
-                                                ($item->event_date == now()->toDateString() && $item->event_start > now()))
-                                            <span
-                                                class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">Registration</span>
+                                            <span class="px-2 py-1 bg-green-100 dark:bg-green-700 text-green-800 dark:text-green-200 rounded-full text-xs font-semibold">Active</span>
+                                        @elseif ($item->event_date > now()->toDateString() || ($item->event_date == now()->toDateString() && $item->event_start > now()))
+                                            <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200 rounded-full text-xs font-semibold">Registration</span>
                                         @else
-                                            <span
-                                                class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">Finished</span>
+                                            <span class="px-2 py-1 bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200 rounded-full text-xs font-semibold">Finished</span>
                                         @endif
                                     </td>
                                     <td class="py-3 px-4">
@@ -100,21 +95,16 @@
                                             endif;
                                         @endphp
                                         @if ($joined)
-                                            You Alerdy Joined
+                                            You Already Joined
                                         @else
                                             <form action="{{ route('join') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="id_user" value="{{ Auth::id() }}">
                                                 <input type="hidden" name="id_event" value="{{ $item->id }}">
-                                                <button type="submit"
-                                                    class="flex items-center px-4 py-1 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
-                                                    <svg class="w-6 h-6 mr-2 text-white" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                        viewBox="0 0 24 24">
+                                                <button type="submit" class="flex items-center px-4 py-1 bg-green-500 dark:bg-green-600 text-white rounded hover:bg-green-600 dark:hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-700 focus:ring-opacity-50">
+                                                    <svg class="w-6 h-6 mr-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                                         <path d="M14 19V5h4a1 1 0 0 1 1 1v11h1a1 1 0 0 1 0 2h-6Z" />
-                                                        <path fill-rule="evenodd"
-                                                            d="M12 4.571a1 1 0 0 0-1.275-.961l-5 1.428A1 1 0 0 0 5 6v11H4a1 1 0 0 0 0 2h1.86l4.865 1.39A1 1 0 0 0 12 19.43V4.57ZM10 11a1 1 0 0 1 1 1v.5a1 1 0 0 1-2 0V12a1 1 0 0 1 1-1Z"
-                                                            clip-rule="evenodd" />
+                                                        <path fill-rule="evenodd" d="M12 4.571a1 1 0 0 0-1.275-.961l-5 1.428A1 1 0 0 0 5 6v11H4a1 1 0 0 0 0 2h1.86l4.865 1.39A1 1 0 0 0 12 19.43V4.57ZM10 11a1 1 0 0 1 1 1v.5a1 1 0 0 1-2 0V12a1 1 0 0 1 1-1Z" clip-rule="evenodd" />
                                                     </svg>
                                                     Join
                                                 </button>
@@ -129,41 +119,36 @@
             </div>
         </div>
     </div>
+    
 
     <!-- Your Events -->
-    <div class="flex flex-wrap -mx-2">
-
+    <div class="flex flex-wrap mt-4 -mx-2">
         <div class="w-full px-2">
-            <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                <div class="bg-gray-100 p-4">
-                    <h3 class="text-lg font-semibold text-gray-800">Your Event</h3>
+            <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                <div class="bg-gray-100 dark:bg-gray-700 p-4">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Your Event</h3>
                 </div>
                 <div class="p-4">
-                    <table class="min-w-full bg-white border border-gray-200">
+                    <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                         <thead>
-                            <tr class="bg-gray-100 text-gray-600 uppercase text-sm text-left">
-                                <th class="py-3 px-4 border-b">Event Name</th>
-                                <th class="py-3 px-4 border-b">Date</th>
-                                <th class="py-3 px-4 border-b">Status</th>
+                            <tr class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-sm text-left">
+                                <th class="py-3 px-4 border-b dark:border-gray-700">Event Name</th>
+                                <th class="py-3 px-4 border-b dark:border-gray-700">Date</th>
+                                <th class="py-3 px-4 border-b dark:border-gray-700">Status</th>
                             </tr>
                         </thead>
-                        <tbody class="text-gray-700">
+                        <tbody class="text-gray-700 dark:text-gray-300">
                             @foreach ($yourEvent as $item)
-                                <tr class="border-b">
+                                <tr class="border-b dark:border-gray-700">
                                     <td class="py-3 px-4">{{ $item->name }}</td>
                                     <td class="py-3 px-4">{{ $item->event_date }}</td>
                                     <td class="py-3 px-4">
                                         @if ($item->event_date == now()->toDateString() && $item->event_start <= now() && $item->event_end > now())
-                                            <span
-                                                class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Active</span>
-                                        @elseif (
-                                            $item->event_date > now()->toDateString() ||
-                                                ($item->event_date == now()->toDateString() && $item->event_start > now()))
-                                            <span
-                                                class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold">Registration</span>
+                                            <span class="px-2 py-1 bg-green-100 dark:bg-green-700 text-green-800 dark:text-green-200 rounded-full text-xs font-semibold">Active</span>
+                                        @elseif ($item->event_date > now()->toDateString() || ($item->event_date == now()->toDateString() && $item->event_start > now()))
+                                            <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200 rounded-full text-xs font-semibold">Registration</span>
                                         @else
-                                            <span
-                                                class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">Finished</span>
+                                            <span class="px-2 py-1 bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200 rounded-full text-xs font-semibold">Finished</span>
                                         @endif
                                     </td>
                                 </tr>
@@ -174,4 +159,5 @@
             </div>
         </div>
     </div>
+    
 @stop

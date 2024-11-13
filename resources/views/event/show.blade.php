@@ -3,7 +3,7 @@
 @section('title', 'Peserta (Nama Event)')
 
 @section('content_header')
-    <h1 class="text-2xl font-bold text-gray-700 mb-4">Event Participant: {{ $event->name }}</h1>
+    <h1 class="text-2xl font-bold dark:text-gray-200 text-gray-700 mb-4">Event Participant: {{ $event->name }}</h1>
 @stop
 
 @section('content')
