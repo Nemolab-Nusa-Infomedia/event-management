@@ -72,13 +72,19 @@
                     </thead>
                     <tbody class="text-gray-700 dark:text-gray-300">
                         @foreach ($event as $item)
+                            @php
+                                $now = now();
+                                $eventDate = \Carbon\Carbon::parse($item->event_date);
+                                $eventStart = \Carbon\Carbon::parse($item->event_date . ' ' . $item->event_start);
+                                $eventEnd = \Carbon\Carbon::parse($item->event_date . ' ' . $item->event_end);
+                            @endphp
                             <tr class="border-b dark:border-gray-700">
                                 <td class="py-3 px-4">{{ $item->name }}</td>
                                 <td class="py-3 px-4">{{ $item->event_date }}</td>
                                 <td class="py-3 px-4">
-                                    @if ($item->event_date == now()->toDateString() && $item->event_start <= now() && $item->event_end > now())
+                                    @if ($eventDate->isToday() && $now->between($eventStart, $eventEnd))
                                         <span class="px-2 py-1 bg-green-100 dark:bg-green-700 text-green-800 dark:text-green-200 rounded-full text-xs font-semibold">Active</span>
-                                    @elseif ($item->event_date > now()->toDateString() || ($item->event_date == now()->toDateString() && $item->event_start > now()))
+                                    @elseif ($eventDate->isFuture() || ($eventDate->isToday() && $now->lt($eventStart)))
                                         <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200 rounded-full text-xs font-semibold">Registration</span>
                                     @else
                                         <span class="px-2 py-1 bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200 rounded-full text-xs font-semibold">Finished</span>
