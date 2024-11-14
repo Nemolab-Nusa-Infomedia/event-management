@@ -12,36 +12,62 @@ use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         if (Auth::user()->role !== 'admin') {
             $totalEvent = Events::where('id_master', '=', Auth::id())->count();
-            $eventAktif = Events::where('id_master', '=', Auth::id())->where('event_date', '=', now()->toDateString())->where('event_start', '<', now())->where('event_end', '>', now())->get()->count();
-            $eventSelesai = Events::where('id_master', '=', Auth::id())->where('event_date', '<=', now()->toDateString())->where('event_end', '<', now())->get()->count();
-            $event = Events::where('id_master', '!=', Auth::id())->with('eventParticipants')->get();
+            
+            // Modified active events counting to only include currently running events
+            $eventAktif = Events::where('id_master', '=', Auth::id())
+                ->where(function($query) {
+                    $now = now();
+                    $query->whereDate('event_date', '=', $now->toDateString())
+                        ->where('event_start', '<=', $now->format('H:i:s'))
+                        ->where('event_end', '>', $now->format('H:i:s'));
+                })->count();
+            
+            // Fix for finished events counting
+            $eventSelesai = Events::where('id_master', '=', Auth::id())
+                ->where(function($query) {
+                    $now = now();
+                    $query->whereDate('event_date', '<', $now->toDateString())
+                        ->orWhere(function($q) use ($now) {
+                            $q->whereDate('event_date', '=', $now->toDateString())
+                                ->where('event_end', '<=', $now->format('H:i:s'));
+                        });
+                })->count();
+
+            $event = Events::where('id_master', '!=', Auth::id())
+                ->with('eventParticipants')
+                ->get();
             $yourEvent = Events::where('id_master', '=', Auth::id())->get();
+            
             return view('home.index', compact('totalEvent', 'eventAktif', 'eventSelesai', 'event', 'yourEvent'));
-            // return response()->json($event[0]->eventParticipants);
         }
 
+        // Admin view logic - modified active events counting
         $totalEvent = Events::all()->count();
-        $eventAktif = Events::where('event_date', '=', now()->toDateString())->where('event_start', '<', now())->where('event_end', '>', now())->get()->count();
-        $eventSelesai = Events::where('event_date', '<=', now()->toDateString())->where('event_end', '<', now())->get()->count();
+        $eventAktif = Events::where(function($query) {
+            $now = now();
+            $query->whereDate('event_date', '=', $now->toDateString())
+                ->where('event_start', '<=', $now->format('H:i:s'))
+                ->where('event_end', '>', $now->format('H:i:s'));
+        })->count();
+        
+        $eventSelesai = Events::where(function($query) {
+            $now = now();
+            $query->whereDate('event_date', '<', $now->toDateString())
+                ->orWhere(function($q) use ($now) {
+                    $q->whereDate('event_date', '=', $now->toDateString())
+                        ->where('event_end', '<=', $now->format('H:i:s'));
+                });
+        })->count();
+        
         $event = Events::all();
         $totalUser = User::all()->count();
         return view('dashboard', compact('totalEvent', 'totalUser', 'eventAktif', 'eventSelesai', 'event'));
@@ -55,25 +81,24 @@ class HomeController extends Controller
         }])->get();
         
         return view('home.joined', compact('event'));
-        // return response()->json($event);
     }
 
     public function updateStatus(Request $request, $eventId)
-{
-    $participant = EventParticipants::where('id_event', $eventId)
-        ->where('id_user', Auth::id())
-        ->first();
+    {
+        $participant = EventParticipants::where('id_event', $eventId)
+            ->where('id_user', Auth::id())
+            ->first();
 
-    if ($participant) {
-        $participant->update([
-            'status' => $request->status
-        ]);
+        if ($participant) {
+            $participant->update([
+                'status' => $request->status
+            ]);
+            
+            return response()->json(['success' => true]);
+        }
         
-        return response()->json(['success' => true]);
+        return response()->json(['success' => false], 404);
     }
-    
-    return response()->json(['success' => false], 404);
-}
 
     public function Logout()
     {
