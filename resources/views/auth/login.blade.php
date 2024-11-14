@@ -17,7 +17,7 @@
                         </svg>
                         <input
                             class="border-2 pl-12 pr-2 py-2 outline-none w-full rounded-md valid:border-green-400 focus:invalid:border-red-600 peer"
-                            type="email" name="email" value="" placeholder="Email" required />
+                            type="email" name="email" value="{{old('email')}}" placeholder="Email" required />
                     </div>
                     <div class="flex items-center rounded-md relative">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 absolute left-4"
@@ -28,7 +28,7 @@
                         </svg>
                         <input
                             class="border-2 pl-12 pr-2 py-2 outline-none w-full rounded-md valid:border-green-400 focus:invalid:border-red-600"
-                            type="password" name="password" id="" placeholder="Password" minlength="8"
+                            type="password" name="password" id="" placeholder="Password" minlength="8" value="{{old('password')}}"
                             required />
                     </div>
                 </div>

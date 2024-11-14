@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EventParticipants;
 use App\Models\Events;
 use Illuminate\Http\Request;
+use App\Models\EventParticipants;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\MailSenderController;
 use App\Http\Requests\StoreEventParticipantsRequest;
 use App\Http\Requests\UpdateEventParticipantsRequest;
 
@@ -42,6 +43,8 @@ class EventParticipantsController extends Controller
 
     public function store(Request $request)
     {
+        // $event = Events::where('id', '=', $request['id_event'])->get();
+        // return response()->json($event[0]['name']);
         $validated = $request->validate([
             'id_event' => ['required', 'exists:events,id'],
             'id_user' => ['required', 'exists:users,id'],
@@ -51,6 +54,9 @@ class EventParticipantsController extends Controller
         EventParticipants::create($validated);
 
         $event = Events::findOrFail($request->id_event);
+        if ($event) {
+            MailSenderController::SendNotif($request);
+        }
         if (Auth::user()->role !== 'admin' && $event->id_master !== Auth::id()) {
             return redirect()->route('home')
                 ->with('success', 'Participant added successfully.');
@@ -102,16 +108,15 @@ class EventParticipantsController extends Controller
             ->with('success', 'Participant updated successfully.');
     }
 
-    public function destroy(EventParticipants $participants)
+    public function destroy(EventParticipants $eventParticipan)  
     {
-        // Check if user has permission to delete this participants
-        if (Auth::user()->role !== 'admin' && $participants->event->id_master !== Auth::id()) {
-            abort(403, 'Unauthorized action.');
+        if (Auth::user()->role === 'admin' || $eventParticipan->event->id_master === Auth::id()) {
+            $eventParticipan->delete();
+
+            return redirect()->route('event.show', $eventParticipan->id_event)
+                ->with('success', 'Participant removed successfully.');
         }
 
-        $participants->delete();
-
-        return redirect()->route('event.show')
-            ->with('success', 'Participant removed successfully.');
+        abort(403, 'Unauthorized action.');
     }
 }
