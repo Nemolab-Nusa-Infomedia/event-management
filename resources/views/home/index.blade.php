@@ -5,7 +5,7 @@
 @section('content')
     <!-- Info boxes -->
     <div class="flex flex-wrap -mx-2 mb-4">
-        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+        <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
             <div class="flex items-center bg-blue-500 text-white rounded-lg p-4 shadow-md">
                 <svg class="w-[48px] h-[48px] text-gray-800 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+        <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
             <div class="flex items-center bg-yellow-500 text-white rounded-lg p-4 shadow-md">
                 <svg class="w-[48px] h-[48px] text-gray-800 text-white" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+        <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
             <div class="flex items-center bg-red-500 text-white rounded-lg p-4 shadow-md">
                 <svg class="w-[48px] h-[48px] text-gray-800 text-white" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
