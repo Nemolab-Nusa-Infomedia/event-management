@@ -1,6 +1,6 @@
 @include('layouts.components.landingpage.header')
 
-<body class="bg-gray-100 dark:bg-gray-900">
+<body onload="AOS.init();" class="bg-gray-100 dark:bg-gray-900 dark:text-white">
     
     @include('layouts.components.landingpage.navbar')
     
