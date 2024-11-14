@@ -18,6 +18,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EventParticipantsController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/home/logout', [HomeController::class, 'logout'])->name('home.logout');;
 Route::get('/change-email', function () {
@@ -46,9 +49,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::get('/', function () {
-    return redirect()->route('home');
-});
 
 Auth::routes();
 
@@ -71,5 +71,4 @@ Route::middleware(VerificationEmail::class)->group(function () {
     Route::post('/join', [EventParticipantsController::class, 'store'])->name('join');
     Route::get('/joined', [HomeController::class, 'joined'])->name('joined');
     Route::post('/update-status/{event}', [HomeController::class, 'updateStatus'])->name('update.status');
-    
 });
