@@ -23,6 +23,11 @@
                 <th scope="col" class="px-6 py-3">
                     Presence
                 </th>
+                @if (Auth::user()->role == 'user')
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -48,6 +53,19 @@
                         <span
                         class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">Absent</span>                          
                     </td>    
+                @endif
+                @if (Auth::user()->role == 'user')
+                <td class="px-6 py-4">
+                    <form action="{{ route('eventParticipan.destroy', [$event->id, $data->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded inline-flex items-center" onclick="return confirm('Apakah Anda yakin ingin menghapus event ini?')">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                              </svg> Kick
+                        </button>
+                    </form>
+                </td>
                 @endif
             </tr>
             @php($no++)

@@ -64,7 +64,7 @@ class EventParticipantsController extends Controller
      */
     public function show(EventParticipants $eventParticipants)
     {
-        return view('participants.show', compact('participant'));
+        return view('event.show', compact('eventParticipants'));
     }
 
     public function edit(EventParticipants $participant)
@@ -102,16 +102,16 @@ class EventParticipantsController extends Controller
             ->with('success', 'Participant updated successfully.');
     }
 
-    public function destroy(EventParticipants $participant)
+    public function destroy(EventParticipants $participants)
     {
-        // Check if user has permission to delete this participant
-        if (Auth::user()->role !== 'admin' && $participant->event->id_master !== Auth::id()) {
+        // Check if user has permission to delete this participants
+        if (Auth::user()->role !== 'admin' && $participants->event->id_master !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
 
-        $participant->delete();
+        $participants->delete();
 
-        return redirect()->route('participants.index')
+        return redirect()->route('event.show')
             ->with('success', 'Participant removed successfully.');
     }
 }
