@@ -23,7 +23,7 @@
                         </svg>
                         <input
                             class="border-2 pl-12 pr-2 py-2 outline-none w-full rounded-md valid:border-green-400 focus:invalid:border-red-600 peer"
-                            type="text" name="name" value="@if(Route::is('change.email')) {{Auth::user()->name}} @endif" placeholder="Name" required />
+                            type="text" name="name" value="@if(Route::is('change.email')) {{Auth::user()->name}} @endif{{old('name')}}" placeholder="Name" required />
                     </div>
                     <p class="text-red-600 text-center mt-2 font-semibold text-xs">
                         @error('name')
@@ -38,7 +38,7 @@
                         </svg>
                         <input
                             class="border-2 pl-12 pr-2 py-2 outline-none w-full rounded-md valid:border-green-400 focus:invalid:border-red-600 peer"
-                            type="email" name="email" value="@if(Route::is('change.email')) {{Auth::user()->email}} @endif" placeholder="Email" required />
+                            type="email" name="email" value="@if(Route::is('change.email')) {{Auth::user()->email}} @endif{{old('email')}}" placeholder="Email" required />
                     </div>
                     <p class="text-red-600 text-center mt-2 font-semibold text-xs">
                         @error('email')
@@ -54,7 +54,7 @@
                         </svg>
                         <input
                             class="border-2 pl-12 pr-2 py-2 outline-none w-full rounded-md valid:border-green-400 focus:invalid:border-red-600"
-                            type="password" name="password" id="" placeholder="Password" minlength="8"
+                            type="password" name="password" id="" placeholder="Password" minlength="8" value="{{old('password')}}"
                             required />
                     </div>
                     <p class="text-red-600 text-center mt-2 font-semibold text-xs">
@@ -71,7 +71,7 @@
                         </svg>
                         <input
                             class="border-2 pl-12 pr-2 py-2 outline-none w-full rounded-md valid:border-green-400 focus:invalid:border-red-600"
-                            type="password" name="password_confirmation" id="" placeholder="Confirm Password"
+                            type="password" name="password_confirmation" id="" placeholder="Confirm Password" value="{{old('password_confirmation')}}"
                             minlength="8" required />
                     </div>
                     <p class="text-red-600 text-center mt-2 font-semibold text-xs">
