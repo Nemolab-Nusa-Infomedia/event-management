@@ -351,13 +351,17 @@
                     <!-- Dropdown menu -->
                     <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
                         id="dropdown">
-                        <div class="py-3 px-4">
-                            <span class="block text-sm font-semibold text-gray-900 dark:text-white">Neil sims</span>
-                            <span class="block text-sm text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+                        <div class="px-4 py-3" role="none">
+                            <p class="text-sm text-gray-900 dark:text-white" role="none">
+                                {{ Auth::user()->name }}
+                            </p>
+                            <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                                {{ Auth::user()->email }}
+                            </p>
                         </div>
                         <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
                             <li>
-                                <a href="#"
+                                <a href="{{route('profile')}}"
                                     class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">My
                                     profile</a>
                             </li>
@@ -416,24 +420,23 @@
                         </ul>
                         <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
                             <li>
-                                <a href="#"
-                                    class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-                                    out</a>
+                                <a href="{{ route('home.logout') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    role="menuitem">Sign out</a>
                             </li>
                         </ul>
                     </div>
                 @else
-                <a href="{{ route('login') }}"
-                    class="p-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:stroke-gray-400 dark:hover:stroke-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
-                    <!-- Icon -->
-                    
-                    <svg class="w-6 h-6" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                    viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
-                </svg>
-                </a>
+                    <a href="{{ route('login') }}"
+                        class="p-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:stroke-gray-400 dark:hover:stroke-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+                        <!-- Icon -->
+
+                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                        </svg>
+                    </a>
                 @endauth
             </div>
         </div>

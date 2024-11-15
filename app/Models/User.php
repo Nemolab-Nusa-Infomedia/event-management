@@ -19,6 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'alamat',
         'no_telp',
         'role',
+        'profile_pict'
     ];
 
     protected $hidden = [
@@ -45,11 +46,13 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function eventParticipants(){
+    public function eventParticipants()
+    {
         return $this->hasMany(EventParticipants::class, 'id_user', 'id');
     }
-    
-    public function events(){
+
+    public function events()
+    {
         return $this->hasMany(Events::class, 'id_master', 'id');
     }
 

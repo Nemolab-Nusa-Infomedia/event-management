@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('no_telp');
             $table->text('alamat');
             $table->enum('role', ['user', 'admin']);
+            $table->string('profile_pict')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -69,35 +70,62 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
+            'profile_pict' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Add validation for image
         ]);
 
-        if (isset($user['name'])) {
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password ? Hash::make($request->password) : $user->password,
-                'role' => $request->role,
-            ]);
-        } else {
-            $data = [
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password ? Hash::make($request->password) : $user->password,
-                'role' => 'user',
-            ];
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password ? Hash::make($request->password) : $user->password,
+            'role' => isset($user['name']) ? $request->role : 'user',
+        ];
 
+        // Handle profile picture upload
+        if ($request->hasFile('profile_pict')) {
+            // Delete old profile picture if exists
+            if ($user->profile_pict) {
+                Storage::disk('public')->delete('profile_pictures/' . $user->profile_pict);
+            }
+
+            // Store the new image
+            $image = $request->file('profile_pict');
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $image->storeAs('profile_pictures', $filename, 'public');
+
+            $data['profile_pict'] = $filename;
+        }
+
+        if (isset($user['name'])) {
+            $user->update($data);
+        } else {
             User::where('id', Auth::user()->id)->update($data);
         }
 
         return redirect()->route('user.index')->with('success', 'User updated successfully.');
     }
 
-    // Hapus pengguna
+    // Add this method to handle profile picture deletion if needed
+    public function deleteProfilePicture(User $user)
+    {
+        if ($user->profile_pict) {
+            Storage::disk('public')->delete('profile_pictures/' . $user->profile_pict);
+            $user->update(['profile_pict' => null]);
+        }
+
+        return redirect()->back()->with('success', 'Profile picture removed successfully.');
+    }
+
     public function destroy(User $user)
     {
+        // Delete profile picture if exists
+        if ($user->profile_pict) {
+            Storage::disk('public')->delete('profile_pictures/' . $user->profile_pict);
+        }
+
         $user->delete();
         return redirect()->route('home.index')->with('danger', 'User deleted successfully.');
     }
+
 
     public function verifyEmail()
     {
