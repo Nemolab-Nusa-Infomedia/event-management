@@ -19,6 +19,7 @@ return new class extends Migration
             $table->time('event_start');
             $table->time('event_end')->nullable();
             $table->text('location');
+            $table->string('thumbnail_img')->nullable();
             $table->timestamps();
         });
     }

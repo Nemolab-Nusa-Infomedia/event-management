@@ -14,6 +14,7 @@ class Events extends Model
         'event_end',
         'location',
         'user_id',
+        'thumbnail_img'
     ];
 
     public function eventParticipants(){

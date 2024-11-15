@@ -12,15 +12,14 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\VerificationEmail;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EventParticipantsController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 Route::get('/home/logout', [HomeController::class, 'logout'])->name('home.logout');;
 Route::get('/change-email', function () {

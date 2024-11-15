@@ -7,8 +7,7 @@
 @stop
 
 @section('content')
-    <form id="dataForm" action="{{ route('event.update', $event->id) }}" method="POST" class="space-y-4">
-        @csrf
+        <form id="dataForm" action="{{ route('event.update', $event->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4">        @csrf
         @method('PUT')
 
         <div class="mb-6">
@@ -56,6 +55,17 @@
                 rows="3"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
             >{{ $event->location }}</textarea>
+
+            <label for="thumbnail_img" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Thumbnail Image</label>
+            @if($event->thumbnail_img)
+                <div class="mb-2">
+                    <img src="{{ asset('storage/'.$event->thumbnail_img) }}" alt="Current thumbnail" class="w-48 h-48 object-cover rounded">
+                </div>
+            @endif
+            <input type="file" name="thumbnail_img" id="thumbnail_img" accept="image/*"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm dark:bg-gray-800 dark:text-gray-100"
+            />
+
         </div>        
 
         <button type="submit"
