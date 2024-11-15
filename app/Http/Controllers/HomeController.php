@@ -105,6 +105,6 @@ class HomeController extends Controller
         Session::flush();
         Auth::logout();
 
-        return redirect('/login')->with('status', 'Anda telah berhasil logout.');
+        return redirect('/')->with('status', 'Anda telah berhasil logout.');
     }
 }
