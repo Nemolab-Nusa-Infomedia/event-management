@@ -1,29 +1,26 @@
-<header class="antialiased">
-    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
-        <div class="flex flex-wrap justify-between items-center">
+    <nav
+        class="fixed flex items-center min-w-full w-svw h-16 z-20 top-0 bg-white dark:border-gray-700 px-2 lg:px-6 py-2.5 dark:bg-gray-800 border-b border-gray-200">
+        <div class="flex flex-wrap grow justify-between items-center">
             <div class="flex justify-start items-center">
-                <button id="toggleSidebar" aria-expanded="true" aria-controls="sidebar"
-                    class="hidden p-2 mr-3 text-gray-600 rounded cursor-pointer lg:inline hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
-                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 16 12">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 1h14M1 6h14M1 11h7" />
-                    </svg>
-                </button>
-                <button aria-expanded="true" aria-controls="sidebar"
-                    class="p-2 mr-2 text-gray-600 rounded-lg cursor-pointer lg:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 dark:focus:bg-gray-700 focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <svg class="w-[18px] h-[18px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 17 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 1h15M1 7h15M1 13h15" />
-                    </svg>
-                    <span class="sr-only">Toggle sidebar</span>
-                </button>
-                <a href="/" class="flex ms-2 md:me-24">
-                    <img src="{{ asset('vendor/img/Logo.png') }}" class="h-8 me-3" alt="FlowBite Logo" />
-                    <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">OURevent</span>
-                </a>
+                <div class="flex items-center justify-start rtl:justify-end">
+                    <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
+                        aria-controls="logo-sidebar" type="button"
+                        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                        <span class="sr-only">Open sidebar</span>
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                d="M5 7h14M5 12h14M5 17h14" />
+                        </svg>
+                    </button>
+                    <img onclick="$(document).ready(function () {$('#smallSidebar').prop('checked') ? $('#smallSidebar').prop('checked', false) : $('#smallSidebar').prop('checked', true)}); "
+                        src="{{ asset('vendor/img/Logo.png') }}" class="h-8 mx-3 sm:ms-0 sm:me-3" alt="FlowBite Logo" />
+                    <a href="/" class="flex ms-2 md:me-24">
+                        <span
+                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">OURevent</span>
+                    </a>
+                </div>
                 <form action="#" method="GET" class="hidden lg:block lg:pl-2">
                     <label for="topbar-search" class="sr-only">Search</label>
                     <div class="relative mt-1 lg:w-96">
@@ -346,8 +343,8 @@
                         id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
                         <span class="sr-only">Open user menu</span>
                         <img class="w-8 h-8 rounded-full"
-                                src="{{ Auth::user()->profile_pict ? Storage::url('profile_pictures/' . Auth::user()->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}"
-                                alt="user photo">
+                            src="{{ Auth::user()->profile_pict ? Storage::url('profile_pictures/' . Auth::user()->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}"
+                            alt="user photo">
                     </button>
                     <!-- Dropdown menu -->
                     <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
@@ -362,7 +359,7 @@
                         </div>
                         <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
                             <li>
-                                <a href="{{route('profile')}}"
+                                <a href="{{ route('profile') }}"
                                     class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">My
                                     profile</a>
                             </li>
@@ -442,4 +439,4 @@
             </div>
         </div>
     </nav>
-</header>
+    <input type="checkbox" name="smallSidebar" id="smallSidebar" class="peer hidden">

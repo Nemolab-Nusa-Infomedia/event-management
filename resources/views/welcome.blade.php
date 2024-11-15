@@ -14,8 +14,8 @@
 </section>
 
 <section id="info" class="py-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
-    <div class="container mx-auto px-6 sm:px-8 lg:px-12" data-aos="fade-in" data-aos-delay="200">   
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 items-center">
+    <div class="container mx-auto px-6 lg:px-8 lg:px-12" data-aos="fade-in" data-aos-delay="200">   
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div class="p-8 shadow-lg rounded-lg bg-gray-200 dark:bg-gray-800" data-aos="fade-right">
                 <h2 class="text-3xl font-semibold mb-4 text-gray-900 dark:text-gray-100">What Is OURevent?</h2>
                 <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -36,7 +36,7 @@
 <section id="Events" class="py-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-semibold mb-8">Current Events</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
             @forelse ($events as $event)
             <div data-aos="zoom-in" data-aos-offset="-100">
                 <div class="p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
@@ -70,10 +70,10 @@
 
 <!-- Modal for each event -->
 @foreach ($events as $event)
-<div id="join-event-{{ $event->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed bg-black/50 dark:bg-black/0 top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div id="join-event-{{ $event->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed bg-black/50 dark:bg-black/0 top-0 right-0 left-0 z-50 justify-center items-center w-full xl:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+            <div class="flex items-center justify-between p-4 xl:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     {{ $event->name }}
                 </h3>
