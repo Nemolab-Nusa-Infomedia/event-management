@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verification_expired_at')->nullable();
             $table->string('password');
             $table->enum('role', ['user', 'admin']);
+            $table->string('profile_pict')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

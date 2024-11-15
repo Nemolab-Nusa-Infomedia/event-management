@@ -1,7 +1,7 @@
 @include('layouts.components.header')
 
 <body>
-    <div class="h-screen bg-gradient-to-br from-blue-600 to-cyan-300 flex justify-center items-center w-full">
+    <div class="h-screen bg-gradient-to-br dark:from-blue-800 dark:to-cyan-800 from-blue-600 to-cyan-300 flex justify-center items-center w-full">
 
         <form action="{{ route('password.update') }}" method="post">
             @csrf
@@ -74,3 +74,5 @@
         </form>
     </div>
 </body>
+
+@include('layouts.components.footer')

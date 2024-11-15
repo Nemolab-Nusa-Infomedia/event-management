@@ -68,6 +68,10 @@ Route::middleware(VerificationEmail::class)->group(function () {
 
     Route::get('admin/event/{event}/edit', [EventsController::class, 'edit'])->name('event.edit');
 
+    Route::get('/profile', function(){
+        return view('profile.index');
+    })->name('profile');
+
     Route::post('/join', [EventParticipantsController::class, 'store'])->name('join');
     Route::get('/joined', [HomeController::class, 'joined'])->name('joined');
     Route::post('/update-status/{event}', [HomeController::class, 'updateStatus'])->name('update.status');
