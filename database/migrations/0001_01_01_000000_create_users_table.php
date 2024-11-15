@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('email_verification_expired_at')->nullable();
             $table->string('password');
+            $table->integer('no_telp');
+            $table->text('alamat');
             $table->enum('role', ['user', 'admin']);
             $table->rememberToken();
             $table->timestamps();
