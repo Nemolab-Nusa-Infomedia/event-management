@@ -1,9 +1,23 @@
 <aside id="logo-sidebar"
-    class="fixed top-16 flex flex-col justify-between peer-checked:max-w-16 left-0 z-10 w-64 min-h-[calc(100svh_-_4rem)] transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    class="fixed top-16 flex flex-col overflow-x-hidden justify-between peer-checked:max-w-16 left-0 z-10 w-64 min-h-[calc(100svh_-_4rem)] transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidebar">
-    <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-        @auth
-            <ul class="w-full p-0 font-medium flex flex-col mt-2 gap-2">
+    <div class="h-full px-3 pb-4 bg-white dark:bg-gray-800">
+        <ul class="w-full p-0 font-medium flex flex-col mt-2 gap-2">
+            <li>
+                <a href="/"
+                    class="transition-all duration-100 flex items-center p-2 dark:fill:white fill-gray-900 text-gray-900 rounded-lg dark:text-white hover:bg-blue-200 dark:hover:bg-blue-700 hover:fill-black active:bg-blue-300 group @if (Route::is('welcome')) bg-blue-400 @endif">
+                    <svg class="min-w-6 min-h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path fill-rule="evenodd"
+                            d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    <span class="ms-5">Home</span>
+                </a>
+            </li>
+            @auth
                 @foreach (config('userNav') as $item)
                     @if ($item['access'] == 'all')
                         <li>
@@ -63,18 +77,18 @@
                             @endforeach
                         @endif
                     </ul>
-                @endauth
-            </div>
+                </div>
+            @endauth
 
         </ul>
     </div>
-    @auth
+    <div class="px-3 pb-4 bg-white dark:bg-gray-800">
+        @auth
 
-        <div class="mb-4">
-            <ul>
+            <ul class="w-full p-0 font-medium flex flex-col mt-2 gap-2">
                 <li>
                     <a href="{{ route('profile') }}"
-                        class="transition-all duration-100 flex items-center p-2 dark:fill:white fill-gray-900 text-gray-900 rounded-lg dark:text-white hover:bg-blue-200 dark:hover:bg-blue-700 hover:fill-black active:bg-blue-300 group @if (Route::is($item['link'])) bg-blue-400 @endif">
+                        class="transition-all duration-100 flex items-center p-2 dark:fill:white fill-gray-900 text-gray-900 rounded-lg dark:text-white hover:bg-blue-200 dark:hover:bg-blue-700 hover:fill-black active:bg-blue-300 group @if (Route::is('profile')) bg-blue-400 @endif">
                         <svg class="min-w-6 min-h-6 text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                             viewBox="0 0 24 24">
@@ -86,32 +100,51 @@
                         <span class="ms-5">Profile</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('home.logout') }}"
+                        class="transition-all duration-100 flex items-center p-2 dark:fill:white fill-gray-900 text-gray-900 rounded-lg dark:text-white hover:bg-blue-200 dark:hover:bg-blue-700 hover:fill-black active:bg-blue-300 group">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2" />
+                        </svg>
+
+
+                        <span class="ms-5">Sign Out</span>
+                    </a>
+                </li>
             </ul>
-            <div class=" flex flex-col mt-4 xl:mt-0 xl:ml-4 gap-2 justify-center items-center xl:items-start">
-                <p class="text-xl font-semibold text-gray-900 dark:text-white" role="none">
-                    {{ Auth::user()->name }}
-                </p>
-                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                    {{ Auth::user()->email }}
-                </p>
+            <div class="flex justify-start items-center gap-3 mt-4">
+                <div class="rounded-full max-w-10 max-h-10 min-h-10 min-w-10 overflow-hidden">
+                    <img class="min-w-10 min-h-10 object-cover"
+                        src="{{ Auth::user()->profile_pict ? Storage::url('profile_pictures/' . Auth::user()->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}"
+                        alt="user photo">
+                </div>
+                <div class=" flex flex-col justify-center items-start">
+                    <p class="text-lg font-semibold text-gray-900 dark:text-white" role="none">
+                        {{ Auth::user()->name }}
+                    </p>
+                    <p class="text-xs font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                        {{ Auth::user()->email }}
+                    </p>
+                </div>
             </div>
-        </div>
-    @else
-        <div>
-            <ul>
+        @else
+            <ul class="w-full p-0 font-medium flex flex-col mt-2 gap-2">
                 <li>
                     <a href="{{ route('login') }}"
                         class="transition-all duration-100 flex items-center p-2 dark:fill:white fill-gray-900 text-gray-900 rounded-lg dark:text-white hover:bg-blue-200 dark:hover:bg-blue-700 hover:fill-black active:bg-blue-300 group @if (Route::is('profile')) bg-blue-400 @endif">
-                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                        height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
-                    </svg>
+                        <svg class="min-w-6 min-h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                        </svg>
 
                         <span class="ms-5">Login</span>
                     </a>
                 </li>
             </ul>
-        </div>
-    @endauth
+        @endauth
+    </div>
 </aside>
