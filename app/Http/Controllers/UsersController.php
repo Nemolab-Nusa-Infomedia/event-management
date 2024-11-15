@@ -64,13 +64,32 @@ class UsersController extends Controller
         return view('users.edit', compact('user'));
     }
 
+    public function updateProfilePicture(Request $request, User $user)
+    {
+        $request->validate([
+            'profile_pict' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        if ($user->profile_pict) {
+            Storage::disk('public')->delete('profile_pictures/' . $user->profile_pict);
+        }
+
+        $image = $request->file('profile_pict');
+        $filename = time() . '_' . $image->getClientOriginalName();
+        $image->storeAs('profile_pictures', $filename, 'public');
+
+        $user->update(['profile_pict' => $filename]);
+
+        return redirect()->back()->with('success', 'Profile picture updated successfully.');
+    }
+
     // Perbarui data pengguna
     public function update(Request $request, User $user)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'profile_pict' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Add validation for image
+            // 'profile_pict' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Add validation for image
         ]);
 
         $data = [
@@ -81,19 +100,19 @@ class UsersController extends Controller
         ];
 
         // Handle profile picture upload
-        if ($request->hasFile('profile_pict')) {
-            // Delete old profile picture if exists
-            if ($user->profile_pict) {
-                Storage::disk('public')->delete('profile_pictures/' . $user->profile_pict);
-            }
+        // if ($request->hasFile('profile_pict')) {
+        //     // Delete old profile picture if exists
+        //     if ($user->profile_pict) {
+        //         Storage::disk('public')->delete('profile_pictures/' . $user->profile_pict);
+        //     }
 
-            // Store the new image
-            $image = $request->file('profile_pict');
-            $filename = time() . '_' . $image->getClientOriginalName();
-            $image->storeAs('profile_pictures', $filename, 'public');
+        //     // Store the new image
+        //     $image = $request->file('profile_pict');
+        //     $filename = time() . '_' . $image->getClientOriginalName();
+        //     $image->storeAs('profile_pictures', $filename, 'public');
 
-            $data['profile_pict'] = $filename;
-        }
+        //     $data['profile_pict'] = $filename;
+        // }
 
         if (isset($user['name'])) {
             $user->update($data);

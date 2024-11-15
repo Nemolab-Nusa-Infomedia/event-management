@@ -3,9 +3,8 @@
 @section('content')
     <div class="flex">
         <div class="rounded-full size-20 outline-4 dark:outline-gray-500 outline-gray-300 p-1 box-content outline relative">
-            <form action="{{ route('user.update', Auth::user()) }}" method="POST" enctype="multipart/form-data" id="profileForm">
+            <form action="{{ route('user.update.picture', Auth::user()) }}" method="POST" enctype="multipart/form-data" id="profilePictureForm">
                 @csrf
-                @method('PUT')
                 <input type="file" name="profile_pict" id="profile_pict" class="hidden" accept="image/*">
                 <div class="absolute flex justify-center items-center -right-1 -top-1 outline outline-1 bg-gray-200 dark:bg-gray-700 rounded-full size-8 cursor-pointer" onclick="document.getElementById('profile_pict').click()">
                     <svg class="size-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -16,31 +15,22 @@
                             d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                     </svg>
                 </div>
-                <img src="{{ Auth::user()->profile_pict ? asset('storage/profile_pictures/' . Auth::user()->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}" 
-                     class="rounded-full size-20 cursor-pointer"
-                     alt="Profile Picture"
-                     onclick="document.getElementById('profile_pict').click()">
+                <img src="{{ Auth::user()->profile_pict ? Storage::url('profile_pictures/' . Auth::user()->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}" 
+                    class="rounded-full size-20 cursor-pointer"
+                    alt="Profile Picture"
+                    onclick="document.getElementById('profile_pict').click()">
             </form>
         </div>
         <div class="grid grid-[repeat(auto-fit,_minmax(200px,_1fr))]">
-            <div class=" flex flex-col ml-4 gap-2 justify-center items-start">
+            <div class="flex flex-col ml-4 gap-2 justify-center items-start">
                 <p class="text-xl font-semibold text-gray-900 dark:text-white" role="none">
                     {{ Auth::user()->name }}
                 </p>
-                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                <p class="text-sm text-gray-500 dark:text-gray-400" role="none">
                     {{ Auth::user()->email }}
                 </p>
             </div>
         </div>
-        <svg class="size-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-            width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd"
-                d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
-                clip-rule="evenodd" />
-            <path fill-rule="evenodd"
-                d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
-                clip-rule="evenodd" />
-        </svg>
     </div>
     <hr class="my-8 bg-gray-200 dark:border-gray-600">
     <div>
@@ -92,9 +82,27 @@
             </div>
         </div>
     </div>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <script>
-        document.getElementById('profile_pict').addEventListener('change', function() {
-            document.getElementById('profileForm').submit();
-        });
+    document.getElementById('profile_pict').addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            document.getElementById('profilePictureForm').submit();
+        }
+    });
     </script>
 @stop

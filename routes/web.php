@@ -56,6 +56,13 @@ Route::middleware(VerificationEmail::class)->group(function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    Route::prefix('profile')->group(function () {
+        Route::get('/', function() {
+            return view('profile.index');
+        })->name('profile');
+        Route::post('/update-picture/{user}', [UsersController::class, 'updateProfilePicture'])->name('user.update.picture');
+    });
+
     Route::prefix('admin/')->middleware(['auth', AdminCheck::class])->group(function () {
         Route::resource('user', UsersController::class);
         Route::resource('eventParticipan', EventParticipantsController::class);
