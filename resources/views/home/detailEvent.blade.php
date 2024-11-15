@@ -28,7 +28,7 @@
                       </svg>                      
                     March 15, 2024 | <svg class="mx-2 w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"/>
-                    </svg> 10:00 AM
+                    </svg> 10:00 AM - 12:00 PM
                 </p>
             </div>
             <div class="p-4 sm:p-8 mb-6">
@@ -111,9 +111,10 @@
 
     @media (min-width: 640px) {
     .scroll-container {
-        animation: scroll-vertical 10s linear infinite;
+        animation: scroll-vertical 10s linear infinite alternate;
     }
-}
+    }
+
     @keyframes scroll-vertical {
         0% { transform: translateY(0); }
         100% { transform: translateY(-70%); }

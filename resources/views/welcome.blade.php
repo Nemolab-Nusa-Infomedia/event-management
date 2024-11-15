@@ -8,7 +8,7 @@
         <h2 class="text-4xl font-bold mb-4">Welcome to OURevent</h2>
         <p class="mb-6">Discover the best solution to manage your event efficiently.</p>
         <a href="#Events" class="text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-200">
-            Learn More
+            See Current Event
         </a>
     </div>
 </section>
@@ -16,16 +16,19 @@
 <section id="info" class="py-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
     <div class="container mx-auto px-6 lg:px-8 lg:px-12" data-aos="fade-in" data-aos-delay="200">   
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="p-8 shadow-lg rounded-lg bg-gray-200 dark:bg-gray-800" data-aos="fade-right">
-                <h2 class="text-3xl font-semibold mb-4 text-gray-900 dark:text-gray-100">What Is OURevent?</h2>
-                <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                    Discover what OURevent has to offer. Lorem ipsum dolor sit amet, consectetur 
-                    adipisicing elit. Iure, quidem, magnam dolore architecto possimus! Join us to 
-                    experience incredible events, seamless connections, and unforgettable moments.
-                </p>
+            <div class="p-8  h-full flex flex-col justify-center items-center" data-aos="fade-right">
+                <div class="text-left">
+                    <h2 class="text-5xl font-semibold mb-4 text-gray-900 dark:text-gray-100">What Is OURevent?</h2>
+                    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                        Discover what OURevent has to offer. From planning to execution, we're here to make your event a success. 
+                    </p>
+                    <a href="#" class="text-blue-600 hover:text-gray-500 px-6 py-3 rounded-full font-semibold">
+                        Read More ->
+                    </a>
+                </div>
             </div>
-            <div class="p-6" data-aos="fade-left" data-aos-delay="300">
-                <img src="{{ asset('vendor/img/wallpaperflare.com_wallpaper (14).jpg') }}" alt="OURevent Image" class="object-cover rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg">
+            <div data-aos="fade-left" data-aos-delay="300">
+                <img src="{{ asset('vendor/img/8d5f781f-9f15-4c39-9781-635555306206.png') }}" alt="OURevent Image" class="rounded-lg object-cover rounded-lg transform transition duration-300 hover:bg-gray-400 dark:hover:bg-gray-800 hover:scale-105">
             </div>
         </div>
     </div>    
@@ -93,7 +96,7 @@
 <section id="about" class="py-16" data-aos="fade-up" data-aos-offset="-100">
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-semibold mb-4">About Us</h2>
-        <p class="mb-6">We are dedicated to providing the best project management solutions.</p>
+        <p class="mb-6">We are dedicated to providing the best event management solutions.</p>
         <p>Our platform is trusted by professionals across industries to enhance productivity.</p>
     </div>
 </section>
