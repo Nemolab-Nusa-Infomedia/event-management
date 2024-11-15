@@ -1,5 +1,5 @@
     <nav
-        class="fixed flex items-center min-w-full w-svw h-16 z-20 top-0 bg-white dark:border-gray-700 px-2 lg:px-6 py-2.5 dark:bg-gray-800 border-b border-gray-200">
+        class="fixed flex items-center min-w-full w-svw h-16 z-20 top-0 bg-white dark:border-gray-700 px-2 sm:pr-6 sm:pl-5 py-2.5 dark:bg-gray-800 border-b border-gray-200">
         <div class="flex flex-wrap grow justify-between items-center">
             <div class="flex justify-start items-center">
                 <div class="flex items-center justify-start rtl:justify-end">
@@ -15,7 +15,7 @@
                         </svg>
                     </button>
                     <img onclick="$(document).ready(function () {$('#smallSidebar').prop('checked') ? $('#smallSidebar').prop('checked', false) : $('#smallSidebar').prop('checked', true)}); "
-                        src="{{ asset('vendor/img/Logo.png') }}" class="h-8 mx-3 sm:ms-0 sm:me-3" alt="FlowBite Logo" />
+                        src="{{ asset('vendor/img/Logo.png') }}" class="h-8 ms-3 sm:ms-0 sm-0 sm:me-3" alt="FlowBite Logo" />
                     <a href="/" class="flex ms-2 md:me-24">
                         <span
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">OURevent</span>
