@@ -3,7 +3,7 @@
 @section('content')
 
 <!-- Hero Section -->
-<section class="text-white dark:bg-blue-950 py-20 text-center bg-[url(http://127.0.0.1:8000/vendor/img/Gracile-digital-art-artwork-illustration-concept-art-environment-2200837-wallhere.com.jpg)] bg-cover" data-aos="fade-up">
+<section class="text-white dark:bg-blue-950 py-20 text-center bg-[url(http://127.0.0.1:8000/vendor/img/Gracile-digital-art-artwork-illustration-concept-art-environment-2200837-wallhere.com.jpg)] bg-cover" data-aos="fade-down">
     <div class="container mx-auto px-4">
         <h2 class="text-4xl font-bold mb-4">Welcome to OURevent</h2>
         <p class="mb-6">Discover the best solution to manage your event efficiently.</p>
@@ -13,7 +13,7 @@
     </div>
 </section>
 
-<section id="Events" class="py-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+<section id="info" class="py-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
     <div class="container mx-auto px-6 sm:px-8 lg:px-12" data-aos="fade-in" data-aos-delay="200">   
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 items-center">
             <div class="p-8 shadow-lg rounded-lg bg-gray-200 dark:bg-gray-800" data-aos="fade-right">
@@ -53,11 +53,10 @@
                     <p class="text-gray-700 dark:text-gray-300 mb-2">
                         <strong>Location:</strong> {{ $event->location }}
                     </p>
-                    <button data-modal-target="join-event-{{ $event->id }}" 
-                            data-modal-toggle="join-event-{{ $event->id }}" 
+                    <a href="{{ route('event.detail', $event->id) }}"
                             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         Join
-                    </button>
+                    </a>
                 </div>
             </div>
             @empty
@@ -85,34 +84,6 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- <form action="{{ route('event.join', $event->id) }}" method="POST" class="p-4 md:p-5">
-                @csrf
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                    <div class="col-span-2">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                    </div>
-                    <div class="col-span-2">
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                    </div>
-                    <div class="col-span-2">
-                        <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
-                        <input type="text" name="phone_number" id="phone_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                    </div>
-                    <div class="col-span-2">
-                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                        <textarea id="address" name="address" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required></textarea>
-                    </div>
-                </div>
-                <button type="submit" class="flex items-center px-4 py-1 bg-blue-500 dark:bg-blue-600 text-white rounded hover:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-700 focus:ring-opacity-50">
-                    <svg class="w-6 h-6 mr-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M14 19V5h4a1 1 0 0 1 1 1v11h1a1 1 0 0 1 0 2h-6Z" />
-                        <path fill-rule="evenodd" d="M12 4.571a1 1 0 0 0-1.275-.961l-5 1.428A1 1 0 0 0 5 6v11H4a1 1 0 0 0 0 2h1.86l4.865 1.39A1 1 0 0 0 12 19.43V4.57ZM10 11a1 1 0 0 1 1 1v.5a1 1 0 0 1-2 0V12a1 1 0 0 1 1-1Z" clip-rule="evenodd" />
-                    </svg>
-                    Join
-                </button>
-            </form> -->
         </div>
     </div>
 </div>

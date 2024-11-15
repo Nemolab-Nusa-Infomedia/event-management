@@ -83,6 +83,11 @@ class EventsController extends Controller
         ]);
     }
 
+    public function detailEvent()
+    {
+        return view('home.detailEvent');
+    }
+
     public function edit(Events $event)
     {
         if (Auth::user()->role !== 'admin' && $event->id_master !== Auth::id()) {
