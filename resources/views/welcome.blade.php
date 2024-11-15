@@ -38,7 +38,7 @@
         <h2 class="text-3xl font-semibold mb-8">Current Events</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
             @forelse ($events as $event)
-            <div data-aos="zoom-in">
+            <div data-aos="zoom-in" data-aos-offset="-100">
                 <div class="p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
                     <img src="{{ $event->thumbnail_img ? asset('storage/' . $event->thumbnail_img) : asset('vendor/img/default-event.jpg') }}" 
                          alt="{{ $event->name }}" 
@@ -55,7 +55,7 @@
                     </p>
                     <a href="{{ route('event.detail', $event->id) }}"
                             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                        Join
+                        See Details
                     </a>
                 </div>
             </div>
@@ -90,7 +90,7 @@
 @endforeach
 
 <!-- About Section -->
-<section id="about" class="py-16" data-aos="fade-up">
+<section id="about" class="py-16" data-aos="fade-up" data-aos-offset="-100">
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-semibold mb-4">About Us</h2>
         <p class="mb-6">We are dedicated to providing the best project management solutions.</p>
