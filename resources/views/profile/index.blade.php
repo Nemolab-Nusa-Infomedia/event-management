@@ -3,18 +3,24 @@
 @section('content')
     <div class="flex">
         <div class="rounded-full size-20 outline-4 dark:outline-gray-500 outline-gray-300 p-1 box-content outline relative">
-            <div
-                class="absolute flex justify-center items-center -right-1 -top-1 outline outline-1 bg-gray-200 dark:bg-gray-700 rounded-full size-8">
-                <svg class="size-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
-                        d="M4 18V8a1 1 0 0 1 1-1h1.5l1.707-1.707A1 1 0 0 1 8.914 5h6.172a1 1 0 0 1 .707.293L17.5 7H19a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z" />
-                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
-                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                </svg>
-            </div>
-            <img src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" class="rounded-full size-20"
-                alt="">
+            <form action="{{ route('user.update', Auth::user()) }}" method="POST" enctype="multipart/form-data" id="profileForm">
+                @csrf
+                @method('PUT')
+                <input type="file" name="profile_pict" id="profile_pict" class="hidden" accept="image/*">
+                <div class="absolute flex justify-center items-center -right-1 -top-1 outline outline-1 bg-gray-200 dark:bg-gray-700 rounded-full size-8 cursor-pointer" onclick="document.getElementById('profile_pict').click()">
+                    <svg class="size-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
+                            d="M4 18V8a1 1 0 0 1 1-1h1.5l1.707-1.707A1 1 0 0 1 8.914 5h6.172a1 1 0 0 1 .707.293L17.5 7H19a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z" />
+                        <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                </div>
+                <img src="{{ Auth::user()->profile_pict ? asset('storage/profile_pictures/' . Auth::user()->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}" 
+                     class="rounded-full size-20 cursor-pointer"
+                     alt="Profile Picture"
+                     onclick="document.getElementById('profile_pict').click()">
+            </form>
         </div>
         <div class="grid grid-[repeat(auto-fit,_minmax(200px,_1fr))]">
             <div class=" flex flex-col ml-4 gap-2 justify-center items-start">
@@ -86,4 +92,9 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('profile_pict').addEventListener('change', function() {
+            document.getElementById('profileForm').submit();
+        });
+    </script>
 @stop
