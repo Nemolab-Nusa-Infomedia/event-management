@@ -3,7 +3,7 @@
 @section('content')
 
 <!-- Hero Section -->
-<section class="text-white dark:bg-blue-950 py-20 text-center bg-[url(http://127.0.0.1:8000/vendor/img/Gracile-digital-art-artwork-illustration-concept-art-environment-2200837-wallhere.com.jpg)] bg-cover" data-aos="fade-down">
+<section class="text-gray-900 dark:text-gray-100 dark:bg-blue-950 py-20 text-center dark:bg-[url(http://127.0.0.1:8000/vendor/img/Gracile-digital-art-artwork-illustration-concept-art-environment-2200837-wallhere.com.jpg)] bg-[url(http://127.0.0.1:8000/vendor/img/Light2.jpg)] bg-cover" data-aos="fade-down">
     <div class="container mx-auto px-4">
         <h2 class="text-4xl font-bold mb-4">Welcome to OURevent</h2>
         <p class="mb-6">Discover the best solution to manage your event efficiently.</p>
@@ -18,7 +18,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div class="p-8  h-full flex flex-col justify-center items-center" data-aos="fade-right">
                 <div class="text-left">
-                    <h2 class="text-6xl font-bold mb-4 text-gray-900 text-uppercase dark:text-gray-100">Empower your event management with ease and efficiency</h2>
+                    <h2 class="lg:text-6xl md:text-4xl text-3xl font-bold mb-4 text-gray-900 text-uppercase dark:text-gray-100">Empower your event management with ease and efficiency</h2>
                     <p class="text-lg text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
                         Our platform is the trusted choice of professionals across industries to boost productivity and achieve seamless results. 
                     </p>
@@ -92,7 +92,7 @@
 @endforeach
 
 <!-- About Section -->
-<section id="about" class="py-16" data-aos="fade-up" data-aos-offset="-100">
+<section id="about" class="py-16" data-aos="fade-up" data-aos-offset="-200">
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-semibold mb-4">About Us</h2>
         <p class="mb-6">We are committed to delivering exceptional event management solutions that simplify your workflow.</p>
