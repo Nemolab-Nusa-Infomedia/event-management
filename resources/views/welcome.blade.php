@@ -43,7 +43,8 @@
             @forelse ($events as $event)
             <div data-aos="zoom-in" data-aos-offset="-100">
                 <div class="p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
-                    <img src="{{ $event->thumbnail_img ? asset('storage/' . $event->thumbnail_img) : 'https://placehold.co/800x600/f3f4f6/000000/webp?text=Event+Image' }}"                         alt="{{ $event->name }}" 
+                    <img src="{{ $event->thumbnail_img ? asset('storage/' . $event->thumbnail_img) : 'https://placehold.co/800x600/f3f4f6/000000/webp?text=Event+Image' }}"
+                    alt="{{ $event->name }}" 
                          class="w-full h-48 object-cover rounded-lg mb-4">
                     <h3 class="text-xl font-semibold mb-2">{{ $event->name }}</h3>
                     <p class="text-gray-700 dark:text-gray-300 mb-2">
@@ -55,7 +56,7 @@
                     <p class="text-gray-700 dark:text-gray-300 mb-2">
                         <strong>Location:</strong> {{ $event->location }}
                     </p>
-                    <a href="{{ route('event.detail', $event->id) }}"
+                    <a href="{{ route('events.preview', $event->id) }}"
                             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         See Details
                     </a>

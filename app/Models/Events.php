@@ -24,4 +24,9 @@ class Events extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'id_master');
+    }
 }

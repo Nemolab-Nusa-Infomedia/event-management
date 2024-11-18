@@ -90,4 +90,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/joined', [HomeController::class, 'joined'])->name('joined');
         Route::post('/update-status/{event}', [HomeController::class, 'updateStatus'])->name('update.status');
     });
+
+    Route::get('/events/preview/{event}', [EventsController::class, 'showPreview'])->name('events.preview');
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EventParticipants;
 use App\Models\Events;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -76,6 +77,27 @@ class EventsController extends Controller
         return view('event.show', [
             'event' => $event,
             'participants' => $event->eventParticipants
+        ]);
+    }
+
+    public function showPreview(Events $event)
+    {
+        // Format dates using Carbon
+        $formattedDate = \Carbon\Carbon::parse($event->event_date)->format('l, F d, Y');
+        $formattedStartTime = \Carbon\Carbon::parse($event->event_start)->format('H:i');
+        $formattedEndTime = $event->event_end 
+            ? \Carbon\Carbon::parse($event->event_end)->format('H:i')
+            : null;
+
+        // Get creator information
+        $creator = User::find($event->id_master);
+
+        return view('home.detailEvent', [
+            'event' => $event,
+            'formattedDate' => $formattedDate,
+            'formattedStartTime' => $formattedStartTime,
+            'formattedEndTime' => $formattedEndTime,
+            'creator' => $creator
         ]);
     }
 

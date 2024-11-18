@@ -4,16 +4,20 @@
 <div class="container mx-auto p-4 sm:p-8 mb-4">  
     <div class="w-full h-64 rounded-lg shadow-lg overflow-hidden mb-4" data-aos="fade-up" data-aos-offset="100">
         <div class="scroll-container">
-            <img src="{{ asset('vendor/img/wallpaperflare.com_wallpaper (14).jpg') }}" 
+            <img src="{{ $event->thumbnail_img ? asset('storage/' . $event->thumbnail_img) : 'https://placehold.co/1700x1000/f3f4f6/000000/webp?text=Event+Image' }}"
+            alt="{{ $event->name }}" 
                  alt="Event Image" 
                  class="w-auto h-full object-cover">
         </div>
     </div>
-    <p class="text-gray-500 dark:text-gray-300"><strong>Wednesday</strong>, March 15, 2024</p>
-    <h1 class="text-3xl sm:text-5xl dark:text-gray-200 font-bold text-gray-700 mb-8">Nama Event</h1>
+    <p class="text-gray-500 dark:text-gray-300">
+        <strong>{{ $formattedDate }}</strong>
+    </p>
+    <h1 class="text-3xl sm:text-5xl dark:text-gray-200 font-bold text-gray-700 mb-8">{{ $event->name }}</h1>
     <div class="flex items-center" data-aos="fade-up" data-aos-offset="100">
-        <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
-        <p class="mx-4">by <strong>Username</strong></p>
+        <img class="w-8 h-8 rounded-full" src="{{ Auth::user()->profile_pict ? Storage::url('profile_pictures/' . Auth::user()->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}"
+        alt="user photo">
+        <p class="mx-4">by <strong>{{ $creator->name }}</strong></p>
     </div>
 </div>
 
@@ -25,10 +29,12 @@
                 <p class="flex items-center">
                     <svg class="mx-2 w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M5 5a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1 2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a2 2 0 0 1 2-2ZM3 19v-7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Zm6.01-6a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-10 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z" clip-rule="evenodd"/>
-                      </svg>                      
-                    March 15, 2024 | <svg class="mx-2 w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    </svg>                      
+                    {{ $formattedDate }} | 
+                    <svg class="mx-2 w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"/>
-                    </svg> 10:00 AM - 12:00 PM
+                    </svg> 
+                    {{ $formattedStartTime }} @if($formattedEndTime) - {{ $formattedEndTime }} @endif
                 </p>
             </div>
             <div class="p-4 sm:p-8 mb-6">
@@ -37,12 +43,12 @@
                     <svg class="mx-2 w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518Z"/>
                     </svg>          
-                    Jl. Jenderal Sudirman No. 1, Jakarta Pusat
+                    {{ $event->location }}
                 </p>
             </div>
             <div class="p-4 sm:p-8 mb-6">
                 <h1 class="text-2xl sm:text-3xl dark:text-gray-200 font-bold text-gray-700 mb-4">About This Event</h1>     
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quaem?</p>
+                <p>{{ $event->about ?? 'No description available' }}</p>
                 <button data-modal-target="join-event" data-modal-toggle="join-event" class="block mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                     Join
                 </button>
@@ -50,10 +56,18 @@
         </div>
 
         <div class="grid grid-cols-2 gap-2" data-aos="zoom-in" data-aos-offset="100">
-            <img class="transform transition duration-300 hover:scale-105 h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="">
-            <img class="transform transition duration-300 hover:scale-105 h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="">
-            <img class="transform transition duration-300 hover:scale-105 h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="">
-            <img class="transform transition duration-300 hover:scale-105 h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="">
+            @php
+                $images = $event->quad_img ? explode(',', $event->quad_img) : [];
+                $placeholder = 'https://placehold.co/800x800/f3f4f6/000000/webp?text=Event+Image';
+            @endphp
+            
+            @for ($i = 0; $i < 4; $i++)
+                <img 
+                    class="transform transition duration-300 hover:scale-105 h-auto max-w-full rounded-lg" 
+                    src="{{ isset($images[$i]) ? asset('storage/' . trim($images[$i])) : $placeholder }}" 
+                    alt="Event Image {{ $i + 1 }}"
+                >
+            @endfor
         </div>
     </div>    
 </section>
