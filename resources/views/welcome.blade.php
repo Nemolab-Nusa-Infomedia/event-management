@@ -18,17 +18,17 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div class="p-8  h-full flex flex-col justify-center items-center" data-aos="fade-right">
                 <div class="text-left">
-                    <h2 class="text-5xl font-semibold mb-4 text-gray-900 dark:text-gray-100">What Is OURevent?</h2>
-                    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                        Discover what OURevent has to offer. From planning to execution, we're here to make your event a success. 
+                    <h2 class="text-6xl font-bold mb-4 text-gray-900 text-uppercase dark:text-gray-100">Empower your event management with ease and efficiency</h2>
+                    <p class="text-lg text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+                        Our platform is the trusted choice of professionals across industries to boost productivity and achieve seamless results. 
                     </p>
-                    <a href="#" class="text-blue-600 hover:text-gray-500 px-6 py-3 rounded-full font-semibold">
+                    <a href="#" class="text-blue-600 hover:text-gray-500 py-3 font-semibold">
                         Read More ->
                     </a>
                 </div>
             </div>
             <div data-aos="fade-left" data-aos-delay="300">
-                <img src="{{ asset('vendor/img/8d5f781f-9f15-4c39-9781-635555306206.png') }}" alt="OURevent Image" class="rounded-lg object-cover rounded-lg transform transition duration-300 hover:bg-gray-400 dark:hover:bg-gray-800 hover:scale-105">
+                <img src="{{ asset('vendor/img/8d5f781f-9f15-4c39-9781-635555306206.png') }}" alt="OURevent Image" class="rounded-lg object-cover rounded-lg transform transition duration-300 hover:bg-gray-300 dark:hover:bg-gray-800 hover:scale-105">
             </div>
         </div>
     </div>    
@@ -96,8 +96,8 @@
 <section id="about" class="py-16" data-aos="fade-up" data-aos-offset="-100">
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-semibold mb-4">About Us</h2>
-        <p class="mb-6">We are dedicated to providing the best event management solutions.</p>
-        <p>Our platform is trusted by professionals across industries to enhance productivity.</p>
+        <p class="mb-6">We are committed to delivering exceptional event management solutions that simplify your workflow.</p>
+        <p>Trusted by professionals across industries, our platform empowers you to maximize efficiency and achieve outstanding results.</p>
     </div>
 </section>
 
