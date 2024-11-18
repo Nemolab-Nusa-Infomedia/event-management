@@ -11,5 +11,6 @@
     </div>
 
 </body>
+@yield('script')
 
 @include('layouts.components.footer')

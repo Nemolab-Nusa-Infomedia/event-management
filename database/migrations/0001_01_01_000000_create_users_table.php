@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('email_verification_expired_at')->nullable();
             $table->string('password');
-            $table->integer('no_telp')->nullable();
+            $table->string('no_telp', 25)->nullable();
             $table->text('alamat')->nullable();
             $table->enum('role', ['user', 'admin']);
             $table->string('profile_pict')->nullable();

@@ -83,13 +83,41 @@ class UsersController extends Controller
         return redirect()->back()->with('success', 'Profile picture updated successfully.');
     }
 
+    public function updatePersonalData(Request $request, User $user)
+    {
+        if ($request['dial_phone'] == '+62') {
+            $request->validate([
+                'no_hp' => 'required',
+                'provinsi' => 'required',
+                'kabupaten' => 'required',
+                'kecamatan' => 'required',
+                'desa' => 'required',
+            ]);
+            $request['no_telp'] = $request['dial_phone'] . $request['no_hp'];
+            $request['alamat'] = $request['provinsi'] . ', ' . $request['kabupaten'] . ', ' . $request['kecamatan'] . ', ' . $request['desa'] . ', ' .  $request['additional'];
+        } else {
+            $request->validate([
+                'no_hp' => 'required',
+                'address' => 'required',
+            ]);
+            $request['alamat'] = $request['address'];
+        }
+        $request['no_telp'] = $request['dial_phone'] . $request['no_hp'];
+        
+        $data = [
+            'no_telp' => $request->no_telp,
+            'alamat' => $request->alamat,
+        ];
+        $user->update($data);
+        return redirect()->route('profile');
+    }
+
     // Perbarui data pengguna
     public function update(Request $request, User $user)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            // 'profile_pict' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Add validation for image
         ]);
 
         $data = [

@@ -14,10 +14,11 @@ class EventsController extends Controller
 
     public function index()
     {
-        if (Auth::user()->role === 'admin') {
-            $event = Events::with('user')->get();
-            return view('admin.event', compact('event'));
-        } else {
+        if (Auth::check()) {
+            if (Auth::user()->role === 'admin') {
+                $event = Events::with('user')->get();
+                return view('admin.event', compact('event'));
+            }
             $event = Events::where('id_master', Auth::id())->get();
             return view('user.event', compact('event'));
         }
@@ -25,8 +26,13 @@ class EventsController extends Controller
 
     public function create()
     {
-        $event = Events::all();
-        return view('event.create', compact('event'));
+        if(Auth::check()){
+            if (Auth::user()->no_telp == null || Auth::user()->alamat == null) {
+                return redirect()->route('event.index')->with('error', 'Please complete your personal data first');
+            }
+            $event = Events::all();
+            return view('event.create', compact('event'));
+        }
     }
 
     public function store(Request $request)
@@ -73,7 +79,7 @@ class EventsController extends Controller
         }
 
         $eventParticipants = Events::with('eventParticipants.user')->findOrFail($event->id);
-        
+
         return view('event.show', [
             'event' => $event,
             'participants' => $event->eventParticipants
@@ -145,7 +151,7 @@ class EventsController extends Controller
             if ($event->thumbnail_img) {
                 Storage::disk('public')->delete($event->thumbnail_img);
             }
-            
+
             // Store new thumbnail
             $validated['thumbnail_img'] = $request->file('thumbnail_img')->store('event-thumbnails', 'public');
         }

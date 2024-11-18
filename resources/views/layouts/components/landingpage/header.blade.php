@@ -15,8 +15,8 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- css -->
-    @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    @vite('resources/css/app.css')
     
     <!-- Scripts -->
     @vite('resources/js/app.js')

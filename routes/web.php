@@ -12,8 +12,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\EventsController;
-use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\VerificationEmail;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EventParticipantsController;
@@ -60,10 +61,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::prefix('profile')->group(function () {
-        Route::get('/', function () {
-            return view('profile.index');
-        })->name('profile');
+        Route::get('/', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/change-data', [ProfileController::class, 'show'])->name('profileData');
         Route::post('/update-picture/{user}', [UsersController::class, 'updateProfilePicture'])->name('user.update.picture');
+        Route::post('/personal-data/{user}', [UsersController::class, 'updatePersonalData'])->name('change-personal-data');
     });
 
     Route::get('/profile', function () {
