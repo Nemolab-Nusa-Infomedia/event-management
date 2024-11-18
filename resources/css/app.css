@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 *{
-    text-decoration: none !important; 
+    scroll-behavior: smooth;
 }
