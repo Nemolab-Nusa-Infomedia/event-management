@@ -83,6 +83,10 @@ class EventsController extends Controller
     {
         return view('home.detailEvent');
     }
+    public function editEvent()
+    {
+        return view('home.editEvent');
+    }
 
     public function edit(Events $event)
     {
