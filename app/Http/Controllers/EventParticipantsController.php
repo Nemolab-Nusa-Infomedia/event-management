@@ -108,7 +108,7 @@ class EventParticipantsController extends Controller
             ->with('success', 'Participant updated successfully.');
     }
 
-    public function destroy(EventParticipants $eventParticipan)  
+    public function destroy(EventParticipants $eventParticipan)
     {
         if (Auth::user()->role === 'admin' || $eventParticipan->event->id_master === Auth::id()) {
             $eventParticipan->delete();
@@ -118,5 +118,19 @@ class EventParticipantsController extends Controller
         }
 
         abort(403, 'Unauthorized action.');
+    }
+
+    public function scan(Request $request, EventParticipants $eventParticipants)
+    {
+        if (Auth::check() && Auth::id() == $eventParticipants->id_event) {
+            if ($eventParticipants->status == 'Present') return response()->json(['message' => 'Invalid or already used QR code.'], 409);
+
+            $validated = $request->validate([
+                'status' => ['required', 'regex:/^Present$/'],
+            ]);
+
+            $eventParticipants->update($validated);
+            return response()->json(['message' => 'QR code verified successfully.'], 200);
+        }
     }
 }

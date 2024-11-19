@@ -16,9 +16,11 @@
 
     <!-- css -->
     @vite('resources/css/app.css')
+    @yield('style')
 
     <!-- Scripts -->
     @vite('resources/js/app.js')
+    @yield('script_link')
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>

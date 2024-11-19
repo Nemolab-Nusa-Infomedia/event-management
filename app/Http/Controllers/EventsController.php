@@ -108,6 +108,20 @@ class EventsController extends Controller
         ]);
     }
 
+    public function scanner(Events $event){
+        return view('event.scan', compact('event'));
+    }
+
+    public function scan(Request $request,Events $event){
+        if(Auth::check() && Auth::id() == $event->id_master){
+            // $participant = EventParticipants::where('id_event', '=', $event->id)->where('id_user' , '=', $request->id)->get();
+            // $update = $participant->update
+            // if($update){
+            //     return redirect()->route('event.scan', $event->id);
+            // }
+        }
+    }
+
     public function detailEvent()
     {
         return view('home.detailEvent');

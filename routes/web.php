@@ -61,6 +61,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    Route::get('/event/{event}/scan', [EventsController::class, 'scanner'])->name('event.scan');
+
+    Route::get('/verification/{eventParticipan}', [EventParticipantsController::class, 'scan'])->name('participan.verification');
+    Route::put('/verification/{eventParticipan}', [EventParticipantsController::class, 'scan'])->name('participan.verification');
+
     Route::prefix('profile')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('profile');
         Route::get('/change-data', [ProfileController::class, 'show'])->name('profileData');
