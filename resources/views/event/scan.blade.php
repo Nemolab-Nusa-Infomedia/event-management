@@ -2,10 +2,6 @@
 
 @section('title', 'Peserta (Nama Event)')
 
-@section('script_link')
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-@stop
-
 @section('style')
     <style>
         #reader__dashboard_section_csr span {
@@ -29,17 +25,41 @@
     </style>
 @stop
 
+@section('script_link')
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+@stop
+
 @section('content_header')
     <h1 class="text-2xl font-bold dark:text-gray-200 text-gray-700 mb-4">Event : {{ $event->name }}</h1>
 @stop
 
 @section('content')
     <div id="reader" class="bg-gray-200 dark:bg-gray-700 dark:text-white w-full md:w-96"></div>
+    <form class="hidden" method="post" id="scanForm">
+        @csrf
+        @method('put')
+        <input type="hidden" name="status" value="Present">
+    </form>
     <script>
+        let url = null
+
         function onScanSuccess(decodedText, decodedResult) {
-            // handle the scanned code as you like, for example:
-            // console.log(`Code matched = ${decodedText}`, decodedResult);
+            url = decodedText;
+            $('#scanForm').submit();
         }
+        $('#scanForm').on('submit', function(e) {
+            e.preventDefault();
+            // alert(url)
+            $.ajax({
+                type: "post",
+                url: url,
+                data:  $(this).serialize(),
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+
+        });
 
         function onScanFailure(error) {
             // handle scan failure, usually better to ignore and keep scanning.

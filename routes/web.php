@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/event/{event}/scan', [EventsController::class, 'scanner'])->name('event.scan');
 
-    Route::get('/verification/{eventParticipan}', [EventParticipantsController::class, 'scan'])->name('participan.verification');
+    // Route::get('/verification/{eventParticipan}', [EventParticipantsController::class, 'scan'])->name('participan.verification');
     Route::put('/verification/{eventParticipan}', [EventParticipantsController::class, 'scan'])->name('participan.verification');
 
     Route::prefix('profile')->group(function () {

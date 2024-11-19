@@ -120,17 +120,19 @@ class EventParticipantsController extends Controller
         abort(403, 'Unauthorized action.');
     }
 
-    public function scan(Request $request, EventParticipants $eventParticipants)
+    public function scan(Request $request, EventParticipants $eventParticipan)
     {
-        if (Auth::check() && Auth::id() == $eventParticipants->id_event) {
-            if ($eventParticipants->status == 'Present') return response()->json(['message' => 'Invalid or already used QR code.'], 409);
+        $id_master = Events::find($eventParticipan->id_event, ['id_master']);
+        if (Auth::check() && Auth::id() == $id_master['id_master']) {
+            if ($eventParticipan->status == 'Present') return response()->json(['message' => 'Invalid or already used QR code.'], 409);
 
             $validated = $request->validate([
                 'status' => ['required', 'regex:/^Present$/'],
             ]);
 
-            $eventParticipants->update($validated);
+            $eventParticipan->update($validated);
             return response()->json(['message' => 'QR code verified successfully.'], 200);
         }
+        return response()->json(['message' => 'you not have permission'], 403);
     }
 }
