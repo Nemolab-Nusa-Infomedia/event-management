@@ -20,7 +20,7 @@
                 <h4 class="mb-2">Phone Number</h4>
                 <div class="flex items-center relative">
                     <label for="dial_phone" id="dial" onclick="$('#dial_phone').focus()"
-                        class="absolute left-3 w-12 text-center top-2 h-6 bg-gray-50 text-gray-900 dark:bg-gray-700 dark:text-white">+93</label>
+                        class="absolute left-3 w-12 text-center top-2 h-6 bg-gray-50 text-gray-900 dark:bg-gray-700 dark:text-white">+93    </label>
                     <select id="dial_phone" onchange="$('#dial').text($(this).val())" name="dial_phone"
                         class="bg-gray-50 border border-gray-300 text-gray-900 focus-visible:outline-none text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-w-20">
                         @foreach (config('phoneCode') as $item)

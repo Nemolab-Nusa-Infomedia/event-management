@@ -67,7 +67,7 @@
             
             @for ($i = 0; $i < 4; $i++)
                 <img 
-                    class="transform transition duration-300 hover:scale-105 h-auto max-w-full rounded-lg" 
+                    class="transform transition duration-300 hover:scale-105 h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] max-w-full rounded-lg" 
                     src="{{ isset($images[$i]) ? asset('storage/' . trim($images[$i])) : $placeholder }}" 
                     alt="Event Image {{ $i + 1 }}"
                 >
