@@ -73,6 +73,18 @@ class HomeController extends Controller
         return view('dashboard', compact('totalEvent', 'totalUser', 'eventAktif', 'eventSelesai', 'event'));
     }
 
+    public function events(Request $request){
+        if($request->ajax()){
+            if($request->createdAt == 0){
+                $events = Events::orderByDesc('created_at')->take(20)->get();
+                return response()->json($events);
+            }
+            $events = Events::orderByDesc('created_at')->where('created_at', '<', $request->createdAt)->take(20)->get();
+            return response()->json($events);
+        }
+        return view('home.events');
+    }
+
     public function joined(){
         $event = Events::whereHas('eventParticipants', function($query) {
             $query->where('id_user', Auth::id());
