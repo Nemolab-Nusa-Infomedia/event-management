@@ -163,32 +163,63 @@ class EventsController extends Controller
             ->with('success', 'Event updated successfully.');
     }
 
-    public function editPreview(Events $event)
+    public function editPreview($id)
     {
-        $creator = User::find($event->user_id);
+        $event = Events::findOrFail($id);
+        $creator = $event->creator;
         
-        // Format dates
+        // Format date and time
         $formattedDate = \Carbon\Carbon::parse($event->event_date)->format('l, F d, Y');
-        $formattedStartTime = \Carbon\Carbon::parse($event->start_time)->format('H:i');
-        $formattedEndTime = $event->end_time ? \Carbon\Carbon::parse($event->end_time)->format('H:i') : null;
+        $formattedStartTime = \Carbon\Carbon::parse($event->event_start)->format('H:i');
+        $formattedEndTime = $event->event_end 
+            ? \Carbon\Carbon::parse($event->event_end)->format('H:i')
+            : null;
 
         return view('home.editEvent', compact('event', 'creator', 'formattedDate', 'formattedStartTime', 'formattedEndTime'));
     }
 
-    public function updatePreview(Request $request, Events $event)
+    public function updatePreview(Request $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'date' => 'required|date',
-            'start_time' => 'required',
-            'end_time' => 'nullable',
-            'location' => 'required|string',
-            'about' => 'nullable|string'
+        $event = Events::findOrFail($id);
+        
+        if ($request->has('name')) {
+            $request->validate([
+                'name' => 'required|string|max:255'
+            ]);
+            $event->name = $request->name;
+        }
+        
+        if ($request->has('date')) {
+            $request->validate([
+                'date' => 'required|date',
+                'start_time' => 'required',
+                'end_time' => 'nullable'
+            ]);
+            $event->event_date = $request->date;
+            $event->event_start = $request->start_time;
+            $event->event_end = $request->end_time;
+        }
+        
+        if ($request->has('location')) {
+            $request->validate([
+                'location' => 'required|string|max:500'
+            ]);
+            $event->location = $request->location;
+        }
+        
+        if ($request->has('about')) {
+            $request->validate([
+                'about' => 'required|string'
+            ]);
+            $event->about = $request->about;
+        }
+
+        $event->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Event updated successfully'
         ]);
-
-        $event->update($validated);
-
-        return redirect()->back()->with('success', 'Event updated successfully');
     }
 
     public function destroy(Events $event)

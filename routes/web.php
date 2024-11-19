@@ -95,5 +95,5 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/events/preview/{event}', [EventsController::class, 'showPreview'])->name('events.preview');
     Route::get('/events/preview/{event}/edit', [EventsController::class, 'editPreview'])->name('events.preview.edit');
-    Route::put('/events/preview/{event}/update', [EventsController::class, 'updatePreview'])->name('events.preview.update');
+    Route::post('/events/preview/{event}/update', [EventsController::class, 'updatePreview'])->name('events.preview.update');
 });

@@ -138,12 +138,10 @@
     </div>    
 </section>
 
-<!-- Modal Nama Event -->
+<!-- Modal Name -->
 <div id="edit-event-name" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed bg-black/50 dark:bg-black/0 top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
-        <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     Edit Event Name
@@ -155,27 +153,24 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
-            <form class="p-4 md:p-5">
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                    <div class="col-span-2">
-                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+            <form id="editNameForm">
+                <div class="p-4 md:p-5">
+                    <div class="grid gap-4 mb-4 grid-cols-1">
+                        <div class="col-span-1">
+                            <input type="text" name="name" value="{{ $event->name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div>
                     </div>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save Changes</button>
                 </div>
-                <button type="submit" class="block mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                  Save Changes
-              </button>
             </form>
         </div>
     </div>
-</div>   
+</div>
 
 <!-- Modal Date&time Event -->
 <div id="edit-event-datetime" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed bg-black/50 dark:bg-black/0 top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
-        <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     Edit Event Date & Time
@@ -187,36 +182,35 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
-            <form class="p-4 md:p-5">
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                    <div class="col-span-2">
-                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
-                        <input type="date" placeholder="*Event date*" name="date" id="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+            <form id="editDatetimeForm" class="event-edit-form">
+                <div class="p-4 md:p-5">
+                    <div class="grid gap-4 mb-4 grid-cols-2">
+                        <div class="col-span-2">
+                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
+                            <input type="date" name="date" id="date" value="{{ $event->event_date }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                        </div>
+                        <div class="col-span-1">
+                            <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Time</label>
+                            <input type="time" name="start_time" id="start_time" value="{{ $event->event_start }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                        </div>
+                        <div class="col-span-1">
+                            <label for="end_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Time</label>
+                            <input type="time" name="end_time" id="end_time" value="{{ $event->event_end }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </div>
                     </div>
-                    <div class="col-span-2">
-                        <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start</label>
-                        <input type="time" placeholder="*Event date*" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
-                    </div>
-                    <div class="col-span-2">
-                        <label for="end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End</label>
-                        <input type="time" placeholder="*Event date*" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
-                    </div>
-                </div>    
-                <button type="submit" class="block mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                  Save Changes
-              </button>
+                    <button type="submit" class="block mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        Save Changes
+                    </button>
+                </div>
             </form>
         </div>
     </div>
-</div>   
+</div>
 
-<!-- Modal Location Event -->
+<!-- Modal Location -->
 <div id="edit-event-location" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed bg-black/50 dark:bg-black/0 top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
-        <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     Edit Event Location
@@ -228,32 +222,27 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
-            <form class="p-4 md:p-5">
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                    <div class="col-span-2">
-                        <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
-                        <textarea name="location" id="location" rows="3" required
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+            <form id="editLocationForm">
+                <div class="p-4 md:p-5">
+                    <div class="grid gap-4 mb-4 grid-cols-1">
+                        <div class="col-span-1">
+                            <input type="text" name="location" value="{{ $event->location }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div>
                     </div>
-                </div>    
-                <button type="submit" class="block mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                  Save Changes
-              </button>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save Changes</button>
+                </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Modal Description Event -->
+<!-- Modal Description -->
 <div id="edit-event-description" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed bg-black/50 dark:bg-black/0 top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
-        <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Edit Event description
+                    Edit Event Description
                 </h3>
                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="edit-event-description">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -262,22 +251,21 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
-            <form class="p-4 md:p-5">
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                    <div class="col-span-2">
-                        <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Describe your event</label>
-                        <textarea name="location" id="location" rows="3" required
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+            <form id="editDescriptionForm" class="event-edit-form">
+                <div class="p-4 md:p-5">
+                    <div class="grid gap-4 mb-4 grid-cols-1">
+                        <div class="col-span-1">
+                            <textarea name="about" id="about" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>{{ $event->about }}</textarea>
+                        </div>
                     </div>
-                </div>                   
-                <button type="submit" class="block mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                  Save Changes
-              </button>
+                    <button type="submit" class="block mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        Save Changes
+                    </button>
+                </div>
             </form>
         </div>
     </div>
-</div>   
+</div>
 
 <style>
     .scroll-container {
@@ -316,5 +304,47 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+    document.addEventListener('DOMContentLoaded', function() {
+    // Function to handle form submission
+    function handleFormSubmit(formId, modalId) {
+        const form = document.getElementById(formId);
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(`/events/preview/{{ $event->id }}/update`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Close modal
+                    const modal = document.getElementById(modalId);
+                    modal.classList.add('hidden');
+                    
+                    // Reload page to show updates
+                    location.reload();
+                } else {
+                    alert('Failed to update event');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while updating the event');
+            }
+        });
+    }
+
+    // Initialize form handlers
+    handleFormSubmit('editNameForm', 'edit-event-name');
+    handleFormSubmit('editDatetimeForm', 'edit-event-datetime');
+    handleFormSubmit('editLocationForm', 'edit-event-location');
+    handleFormSubmit('editDescriptionForm', 'edit-event-description');
+});
 </script>        
 @stop
