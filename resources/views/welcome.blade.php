@@ -46,7 +46,7 @@
                     <img src="{{ $event->thumbnail_img ? asset('storage/' . $event->thumbnail_img) : 'https://placehold.co/800x600/f3f4f6/000000/webp?text=Event+Image' }}"
                     alt="{{ $event->name }}" 
                          class="w-full h-48 object-cover rounded-lg mb-4">
-                    <h3 class="text-xl font-semibold mb-2">{{ $event->name }}</h3>
+                    <h3 class="text-xl break-words font-semibold mb-2">{{ $event->name }}</h3>
                     <p class="text-gray-700 dark:text-gray-300 mb-2">
                         <strong>Date:</strong> {{ \Carbon\Carbon::parse($event->event_date)->format('F d, Y') }}
                     </p>
