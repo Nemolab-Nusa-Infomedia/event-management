@@ -21,9 +21,6 @@
                     End
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Presence
-                </th>
-                <th scope="col" class="px-6 py-3">
                     Action
                 </th>
             </tr>
@@ -42,15 +39,6 @@
                 </td>
                 <td class="px-6 py-4">
                     {{ $item->event_end }}
-                </td>
-                <td class="px-6 py-4">
-                    <select 
-                        data-event-id="{{ $item->id }}"
-                        class="status-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    >
-                        <option value="Present" {{ $item->eventParticipants[0]->status == 'Present' ? 'selected' : '' }}>Present</option>
-                        <option value="Absent" {{ $item->eventParticipants[0]->status == 'Absent' ? 'selected' : '' }}>Absent</option>
-                    </select>
                 </td>
                 <td class="px-6 py-4">
                     <button data-modal-target="ticket-modal-{{ $item->id }}" data-modal-toggle="ticket-modal-{{ $item->id }}" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
