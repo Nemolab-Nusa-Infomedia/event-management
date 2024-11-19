@@ -4,13 +4,16 @@
 <div class="container mx-auto p-4 sm:p-8 mb-4">  
     <div class="w-full h-64 rounded-lg shadow-lg overflow-hidden mb-4" data-aos="fade-up" data-aos-offset="100">
         <div class="scroll-container">
-            <img src="{{ asset('vendor/img/wallpaperflare.com_wallpaper (14).jpg') }}" 
-                 alt="Event Image" 
+            <img src="{{ $event->thumbnail_img ? asset('storage/' . $event->thumbnail_img) : 'https://placehold.co/1700x1000/f3f4f6/000000/webp?text=Event+Image' }}"
+            alt="{{ $event->name }}" 
                  class="w-auto h-full object-cover">
         </div>
     </div>
-    <p class="text-gray-500 dark:text-gray-300"><strong>Wednesday</strong>, March 15, 2024</p>
-    <h1 class="flex text-3xl sm:text-5xl dark:text-gray-200 font-bold text-gray-700 mb-8">Nama Event   
+    <p class="text-gray-500 dark:text-gray-300">
+        <strong>{{ $formattedDate }}</strong>
+    </p>
+    <h1 class="text-3xl sm:text-5xl dark:text-gray-200 font-bold text-gray-700 mb-8">
+            {{ $event->name }}  
         <button data-modal-target="edit-event-name" data-modal-toggle="edit-event-name" class="text-blue-600 dark:text-blue-600 hover:text-gray-500">
             <svg class="w-[16px] h-[16px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
@@ -18,8 +21,9 @@
         </button>
     </h1>
     <div class="flex items-center" data-aos="fade-up" data-aos-offset="100">
-        <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
-        <p class="mx-4">by <strong>Username</strong></p>
+        <img class="w-8 h-8 rounded-full" src="{{ Auth::user()->profile_pict ? Storage::url('profile_pictures/' . Auth::user()->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}"
+        alt="user photo">
+        <p class="mx-4">by <strong>{{ $creator->name }}</strong></p>
     </div>
 </div>
 
@@ -39,10 +43,12 @@
                 <p class="flex items-center">
                     <svg class="mx-2 w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M5 5a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1 2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a2 2 0 0 1 2-2ZM3 19v-7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Zm6.01-6a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-10 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z" clip-rule="evenodd"/>
-                      </svg>                      
-                    March 15, 2024 | <svg class="mx-2 w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    </svg>                      
+                    {{ $formattedDate }} | 
+                    <svg class="mx-2 w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"/>
-                    </svg> 10:00 AM - 12:00 PM
+                    </svg> 
+                    {{ $formattedStartTime }} @if($formattedEndTime) - {{ $formattedEndTime }} @endif
                 </p>
             </div>
             <div class="p-4 sm:p-8 mb-6">
@@ -57,7 +63,7 @@
                     <svg class="mx-2 w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518Z"/>
                     </svg>          
-                    Jl. Jenderal Sudirman No. 1, Jakarta Pusat
+                    {{ $event->location }}
                 </p>
             </div>
             <div class="p-4 sm:p-8 mb-6">
@@ -68,10 +74,7 @@
                           </svg>
                     </button>
                 </h1>     
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quaem?</p>
-                <button data-modal-target="edit-event-name" data-modal-toggle="edit-event-name" class="block mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                    Join
-                </button>
+                <p>{{ $event->about ?? 'No description available' }}</p>
             </div>
         </div>
 

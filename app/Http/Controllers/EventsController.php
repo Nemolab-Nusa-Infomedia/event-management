@@ -6,6 +6,7 @@ use App\Models\EventParticipants;
 use App\Models\Events;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -161,6 +162,35 @@ class EventsController extends Controller
         return redirect()->route('event.index')
             ->with('success', 'Event updated successfully.');
     }
+
+    public function editPreview(Events $event)
+    {
+        $creator = User::find($event->user_id);
+        
+        // Format dates
+        $formattedDate = \Carbon\Carbon::parse($event->event_date)->format('l, F d, Y');
+        $formattedStartTime = \Carbon\Carbon::parse($event->start_time)->format('H:i');
+        $formattedEndTime = $event->end_time ? \Carbon\Carbon::parse($event->end_time)->format('H:i') : null;
+
+        return view('home.editEvent', compact('event', 'creator', 'formattedDate', 'formattedStartTime', 'formattedEndTime'));
+    }
+
+    public function updatePreview(Request $request, Events $event)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'date' => 'required|date',
+            'start_time' => 'required',
+            'end_time' => 'nullable',
+            'location' => 'required|string',
+            'about' => 'nullable|string'
+        ]);
+
+        $event->update($validated);
+
+        return redirect()->back()->with('success', 'Event updated successfully');
+    }
+
     public function destroy(Events $event)
     {
         if (Auth::user()->role !== 'admin' && $event->id_master !== Auth::id()) {
