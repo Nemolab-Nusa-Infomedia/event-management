@@ -106,7 +106,7 @@
                                 </p>
                                 <a href="{{ route('events.preview', '') }}/${data['id']}" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                     See Details
-                                </a>
+                                </a>    
                             </div>
                         `);
                             createdat = data['created_at'];
