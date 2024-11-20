@@ -27,7 +27,7 @@ class EventsController extends Controller
 
     public function create()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             if (Auth::user()->no_telp == null || Auth::user()->alamat == null) {
                 return redirect()->route('event.index')->with('error', 'Please complete your personal data first');
             }
@@ -92,7 +92,7 @@ class EventsController extends Controller
         // Format dates using Carbon
         $formattedDate = \Carbon\Carbon::parse($event->event_date)->format('l, F d, Y');
         $formattedStartTime = \Carbon\Carbon::parse($event->event_start)->format('H:i');
-        $formattedEndTime = $event->event_end 
+        $formattedEndTime = $event->event_end
             ? \Carbon\Carbon::parse($event->event_end)->format('H:i')
             : null;
 
@@ -108,12 +108,14 @@ class EventsController extends Controller
         ]);
     }
 
-    public function scanner(Events $event){
+    public function scanner(Events $event)
+    {
         return view('event.scan', compact('event'));
     }
 
-    public function scan(Request $request,Events $event){
-        if(Auth::check() && Auth::id() == $event->id_master){
+    public function scan(Request $request, Events $event)
+    {
+        if (Auth::check() && Auth::id() == $event->id_master) {
             // $participant = EventParticipants::where('id_event', '=', $event->id)->where('id_user' , '=', $request->id)->get();
             // $update = $participant->update
             // if($update){
@@ -180,13 +182,13 @@ class EventsController extends Controller
     public function editPreview($id)
     {
         $event = Events::findOrFail($id);
-        $event['images'] = explode(', ', $event['quad_img']);
+        $event['images'] = $event['quad_img'] != null ? explode(', ', $event['quad_img']) : null;
         $creator = $event->creator;
-        
+
         // Format date and time
         $formattedDate = \Carbon\Carbon::parse($event->event_date)->format('l, F d, Y');
         $formattedStartTime = \Carbon\Carbon::parse($event->event_start)->format('H:i');
-        $formattedEndTime = $event->event_end 
+        $formattedEndTime = $event->event_end
             ? \Carbon\Carbon::parse($event->event_end)->format('H:i')
             : null;
         // return response()->json($event['images'][0]);
@@ -196,14 +198,14 @@ class EventsController extends Controller
     public function updatePreview(Request $request, $id)
     {
         $event = Events::findOrFail($id);
-        
+
         if ($request->has('name')) {
             $request->validate([
                 'name' => 'required|string|max:255'
             ]);
             $event->name = $request->name;
         }
-        
+
         if ($request->has('date')) {
             $request->validate([
                 'date' => 'required|date',
@@ -214,14 +216,14 @@ class EventsController extends Controller
             $event->event_start = $request->start_time;
             $event->event_end = $request->end_time;
         }
-        
+
         if ($request->has('location')) {
             $request->validate([
                 'location' => 'required|string|max:500'
             ]);
             $event->location = $request->location;
         }
-        
+
         if ($request->has('about')) {
             $request->validate([
                 'about' => 'required|string'
@@ -229,32 +231,53 @@ class EventsController extends Controller
             $event->about = $request->about;
         }
 
+        if ($request->deleted_image != '') {
+            // Get current images
+            $images = $event['quad_img'] != null ? explode(', ', $event['quad_img']) : [];
+
+            $imagesDeleted = explode(',', $request['deleted_image']);
+            // return response()->json(['success' => true, 'data' => $imagesDeleted]);
+            foreach ($imagesDeleted as $index) {
+                // if (isset($images[$index])) {
+                // Delete the file from storage
+                Storage::disk('public')->delete($images[$index]);
+
+                // Remove the image from the array
+                unset($images[$index]);
+
+                // Reindex array and update database
+                // }
+            }
+            $images = array_values($images);
+            $event->quad_img = !empty($images) ? implode(', ', $images) : null;
+        }
+
         if ($request->has('has_image') && $request->input('has_image') == 'true') {
             $images = $event['quad_img'] != null ? explode(', ', $event['quad_img']) : [];
-        
+
             if ($request->hasFile('image_1')) {
                 $image1 = $request->file('image_1')->store('images', 'public');
                 $images[] = $image1;
             }
-        
+
             if ($request->hasFile('image_2')) {
                 $image2 = $request->file('image_2')->store('images', 'public');
                 $images[] = $image2;
             }
-        
+
             if ($request->hasFile('image_3')) {
                 $image3 = $request->file('image_3')->store('images', 'public');
                 $images[] = $image3;
             }
-        
+
             if ($request->hasFile('image_4')) {
                 $image4 = $request->file('image_4')->store('images', 'public');
                 $images[] = $image4;
             }
-        
+
             $event->quad_img = implode(', ', $images);
         }
-        
+
 
         $event->save();
 

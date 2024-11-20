@@ -109,7 +109,16 @@
 
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-2" data-aos="zoom-in" data-aos-offset="100">
                 <!-- Input File 1 -->
-                <div>
+                <div class="relative">
+                    <svg class="absolute @if (!isset($event['images'][0])) hidden @endif right-0 bg-white border-black border z-10 w-6 h-6 text-gray-800 rounded-lg"
+                        id="delete-1" onclick="event.preventDefault(); deleteImage(1);" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18 17.94 6M18 18 6.06 6" />
+                    </svg>
+
+
                     <label for="file-upload-1" class="cursor-pointer">
                         <div id="default-1"
                             class="transform transition duration-300 hover:scale-105 h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] max-w-full rounded-lg justify-center items-center flex bg-gray-50 dark:bg-gray-700 @if (isset($event['images'][0])) hidden @endif">
@@ -124,15 +133,23 @@
                         </div>
                         <img id="preview-1"
                             class="@if (!isset($event['images'][0])) hidden @endif transform transition duration-300 hover:scale-105 object-cover h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] rounded-lg border border-gray-300"
-                            src="{{ isset($event['images'][0]) ? asset('storage/' . $event['images'][0]) : '' }}" alt="Preview">
+                            src="{{ isset($event['images'][0]) ? asset('storage/' . $event['images'][0]) : '' }}"
+                            alt="Preview">
                     </label>
                 </div>
 
                 <!-- Input File 2 -->
-                <div>
+                <div class="relative">
+                    <svg class="absolute @if (!isset($event['images'][1])) hidden @endif right-0 bg-white border-black border z-10 w-6 h-6 text-gray-800 rounded-lg"
+                        id="delete-2" onclick="event.preventDefault(); deleteImage(2);" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18 17.94 6M18 18 6.06 6" />
+                    </svg>
                     <label for="file-upload-2" class="cursor-pointer">
                         <div id="default-2"
-                            class="transform transition duration-300 hover:scale-105 h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] max-w-full rounded-lg justify-center items-center flex bg-gray-50 dark:bg-gray-700 @if(isset($event['images'][1])) hidden @endif">
+                            class="transform transition duration-300 hover:scale-105 h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] max-w-full rounded-lg justify-center items-center flex bg-gray-50 dark:bg-gray-700 @if (isset($event['images'][1])) hidden @endif">
                             <svg class="w-[50px] h-[50px] text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -143,16 +160,24 @@
                             Add Photo
                         </div>
                         <img id="preview-2"
-                            class="@if(!isset($event['images'][1])) hidden @endif transform transition duration-300 hover:scale-105 object-cover h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] rounded-lg border border-gray-300"
-                            src="{{ isset($event['images'][1]) ? asset('storage/' . $event['images'][1]) : '' }}" alt="Preview">
+                            class="@if (!isset($event['images'][1])) hidden @endif transform transition duration-300 hover:scale-105 object-cover h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] rounded-lg border border-gray-300"
+                            src="{{ isset($event['images'][1]) ? asset('storage/' . $event['images'][1]) : '' }}"
+                            alt="Preview">
                     </label>
                 </div>
 
                 <!-- Input File 3 -->
-                <div>
+                <div class="relative">
+                    <svg class="absolute right-0 @if (!isset($event['images'][2])) hidden @endif bg-white border-black border z-10 w-6 h-6 text-gray-800 rounded-lg"
+                        id="delete-3" onclick="event.preventDefault(); deleteImage(3);" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18 17.94 6M18 18 6.06 6" />
+                    </svg>
                     <label for="file-upload-3" class="cursor-pointer">
                         <div id="default-3"
-                            class="transform transition duration-300 hover:scale-105 h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] max-w-full rounded-lg justify-center items-center flex bg-gray-50 dark:bg-gray-700 @if(isset($event['images'][2])) hidden @endif">
+                            class="transform transition duration-300 hover:scale-105 h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] max-w-full rounded-lg justify-center items-center flex bg-gray-50 dark:bg-gray-700 @if (isset($event['images'][2])) hidden @endif">
                             <svg class="w-[50px] h-[50px] text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -163,16 +188,24 @@
                             Add Photo
                         </div>
                         <img id="preview-3"
-                            class="@if(!isset($event['images'][2])) hidden @endif transform transition duration-300 hover:scale-105 object-cover h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] rounded-lg border border-gray-300"
-                            src="{{ isset($event['images'][2]) ? asset('storage/' . $event['images'][2]) : '' }}" alt="Preview">
+                            class="@if (!isset($event['images'][2])) hidden @endif transform transition duration-300 hover:scale-105 object-cover h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] rounded-lg border border-gray-300"
+                            src="{{ isset($event['images'][2]) ? asset('storage/' . $event['images'][2]) : '' }}"
+                            alt="Preview">
                     </label>
                 </div>
 
                 <!-- Input File 4 -->
-                <div>
+                <div class="relative">
+                    <svg class="absolute @if (!isset($event['images'][3])) hidden @endif right-0 bg-white border-black border z-10 w-6 h-6 text-gray-800 rounded-lg"
+                        id="delete-4" onclick="event.preventDefault(); deleteImage(4);" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18 17.94 6M18 18 6.06 6" />
+                    </svg>
                     <label for="file-upload-4" class="cursor-pointer">
                         <div id="default-4"
-                            class="transform transition duration-300 hover:scale-105 h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] max-w-full rounded-lg justify-center items-center flex bg-gray-50 dark:bg-gray-700 @if(isset($event['images'][3])) hidden @endif">
+                            class="transform transition duration-300 hover:scale-105 h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] max-w-full rounded-lg justify-center items-center flex bg-gray-50 dark:bg-gray-700 @if (isset($event['images'][3])) hidden @endif">
                             <svg class="w-[50px] h-[50px] text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -183,20 +216,22 @@
                             Add Photo
                         </div>
                         <img id="preview-4"
-                            class="@if(!isset($event['images'][3])) hidden @endif transform transition duration-300 hover:scale-105 object-cover h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] rounded-lg border border-gray-300"
-                            src="{{ isset($event['images'][3]) ? asset('storage/' . $event['images'][3]) : '' }}" alt="Preview">
+                            class="@if (!isset($event['images'][3])) hidden @endif transform transition duration-300 hover:scale-105 object-cover h-[250px] sm:h-[200px] md:h-[250px] lg:h-[250px] w-[250px] sm:w-[200px] md:w-[250px] lg:w-[350px] rounded-lg border border-gray-300"
+                            src="{{ isset($event['images'][3]) ? asset('storage/' . $event['images'][3]) : '' }}"
+                            alt="Preview">
                     </label>
                 </div>
                 <form enctype="multipart/form-data" method="post" class="col-span-2" id="imagePreview">
+                    <input type="text" class="hidden" name="deleted_image" id="deleted_image">
                     <input type="hidden" name="has_image" id="_image_">
                     <input id="file-upload-1" type="file" accept="image/*" name="image_1" class="hidden"
-                        onchange="previewImage(event, 'preview-1', 'default-1')">
+                        onchange="previewImage(event, 'preview-1', 'default-1', 1)">
                     <input id="file-upload-2" type="file" accept="image/*" name="image_2" class="hidden"
-                        onchange="previewImage(event, 'preview-2', 'default-2')">
+                        onchange="previewImage(event, 'preview-2', 'default-2', 2)">
                     <input id="file-upload-3" type="file" accept="image/*" name="image_3" class="hidden"
-                        onchange="previewImage(event, 'preview-3', 'default-3')">
+                        onchange="previewImage(event, 'preview-3', 'default-3', 3)">
                     <input id="file-upload-4" type="file" accept="image/*" name="image_4" class="hidden"
-                        onchange="previewImage(event, 'preview-4', 'default-4')">
+                        onchange="previewImage(event, 'preview-4', 'default-4', 4)">
                     <button class="bg-blue-500 w-full p-2 rounded-lg" onclick="$('#_image_').val('true')">Save</button>
                 </form>
             </div>
@@ -397,18 +432,20 @@
     </style>
 
     <script>
-        function previewImage(event, previewId, defaultId) {
+        function previewImage(event, previewId, defaultId, index) {
             const input = event.target;
             const reader = new FileReader();
 
             reader.onload = function(e) {
                 const preview = $('#' + previewId);
                 const defaultElement = $('#' + defaultId);
+                const deleteIcon = $('#delete-' + index);
 
                 // Tampilkan pratinjau dan sembunyikan elemen default
                 preview.attr('src', e.target.result);
                 preview.removeClass('hidden');
                 defaultElement.addClass('hidden');
+                deleteIcon.removeClass('hidden');
             };
 
             if (input.files && input.files[0]) {
@@ -418,6 +455,8 @@
 
         $(document).ready(function() {
             // Function to handle form submission
+            const deleteImage = $('#deleted_image');
+
             function handleFormSubmit(formId, modalId = null) {
                 const form = $('#' + formId);
                 form.on('submit', async function(e) {
@@ -459,6 +498,43 @@
             handleFormSubmit('editDatetimeForm', 'edit-event-datetime');
             handleFormSubmit('editLocationForm', 'edit-event-location');
             handleFormSubmit('editDescriptionForm', 'edit-event-description');
+
         });
+
+        function deleteImage(id) {
+            // Prevent event bubbling
+            event.stopPropagation();
+
+            if (confirm("Are you sure you want to delete this image?")) {
+                // Get elements
+                const preview = document.getElementById(`preview-${id}`);
+                const defaultDiv = document.getElementById(`default-${id}`);
+                const fileInput = document.getElementById(`file-upload-${id}`);
+                const deleteIcon = document.getElementById(`delete-${id}`);
+
+                // Reset the file input
+                fileInput.value = '';
+
+                // Hide preview and show default upload div
+                preview.classList.add('hidden');
+                preview.src = '';
+                defaultDiv.classList.remove('hidden');
+                deleteIcon.classList.add('hidden');
+
+                // Add the deleted image ID to the hidden input if needed
+                let deletedInput = document.getElementById('deleted_image');
+                let currentDeleted = deletedInput.value ? deletedInput.value.split(',') : [];
+
+                id -= 1;
+
+                if (!currentDeleted.includes(id.toString())) {
+                    currentDeleted.push(id);
+                }
+
+                deletedInput.value = currentDeleted.sort((a, b) => a - b).join(',');
+                console.log(deletedInput.value);
+
+            }
+        }
     </script>
 @stop
