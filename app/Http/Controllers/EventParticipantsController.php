@@ -56,13 +56,14 @@ class EventParticipantsController extends Controller
         $event = Events::findOrFail($request->id_event);
         if ($event) {
             MailSenderController::SendNotif($request);
+            return redirect()->route('participants.index')
+                ->with('success', 'Participant added successfully.');
         }
         if (Auth::user()->role !== 'admin' && $event->id_master !== Auth::id()) {
             return redirect()->route('home')
                 ->with('success', 'Participant added successfully.');
         }
-        return redirect()->route('participants.index')
-            ->with('success', 'Participant added successfully.');
+        return redieract()->route('participants.index')->with('fail', 'Cannot add participant');
     }
 
     /**
