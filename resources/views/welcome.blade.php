@@ -8,7 +8,7 @@
         <h2 class="text-4xl font-bold mb-4">Welcome to OURevent</h2>
         <p class="mb-6">Discover the best solution to manage your event efficiently.</p>
         <a href="#Events" class="text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-200">
-            See Current Event
+            See Resent Event
         </a>
     </div>
 </section>
