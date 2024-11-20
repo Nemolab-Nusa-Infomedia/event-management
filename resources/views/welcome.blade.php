@@ -38,7 +38,7 @@
 <!-- Events Section -->
 <section id="Events" class="py-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
     <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-semibold mb-8">Events</h2>
+        <h2 class="text-3xl font-semibold mb-8">Resent Events</h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
             @forelse ($events as $event)
             <div data-aos="zoom-in" data-aos-offset="-100">
