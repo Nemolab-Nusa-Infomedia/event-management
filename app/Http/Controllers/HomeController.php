@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Events;
 use Illuminate\Http\Request;
@@ -73,13 +74,55 @@ class HomeController extends Controller
         return view('dashboard', compact('totalEvent', 'totalUser', 'eventAktif', 'eventSelesai', 'event'));
     }
 
-    public function events(Request $request){
-        if($request->ajax()){
-            if($request->createdAt == 0){
-                $events = Events::orderByDesc('created_at')->take(20)->get();
-                return response()->json($events);
+    public function events(Request $request) {
+        if($request->ajax()) {
+            $query = Events::query();
+            
+            // Apply sorting based on category
+            switch($request->sort) {
+                case 'upcoming':
+                    $query->whereDate('event_date', '>=', Carbon::now()->toDateString())
+                          ->orderBy('event_date', 'asc')
+                          ->orderBy('event_start', 'asc');
+                    break;
+                case 'created_at':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                case 'all':
+                    $query->orderBy('event_date', 'desc')
+                          ->orderBy('event_start', 'desc');
+                    break;
             }
-            $events = Events::orderByDesc('created_at')->where('created_at', '<', $request->createdAt)->take(20)->get();
+                
+            if($request->createdAt) {
+                $query->where('created_at', '<', Carbon::parse($request->createdAt));
+            }
+            
+            $events = $query->take(20)->get()
+                ->map(function($event) {
+                    $eventDate = Carbon::parse($event->event_date);
+                    $eventStart = Carbon::parse($event->event_start);
+                    $eventEnd = Carbon::parse($event->event_end);
+                    
+                    $event->formatted_date = $eventDate->setTimezone('Asia/Jakarta')->format('F d, Y');
+                    $event->formatted_start = $eventStart->setTimezone('Asia/Jakarta')->format('g:i A');
+                    $event->formatted_end = $eventEnd->setTimezone('Asia/Jakarta')->format('g:i A');
+                    
+                    $eventDateTime = Carbon::parse($event->event_date . ' ' . $event->event_start)->setTimezone('Asia/Jakarta');
+                    $eventEndDateTime = Carbon::parse($event->event_date . ' ' . $event->event_end)->setTimezone('Asia/Jakarta');
+                    $now = Carbon::now()->setTimezone('Asia/Jakarta');
+
+                    if ($now->between($eventDateTime, $eventEndDateTime)) {
+                        $event->status = 'ongoing';
+                    } elseif ($now->greaterThan($eventEndDateTime)) {
+                        $event->status = 'ended';
+                    } else {
+                        $event->status = 'upcoming';
+                    }
+                    
+                    return $event;
+                });
+                
             return response()->json($events);
         }
         return view('home.events');
