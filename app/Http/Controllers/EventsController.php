@@ -180,6 +180,7 @@ class EventsController extends Controller
     public function editPreview($id)
     {
         $event = Events::findOrFail($id);
+        $event['images'] = explode(', ', $event['quad_img']);
         $creator = $event->creator;
         
         // Format date and time
@@ -188,7 +189,7 @@ class EventsController extends Controller
         $formattedEndTime = $event->event_end 
             ? \Carbon\Carbon::parse($event->event_end)->format('H:i')
             : null;
-
+        // return response()->json($event['images'][0]);
         return view('home.editEvent', compact('event', 'creator', 'formattedDate', 'formattedStartTime', 'formattedEndTime'));
     }
 
@@ -227,6 +228,33 @@ class EventsController extends Controller
             ]);
             $event->about = $request->about;
         }
+
+        if ($request->has('has_image') && $request->input('has_image') == 'true') {
+            $images = $event['quad_img'] != null ? explode(', ', $event['quad_img']) : [];
+        
+            if ($request->hasFile('image_1')) {
+                $image1 = $request->file('image_1')->store('images', 'public');
+                $images[] = $image1;
+            }
+        
+            if ($request->hasFile('image_2')) {
+                $image2 = $request->file('image_2')->store('images', 'public');
+                $images[] = $image2;
+            }
+        
+            if ($request->hasFile('image_3')) {
+                $image3 = $request->file('image_3')->store('images', 'public');
+                $images[] = $image3;
+            }
+        
+            if ($request->hasFile('image_4')) {
+                $image4 = $request->file('image_4')->store('images', 'public');
+                $images[] = $image4;
+            }
+        
+            $event->quad_img = implode(', ', $images);
+        }
+        
 
         $event->save();
 

@@ -12,3 +12,4 @@ Artisan::command('inspire', function () {
 Schedule::call(function () {
     User::whereNull('email_verified_at')->where('email_verification_expired_at', '<', now())->delete();
 })->everyMinute();
+Schedule::command('cache:clear')->everyTenMinutes();
