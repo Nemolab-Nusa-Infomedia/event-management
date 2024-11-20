@@ -1,22 +1,94 @@
-@include('layouts.components.header')
-<body class="bg-gray-900 text-gray-100">
-    <div class="container mx-auto mt-10 p-6 bg-gray-800 rounded-lg shadow-lg">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-color: #1a202c;
+            color: #f7fafc;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2.5rem auto;
+            padding: 1.5rem;
+            background-color: #2d3748;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f7fafc;
+            margin-bottom: 1.5rem;
+        }
+
+        .header img {
+            height: 2rem;
+            margin-right: 0.75rem;
+        }
+
+        .content {
+            margin-bottom: 2rem;
+            color: #e2e8f0;
+        }
+
+        .content h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f7fafc;
+            margin-bottom: 1rem;
+        }
+
+        .content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 640px) {
+            .grid-cols-2 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .footer {
+            color: #a0aec0;
+            font-size: 0.875rem;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
         <!-- Header -->
-        <div class="header flex items-center text-left text-2xl font-bold text-gray-100 mb-6">
-            <img src="{{ asset('vendor/img/Logo.png') }}" class="h-8 mr-3" alt="OURevent Logo" />
-            <span class="text-xl font-semibold whitespace-nowrap">OURevent - Event Joined</span>
+        <div class="header">
+            <img src="{{ asset('vendor/img/Logo.png') }}" alt="OURevent Logo" />
+            <span>OURevent - Event Joined</span>
         </div>
 
         <!-- Content -->
-        <div class="content text-left text-gray-300 mb-8">
+        <div class="content">
             <p>Hello, <strong>{{$user->name}}</strong>!</p>
             <p>You have joined the event: <strong>{{$event->name}}</strong></p>
         </div>
 
         <!-- User Information -->
-        <div class="content text-left text-gray-300 mb-8">
-            <h1 class="text-2xl font-bold text-gray-100 mb-4">Your Information</h1>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="content">
+            <h1>Your Information</h1>
+            <div class="grid grid-cols-1 grid-cols-2">
                 <p><strong>Name:</strong> {{$user->name}}</p>
                 <p><strong>Email:</strong> {{$user->email}}</p>
                 <p><strong>Phone:</strong> {{$user->no_telp}}</p>
@@ -25,17 +97,17 @@
         </div>
 
         <!-- Event Details -->
-        <div class="content text-left text-gray-300 mb-8">
-            <h1 class="text-2xl font-bold text-gray-100 mb-4">Event Details</h1>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <p><strong>Event Name:</strong> {{$event->name}}</p>
-                <p><strong>Event Date:</strong> {{ \Carbon\Carbon::parse($event->event_date)->format('F d, Y') }}</p>    
+        <div class="content">
+            <h1>Event Details</h1>
+            <div class="grid grid-cols-1 grid-cols-2" style="color: #e2e8f0">
+                <p><strong>Event Name:</strong> {{ $event->name }}</p>
+                <p style="color: #e2e8f0"><strong>Event Date:</strong> {{ \Carbon\Carbon::parse($event->event_date)->format('F d, Y') }}</p>
                 <p><strong>Event Start:</strong> {{ \Carbon\Carbon::parse($event->event_start)->format('h:i A') }}</p>
             </div>
         </div>
 
         <!-- Footer -->
-        <div class="footer text-left text-gray-400 mt-6 text-sm">
+        <div class="footer">
             <p>Thank you for using OURevent. We look forward to seeing you at the event!</p>
         </div>
     </div>
