@@ -15,7 +15,7 @@ public static function SendNotif(Request $request)
 {
     $user = Auth::user();
     $event = Events::where('id', '=', $request->id_event)->get('name');
-    Mail::to($user->email)->send(new EventJoined($event[0]->name));
+    Mail::to($user->email)->send(new EventJoined($event[0], $user));
 }
 
 }

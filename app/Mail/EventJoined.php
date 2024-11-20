@@ -10,16 +10,18 @@ class EventJoined extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $eventName;
+    public $event = [];
+    public $user = [];
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($eventName)
+    public function __construct($event, $user)
     {
-        $this->eventName = $eventName;
+        $this->event = $event;
+        $this->user = $user;
     }
 
     /**
@@ -32,7 +34,8 @@ class EventJoined extends Mailable
         return $this->subject('Event Joined')
                     ->view('mails.eventJoined')
                     ->with([
-                        'eventName' => $this->eventName,
+                        'event' => $this->event,
+                        'user' => $this->user
                     ]);
     }
 }

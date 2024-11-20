@@ -63,7 +63,7 @@ class EventParticipantsController extends Controller
             return redirect()->route('home')
                 ->with('success', 'Participant added successfully.');
         }
-        return redieract()->route('participants.index')->with('fail', 'Cannot add participant');
+        return redirect()->route('participants.index')->with('fail', 'Cannot add participant');
     }
 
     /**
