@@ -19,7 +19,7 @@
             </li>
             <li>
                 <a href="{{ route('home.events') }}"
-                    class="transition-all duration-100 flex items-center p-2 dark:fill:white fill-gray-900 text-gray-900 rounded-lg dark:text-white hover:bg-blue-200 dark:hover:bg-blue-700 hover:fill-black active:bg-blue-300 group @if (Route::is('home.events  ')) bg-blue-400 @endif">
+                    class="transition-all duration-100 flex items-center p-2 dark:fill:white fill-gray-900 text-gray-900 rounded-lg dark:text-white hover:bg-blue-200 dark:hover:bg-blue-700 hover:fill-black active:bg-blue-300 group @if (Route::is('home.events')) bg-blue-400 @endif">
                     <svg class="min-w-6 min-h-6 text-gray-800 dark:text-white" aria-hidden="true" 
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" 
                         viewBox="0 0 24 24"><path fill-rule="evenodd" 
@@ -52,7 +52,7 @@
                         </li>
                     @endif
                 @endforeach
-                <div>
+                <div class="">
                     <input id="ParticipantDropDown" @if (Route::currentRouteName() == 'event.show') checked @endif type="checkbox"
                         class="sr-only peer" aria-hidden="true"
                         onchange="$(document).ready(function () {$('#ParticipantDropDown').prop('checked') ? $('#smallSidebar').prop('checked', false) : ''});">
@@ -73,7 +73,7 @@
                         </svg>
                     </label>
                     <ul
-                        class="mx-2 transition-all duration-100 opacity-0 peer-checked:opacity-100 text-sm dark:bg-slate-900 text-gray-700 bg-gray-50 dark:text-gray-200 hidden peer-checked:block">
+                        class="mx-2 transition-all @if(Auth::check() && Auth::user()->role == 'admin') max-h-[calc(100svh_-_37rem)] @elseif(Auth::check() && Auth::user()->role == 'user') max-h-[calc(100svh_-_34rem)] @endif overflow-y-scroll duration-100 opacity-0 peer-checked:opacity-100 text-sm dark:bg-slate-900 text-gray-700 bg-gray-50 dark:text-gray-200 hidden peer-checked:block">
                         @if ($myEvents->isEmpty())
                             <li>
                                 <p class="block px-4 py-2">
@@ -95,7 +95,7 @@
 
         </ul>
     </div>
-    <div class="px-3 pb-4 bg-white dark:bg-gray-800">
+    <div class="px-3 pb-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
         @auth
 
             <ul class="w-full p-0 font-medium flex flex-col mt-2 gap-2">
