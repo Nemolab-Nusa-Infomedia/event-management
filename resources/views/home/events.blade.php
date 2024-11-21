@@ -56,97 +56,135 @@
 
 @section('script')
     <script>
-        let createdat = 0
+        let createdat = 0;
+        let loading = false;
+
         $(document).ready(function() {
             let index = 20;
 
+            function getEventStatusClass(status) {
+                switch(status) {
+                    case 'ongoing':
+                        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+                    case 'ended':
+                        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+                    case 'upcoming':
+                        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
+                    default:
+                        return '';
+                }
+            }
+
+            function capitalizeFirstLetter(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
+
             function getEvent() {
-                index = 0
+                if(loading) return;
+                loading = true;
+                
                 $.ajax({
-                    type: "get",
+                    type: "get", 
                     url: "{{ route('home.events') }}",
                     data: {
                         'createdAt': createdat,
+                        'sort': $('#sort-select').val()
                     },
                     success: function(response) {
-                        console.log(response)
-                        // Function to format date
-                        function formatDate(dateString) {
-                            const options = {
-                                year: 'numeric',
-                                month: 'long',
-                                day: '2-digit'
-                            };
-                            const date = new Date(dateString);
-                            return date.toLocaleDateString('en-US', options);
-                        }
-                        // Function to format time
-                        function formatTime(dateString) {
-                            const options = {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                hour12: true
-                            };
-                            const date = new Date(dateString);
-                            return date.toLocaleTimeString('en-US', options);
-                        }
-                        response.forEach((data) => {
-                            $('#content').append(`
-                            <div class="max-w-[540px] p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
-                                <img src="http://localhost:8000/storage/${data['thumbnail_img']}" alt="${data['name']}" class="w-full h-48 object-cover rounded-lg mb-4">
-                                <h3 class="text-xl font-semibold mb-2">${data['name']}</h3>
-                                <p class="text-gray-700 dark:text-gray-300 mb-2">
-                                    <strong>Date:</strong> ${formatDate(data['event_date'])}
-                                </p>
-                                <p class="text-gray-700 dark:text-gray-300 mb-2">
-                                    <strong>Time:</strong> ${formatTime(data['event_start'])}
-                                </p>
-                                <p class="text-gray-700 dark:text-gray-300 mb-2">
-                                    <strong>Location:</strong> ${data['location']}
-                                </p>
-                                <a href="{{ route('events.preview', '') }}/${data['id']}" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                                    See Details
-                                </a>    
-                            </div>
-                        `);
-                            createdat = data['created_at'];
-                            index++;
-                            if (index < 20) {
-                                $('.content-skeleton').addClass('hidden');
-                            } else {
-                                $('.content-skeleton').removeClass('hidden');
-                                $('.content-skeleton').appendTo('#content');
-                            }
-                        });
-                    }
-                });
-            }
-            // Function to handle the intersection
-            function handleIntersection(entries, observer) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (index < 20) {
+                        if(response.length === 0) {
                             $('.content-skeleton').addClass('hidden');
-                        } else {
-                            $('.content-skeleton').removeClass('hidden');
-                            $('.content-skeleton').appendTo('#content');
-                            getEvent();
+                            if (index === 20) {
+                                $('#content').html('<div class="col-span-full text-center text-gray-500">No events found</div>');
+                            }
+                            loading = false;
+                            return;
                         }
+
+                        $('.content-skeleton').addClass('hidden');
+                        
+                        response.forEach((data) => {
+                            const statusClass = getEventStatusClass(data.status);
+                            
+                            $('#content').append(`
+                                <div class="max-w-[540px] p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
+                                    <div class="relative">
+                                        <img src="http://localhost:8000/storage/${data.thumbnail_img}" 
+                                            alt="${data.name}" 
+                                            class="w-full h-48 object-cover rounded-lg mb-4">
+                                        <span class="absolute top-2 right-2 px-2 py-1 rounded-full text-sm ${statusClass}">
+                                            ${capitalizeFirstLetter(data.status)}
+                                        </span>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2">${data.name}</h3>
+                                    <p class="text-gray-700 dark:text-gray-300 mb-2">
+                                        <strong>Date:</strong> ${data.formatted_date}
+                                    </p>
+                                    <p class="text-gray-700 dark:text-gray-300 mb-2">
+                                        <strong>Time:</strong> ${data.formatted_start} - ${data.formatted_end}
+                                    </p>
+                                    <p class="text-gray-700 dark:text-gray-300 mb-2">
+                                        <strong>Location:</strong> ${data.location}
+                                    </p>
+                                    <a href="{{ route('events.preview', '') }}/${data.id}" 
+                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                        See Details
+                                    </a>    
+                                </div>
+                            `);
+                        });
+
+                        createdat = response[response.length - 1].created_at;
+                        index = response.length;
+                        if (index >= 20) {
+                            $('.content-skeleton').removeClass('hidden').appendTo('#content');
+                        }
+                        loading = false;
+                    },
+                    error: function() {
+                        loading = false;
+                        $('.content-skeleton').addClass('hidden');
                     }
                 });
             }
 
-            // Create an Intersection Observer
-            const observer = new IntersectionObserver(handleIntersection, {
-                root: null, // Use the viewport as the root
-                rootMargin: '0px',
-                threshold: 0.1 // Trigger when 10% of the element is in view
+            // Add sort select
+            $('#content').before(`
+                <div class="mb-4">
+                    <select id="sort-select" class="rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+                        <option value="upcoming">Upcoming Events</option>
+                        <option value="all">All Events</option>
+                    </select>
+                </div>
+            `);
+
+            $('#sort-select').change(function() {
+                createdat = 0;
+                index = 20;
+                $('#content').empty();
+                getEvent();
             });
 
-            // Observe the element with the id 'content-skeleton'
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && index >= 20) {
+                            getEvent();
+                        }
+                    });
+                },
+                {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1
+                }
+            );
+
             $('.content-skeleton').each(function() {
                 observer.observe(this);
             });
+
+            // Initial load
+            getEvent();
         });
     </script>
 @stop

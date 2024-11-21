@@ -8,7 +8,7 @@
         <h2 class="text-4xl font-bold mb-4">Welcome to OURevent</h2>
         <p class="mb-6">Discover the best solution to manage your event efficiently.</p>
         <a href="#Events" class="text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-200">
-            See Current Event
+            See Resent Event
         </a>
     </div>
 </section>
@@ -38,20 +38,41 @@
 <!-- Events Section -->
 <section id="Events" class="py-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
     <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-semibold mb-8">Current Events</h2>
+        <h2 class="text-3xl font-semibold mb-8">Resent Events</h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
             @forelse ($events as $event)
             <div data-aos="zoom-in" data-aos-offset="-100">
                 <div class="p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
-                    <img src="{{ $event->thumbnail_img ? asset('storage/' . $event->thumbnail_img) : 'https://placehold.co/800x600/f3f4f6/000000/webp?text=Event+Image' }}"
-                    alt="{{ $event->name }}" 
-                         class="w-full h-48 object-cover rounded-lg mb-4">
+                    <div class="relative">
+                        <img src="{{ $event->thumbnail_img ? asset('storage/' . $event->thumbnail_img) : 'https://placehold.co/800x600/f3f4f6/000000/webp?text=Event+Image' }}"
+                            alt="{{ $event->name }}" 
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                        @php
+                            $eventDateTime = Carbon\Carbon::parse($event->event_date . ' ' . $event->event_start);
+                            $eventEndDateTime = Carbon\Carbon::parse($event->event_date . ' ' . $event->event_end);
+                            $now = Carbon\Carbon::now();
+                            
+                            if ($now->between($eventDateTime, $eventEndDateTime)) {
+                                $status = 'ongoing';
+                                $statusClass = 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+                            } elseif ($now->greaterThan($eventEndDateTime)) {
+                                $status = 'ended';
+                                $statusClass = 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+                            } else {
+                                $status = 'upcoming';
+                                $statusClass = 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
+                            }
+                        @endphp
+                        <span class="absolute top-2 right-2 px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusClass }}">
+                            {{ ucfirst($status) }}
+                        </span>
+                    </div>
                     <h3 class="text-xl break-words font-semibold mb-2">{{ $event->name }}</h3>
                     <p class="text-gray-700 dark:text-gray-300 mb-2">
-                        <strong>Date:</strong> {{ \Carbon\Carbon::parse($event->event_date)->format('F d, Y') }}
+                        <strong>Date:</strong> {{ Carbon\Carbon::parse($event->event_date)->format('F d, Y') }}
                     </p>
                     <p class="text-gray-700 dark:text-gray-300 mb-2">
-                        <strong>Time:</strong> {{ \Carbon\Carbon::parse($event->event_start)->format('h:i A') }}
+                        <strong>Time:</strong> {{ Carbon\Carbon::parse($event->event_start)->format('h:i A') }}
                     </p>
                     <p class="text-gray-700 dark:text-gray-300 mb-2">
                         <strong>Location:</strong> {{ $event->location }}

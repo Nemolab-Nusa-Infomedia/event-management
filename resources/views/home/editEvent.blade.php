@@ -3,15 +3,17 @@
 @section('content')
     <div class="container mx-auto p-4 sm:p-8 mb-4">
         <div class="w-full h-64 rounded-lg shadow-lg overflow-hidden mb-4" data-aos="fade-up" data-aos-offset="100">
-            <div class="scroll-container">
+            <div class="scroll-container w-full">
                 <img src="{{ $event->thumbnail_img ? asset('storage/' . $event->thumbnail_img) : 'https://placehold.co/1700x1000/f3f4f6/000000/webp?text=Event+Image' }}"
-                    alt="{{ $event->name }}" class="w-auto h-full object-cover">
+                alt="{{ $event->name }}" 
+                     alt="Event Image" 
+                     class="w-full h-full object-cover">
             </div>
         </div>
-        <p class="text-gray-500 dark:text-gray-300">
+        <p class="text-gray-500 dark:text-gray-300" data-aos="fade-right" data-aos-delay="100">
             <strong>{{ $formattedDate }}</strong>
         </p>
-        <h1 class="text-3xl sm:text-5xl dark:text-gray-200 font-bold text-gray-700 mb-8">
+        <h1 class="text-3xl sm:text-5xl dark:text-gray-200 font-bold text-gray-700 mb-8" data-aos="fade-right" data-aos-offset="100">
             {{ $event->name }}
             <button data-modal-target="edit-event-name" data-modal-toggle="edit-event-name"
                 class="text-blue-600 dark:text-blue-600 hover:text-gray-500">

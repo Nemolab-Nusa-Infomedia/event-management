@@ -55,8 +55,8 @@ class EventParticipantsController extends Controller
         $event = Events::findOrFail($request->id_event);
         
         if ($event) {
-            MailSenderController::SendNotif($request, $eventParticipant->id);
-            return redirect()->route('home')
+            MailSenderController::SendNotif($request);
+            return redirect()->route('joined')
                 ->with('success', 'Participant added successfully.');
         }
         
@@ -64,9 +64,7 @@ class EventParticipantsController extends Controller
             return redirect()->route('home')
                 ->with('success', 'Participant added successfully.');
         }
-        
-        return redirect()->route('participants.index')->with('fail', 'Cannot add participant');
-        
+        return redirect()->route('joined')->with('fail', 'Cannot add participant');
     }
 
     /**
@@ -108,7 +106,7 @@ class EventParticipantsController extends Controller
 
         $participant->update($validated);
 
-        return redirect()->route('participants.index')
+        return redirect()->route('joined')
             ->with('success', 'Participant updated successfully.');
     }
 
