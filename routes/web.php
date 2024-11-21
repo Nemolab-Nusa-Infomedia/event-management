@@ -96,9 +96,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/join', [EventParticipantsController::class, 'store'])->name('join');
         Route::get('/joined', [HomeController::class, 'joined'])->name('joined');
         Route::post('/update-status/{event}', [HomeController::class, 'updateStatus'])->name('update.status');
+        Route::get('/events/preview/{event}/edit', [EventsController::class, 'editPreview'])->name('events.preview.edit');
+        Route::post('/events/preview/{event}/update', [EventsController::class, 'updatePreview'])->name('events.preview.update');
     });
 
     Route::get('/events/preview/{event}', [EventsController::class, 'showPreview'])->name('events.preview');
-    Route::get('/events/preview/{event}/edit', [EventsController::class, 'editPreview'])->name('events.preview.edit');
-    Route::post('/events/preview/{event}/update', [EventsController::class, 'updatePreview'])->name('events.preview.update');
 });
