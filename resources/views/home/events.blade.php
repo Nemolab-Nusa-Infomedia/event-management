@@ -150,7 +150,7 @@
             // Add sort select
             $('#content').before(`
                 <div class="mb-4">
-                    <select id="sort-select" class="rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+                    <select id="sort-select" class="rounded-lg p-2 border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
                         <option value="upcoming">Upcoming Events</option>
                         <option value="all">All Events</option>
                     </select>

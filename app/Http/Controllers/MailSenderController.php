@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Mail;
 class MailSenderController extends Controller
 {
 
-    public static function SendNotif(Request $request, $participant)
+    public static function SendNotif($request, $participant)
     {
         $user = Auth::user();
-        $event = Events::findOrFail($request->id_event);
+        $event = Events::findOrFail($request['id_event']);
 
         if ($event) {
             Mail::to($user->email)->send(new EventJoined($event, $user, $participant));

@@ -88,9 +88,9 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('eventParticipan', EventParticipantsController::class);
 
-    Route::resource('event', EventsController::class);
-    Route::get('events', [EventsController::class, 'detailEvent'])->name('event.detail');
-    Route::get('eventss', [EventsController::class, 'editEvent'])->name('event.edit.preview');
+        Route::resource('event', EventsController::class);
+        Route::get('events', [EventsController::class, 'detailEvent'])->name('event.detail');
+        Route::get('eventss', [EventsController::class, 'editEvent'])->name('event.edit.preview');
 
         Route::get('admin/event/{event}/edit', [EventsController::class, 'edit'])->name('event.edit');
         Route::post('/join', [EventParticipantsController::class, 'store'])->name('join');
@@ -102,3 +102,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/events/preview/{event}', [EventsController::class, 'showPreview'])->name('events.preview');
 });
+
+// Route::any('{query}', function () {
+//     return redirect()->back();
+// })->where('query', '.*');

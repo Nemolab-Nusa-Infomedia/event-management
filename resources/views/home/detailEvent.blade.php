@@ -1,6 +1,18 @@
 @extends('layouts.components.landingpage.app')
 
 @section('content')
+    @if (session('fail'))
+    <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        </svg>
+        <span class="sr-only">Fail</span>
+        <div>
+          {{session('fail')}}
+        </div>
+      </div>
+    @endif
+
     <div class="container mx-auto p-4 sm:p-8 mb-4">
         <div class="w-full h-64 rounded-lg shadow-lg overflow-hidden mb-4" data-aos="fade-up" data-aos-offset="100">
             <div class="scroll-container w-full">
@@ -109,36 +121,69 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5">
+                <form class="p-4 md:p-5" action="{{ route('join') }}" method="post">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                             <input type="text" name="name" id="name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                required="">
+                                required="" value="{{ Auth::user()->name }}">
                         </div>
                         <div class="col-span-2">
                             <label for="email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                             <input type="email" name="email" id="email"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                required="">
+                                required="" value="{{ Auth::user()->email }}">
                         </div>
                         <div class="col-span-2">
                             <label for="phone-number"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
-                            <input type="number" name="phone-number" id="phone-number"
+                            <input type="text" name="no_telp" id="phone-number"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                required="">
+                                required="" value="{{ Auth::user()->no_telp }}">
                         </div>
                         <div class="col-span-2">
                             <label for="address"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adress</label>
-                            <textarea id="address" name="address" rows="4"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                            <textarea id="address" name="alamat" rows="4"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ Auth::user()->alamat }}</textarea>
                         </div>
+                        @auth
+                            <div class="col-span-2 flex items-center">
+                                <input checked id="checked-checkbox" type="checkbox" name="for_me" value=""
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="checked-checkbox"
+                                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">For Me</label>
+                            </div>
+                            <span id="checked-info"
+                                class="text-red-600 dark:text-red-500 font-semibold text-xs col-span-2">You can't change data
+                                if For Me
+                                checked</span>
+                        @endauth
+                        @error('name')
+                            {{ $message }}
+                        @enderror
+                        @error('email')
+                            {{ $message }}
+                        @enderror
+                        @error('no_telp')
+                            {{ $message }}
+                        @enderror
+                        @error('alamat')
+                            {{ $message }}
+                        @enderror
+                        @error('id_event')
+                            {{ $message }}
+                        @enderror
+                        @error('id_user')
+                            {{ $message }}
+                        @enderror
                     </div>
+                    @csrf
+                    <input type="hidden" name="id_user" value="{{ Auth::id() }}">
+                    <input type="hidden" name="id_event" value="{{ $event->id }}">
                     <button type="submit"
                         class="block mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         Join
@@ -170,4 +215,22 @@
             }
         }
     </style>
+    @auth
+        <script>
+            $('#name').attr('readonly', true);
+            $('#email').attr('readonly', true);
+            $('#phone-number').attr('readonly', true);
+            $('#address').attr('readonly', true);
+            $(document).ready(function() {
+                $('#checked-checkbox').on('change', function() {
+                    if (this.checked) $('#checked-info').removeClass('hidden');
+                    else $('#checked-info').addClass('hidden');
+                    $('#name').attr('readonly', this.checked);
+                    $('#email').attr('readonly', this.checked);
+                    $('#phone-number').attr('readonly', this.checked);
+                    $('#address').attr('readonly', this.checked);
+                })
+            });
+        </script>
+    @endauth
 @stop

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Events;
+use App\Models\Participants;
 use Illuminate\Http\Request;
 use App\Models\EventParticipants;
 use Illuminate\Support\Facades\Auth;
@@ -43,28 +45,52 @@ class EventParticipantsController extends Controller
 
     public function store(Request $request)
     {
-        // $event = Events::where('id', '=', $request['id_event'])->get();
-        // return response()->json($event[0]['name']);
-        $validated = $request->validate([
-            'id_event' => ['required', 'exists:events,id'],
-            'id_user' => ['required', 'exists:users,id'],
-        ]);
-        
-        $eventParticipant = EventParticipants::create($validated);
-        
         $event = Events::findOrFail($request->id_event);
-        
+
+        if (!$event) return redirect()->back()->with('fail', 'Cannot add participant');
+
+        // $event = Events::where('id', '=', $request['id_event'])->get();
+        // return response()->json($request);
+        $validated = $request->validate([
+            'id_user' => ['sometimes'],
+            'id_event' => ['required', 'exists:events,id'],
+            'name' => ['required'],
+            'email' => ['required'],
+            'no_telp' => ['required'],
+            'alamat' => ['required'],
+            'for_me' => ['sometimes'],
+        ]);
+
+        $user = User::findOrFail($validated['id_user'])->where('name', '=', $validated['name'])->where('email', '=', $validated['email'])->where('no_telp', '=', $validated['no_telp'])->where('alamat', '=', $validated['alamat'])->where('role', '=', 'user');
+        // return response()->json([$user, $validated, $validated]);
+        if (!$user && $validated['for_me'] == true) {
+            return redirect()->back()->with('fail', 'Use same data with your account');
+        }
+
+        $eventParticipant = EventParticipants::create($validated);
+
+        if (!$user) {
+            $data = [
+                'id_event' => $eventParticipant->id,
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'no_telp' => $validated['no_telp'],
+                'alamat' => $validated['alamat'],
+            ];
+            Participants::create($data);
+        }
+
+
         if ($event) {
-            MailSenderController::SendNotif($request, $eventParticipant->id);
+            MailSenderController::SendNotif($validated, $eventParticipant->id);
             return redirect()->route('joined')
                 ->with('success', 'Participant added successfully.');
         }
-        
+
         if (Auth::user()->role !== 'admin' && $event->id_master !== Auth::id()) {
             return redirect()->route('home')
                 ->with('success', 'Participant added successfully.');
         }
-        return redirect()->route('joined')->with('fail', 'Cannot add participant');
     }
 
     /**
