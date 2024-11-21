@@ -40,8 +40,14 @@
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-semibold mb-8">Recent Events</h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
+            @php
+                $delay = 0;
+            @endphp
             @forelse ($events->take(4) as $event)
-            <div data-aos="zoom-in" data-aos-offset="-100">
+            <div data-aos="fade-right" data-aos-offset="-100" data-aos-delay="{{ $delay }}">
+                @php
+                    $delay += 50;
+                @endphp
                 <div class="p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
                     <div class="relative">
                         <img src="{{ $event->thumbnail_img ? asset('storage/' . $event->thumbnail_img) : 'https://placehold.co/800x600/f3f4f6/000000/webp?text=Event+Image' }}"
