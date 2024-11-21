@@ -74,7 +74,7 @@
 
             <div class="grid grid-cols-2 gap-2" data-aos="zoom-in" data-aos-offset="100">
                 @php
-                    $images = $event->quad_img ? explode(',', $event->quad_img) : [];
+                    $images = $event->quad_img ? explode(', ', $event->quad_img) : [];
                     $i = 0;
                 @endphp
 
