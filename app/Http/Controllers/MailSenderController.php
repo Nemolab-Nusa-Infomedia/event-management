@@ -13,11 +13,10 @@ class MailSenderController extends Controller
 
     public static function SendNotif($request, $participant)
     {
-        $user = Auth::user();
         $event = Events::findOrFail($request['id_event']);
 
         if ($event) {
-            Mail::to($user->email)->send(new EventJoined($event, $user, $participant));
+            Mail::to($request['email'])->send(new EventJoined($event, $request, $participant));
         }
     }
 }

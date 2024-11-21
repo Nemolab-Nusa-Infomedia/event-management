@@ -14,11 +14,6 @@ use App\Http\Requests\UpdateEventParticipantsRequest;
 
 class EventParticipantsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         if (Auth::user()->role === 'admin') {
@@ -50,7 +45,6 @@ class EventParticipantsController extends Controller
         if (!$event) return redirect()->back()->with('fail', 'Cannot add participant');
 
         // $event = Events::where('id', '=', $request['id_event'])->get();
-        // return response()->json($request);
         $validated = $request->validate([
             'id_user' => ['sometimes'],
             'id_event' => ['required', 'exists:events,id'],
@@ -61,15 +55,15 @@ class EventParticipantsController extends Controller
             'for_me' => ['sometimes'],
         ]);
 
-        $user = User::findOrFail($validated['id_user'])->where('name', '=', $validated['name'])->where('email', '=', $validated['email'])->where('no_telp', '=', $validated['no_telp'])->where('alamat', '=', $validated['alamat'])->where('role', '=', 'user');
-        // return response()->json([$user, $validated, $validated]);
-        if (!$user && $validated['for_me'] == true) {
+        if (Auth::check() && $validated['for_me'] == true) {
+            $user = User::findOrFail($validated['id_user'])->where('name', '=', $validated['name'])->where('email', '=', $validated['email'])->where('no_telp', '=', $validated['no_telp'])->where('alamat', '=', $validated['alamat'])->where('role', '=', 'user');
+
             return redirect()->back()->with('fail', 'Use same data with your account');
         }
 
         $eventParticipant = EventParticipants::create($validated);
 
-        if (!$user) {
+        if (!$request->has('for_me')) {
             $data = [
                 'id_event' => $eventParticipant->id,
                 'name' => $validated['name'],
@@ -79,11 +73,12 @@ class EventParticipantsController extends Controller
             ];
             Participants::create($data);
         }
+        // return response()->json([$request, $validated]);
 
 
         if ($event) {
             MailSenderController::SendNotif($validated, $eventParticipant->id);
-            return redirect()->route('joined')
+            return redirect()->route(Auth::check() ? 'joined' : 'welcome')
                 ->with('success', 'Participant added successfully.');
         }
 

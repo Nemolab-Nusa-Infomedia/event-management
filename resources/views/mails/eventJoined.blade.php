@@ -37,7 +37,7 @@
         <h1>OURevent - Event Joined</h1>
 
         <div class="section">
-            <p>Hello, <strong>{{ $user->name }}</strong>!</p>
+            <p>Hello, <strong>{{ $user['name'] }}</strong>!</p>
             <p>You have joined the event: <strong>{{ $event->name }}</strong></p>
         </div>
 
@@ -49,10 +49,10 @@
 
         <div class="section">
             <h3>Your Information</h3>
-            <p><span class="label">Name:</span> {{ $user->name }}</p>
-            <p><span class="label">Email:</span> {{ $user->email }}</p>
-            <p><span class="label">Phone:</span> {{ $user->no_telp }}</p>
-            <p><span class="label">Address:</span> {{ $user->alamat }}</p>
+            <p><span class="label">Name:</span> {{ $user['name'] }}</p>
+            <p><span class="label">Email:</span> {{ $user['email'] }}</p>
+            <p><span class="label">Phone:</span> {{ $user['no_telp'] }}</p>
+            <p><span class="label">Address:</span> {{ $user['alamat'] }}</p>
         </div>
 
         <div class="section">

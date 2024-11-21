@@ -56,6 +56,10 @@ Route::get('all-events', [HomeController::class, 'events'])->name('home.events')
 
 Auth::routes();
 
+Route::get('/events/preview/{event}', [EventsController::class, 'showPreview'])->name('events.preview');
+
+Route::post('/join', [EventParticipantsController::class, 'store'])->name('join');
+
 // Route yang bisa diakses apabila telah login
 Route::middleware('auth')->group(function () {
 
@@ -93,16 +97,13 @@ Route::middleware('auth')->group(function () {
         Route::get('eventss', [EventsController::class, 'editEvent'])->name('event.edit.preview');
 
         Route::get('admin/event/{event}/edit', [EventsController::class, 'edit'])->name('event.edit');
-        Route::post('/join', [EventParticipantsController::class, 'store'])->name('join');
         Route::get('/joined', [HomeController::class, 'joined'])->name('joined');
         Route::post('/update-status/{event}', [HomeController::class, 'updateStatus'])->name('update.status');
         Route::get('/events/preview/{event}/edit', [EventsController::class, 'editPreview'])->name('events.preview.edit');
         Route::post('/events/preview/{event}/update', [EventsController::class, 'updatePreview'])->name('events.preview.update');
     });
-
-    Route::get('/events/preview/{event}', [EventsController::class, 'showPreview'])->name('events.preview');
 });
 
-// Route::any('{query}', function () {
-//     return redirect()->back();
-// })->where('query', '.*');
+Route::any('{query}', function () {
+    return redirect()->back();
+})->where('query', '.*');

@@ -27,7 +27,7 @@
             data-aos-offset="100">{{ $event->name }}</h1>
         <div class="flex items-center" data-aos="fade-right" data-aos-offset="100">
             <img class="w-8 h-8 rounded-full"
-                src="{{ Auth::user()->profile_pict ? Storage::url('profile_pictures/' . Auth::user()->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}"
+                src="{{ $creator->profile_pict ? Storage::url('profile_pictures/' . $creator->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}"
                 alt="user photo">
             <p class="mx-4">by <strong>{{ $creator->name }}</strong></p>
         </div>
@@ -107,7 +107,7 @@
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        *Nama Event*
+                        {{ $event->name }}
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -128,27 +128,27 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                             <input type="text" name="name" id="name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                required="" value="{{ Auth::user()->name }}">
+                                required="" @auth value="{{ Auth::user()->name }}" @endauth>
                         </div>
                         <div class="col-span-2">
                             <label for="email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                             <input type="email" name="email" id="email"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                required="" value="{{ Auth::user()->email }}">
+                                required="" @auth value="{{ Auth::user()->email }}" @endauth>
                         </div>
                         <div class="col-span-2">
                             <label for="phone-number"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
                             <input type="text" name="no_telp" id="phone-number"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                required="" value="{{ Auth::user()->no_telp }}">
+                                required="" @auth value="{{ Auth::user()->no_telp }}" @endauth>
                         </div>
                         <div class="col-span-2">
                             <label for="address"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adress</label>
                             <textarea id="address" name="alamat" rows="4"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ Auth::user()->alamat }}</textarea>
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">@auth {{ Auth::user()->alamat }} @endauth</textarea>
                         </div>
                         @auth
                             <div class="col-span-2 flex items-center">
