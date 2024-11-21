@@ -40,7 +40,7 @@
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-semibold mb-8">Resent Events</h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
-            @forelse ($events as $event)
+            @forelse ($events->take(4) as $event)
             <div data-aos="zoom-in" data-aos-offset="-100">
                 <div class="p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
                     <div class="relative">
@@ -89,6 +89,14 @@
             </div>
             @endforelse
         </div>
+        @if ($events->count() > 4)
+        <div class="mt-8">
+            <a href="{{ route('home.events') }}" 
+               class="text-blue-600 hover:text-gray-500 py-3 font-semibold">
+                See More Events
+            </a>
+        </div>
+        @endif
     </div>
 </section>
 
