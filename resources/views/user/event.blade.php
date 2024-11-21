@@ -28,7 +28,7 @@
                     {{ session('error') }}
                 </div>
                 <div class="flex">
-                    <button type="button"
+                    <a href="{{route('profileData')}}" type="button"
                         class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:f ocus:ring-red-800">
                         <svg class="w-3 h-3 text-white mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -37,7 +37,7 @@
                                 clip-rule="evenodd" />
                         </svg>
                         Add Personal Data
-                    </button>
+                    </a>
                     <button type="button"
                         class="text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-red-600 dark:border-red-600 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800"
                         data-modal-hide="default-modal" aria-label="Close">
