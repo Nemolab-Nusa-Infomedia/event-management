@@ -60,7 +60,7 @@
 
         <div>
             <label for="thumbnail_img" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Thumbnail Image</label>
-            <input type="file" name="thumbnail_img" id="thumbnail_img" accept="image/*"
+            <input type="file" name="thumbnail_img" id="thumbnail_img" accept="image/*" required
                 class="block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm dark:bg-gray-800 dark:text-gray-100" />
             @error('thumbnail_img')
                 <p class="text-red-600 dark:text-red-400 text-xs font-semibold">{{ $message }}</p>

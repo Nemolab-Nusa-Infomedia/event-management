@@ -22,22 +22,22 @@ class HomeController extends Controller
     {
         if (Auth::user()->role !== 'admin') {
             $totalEvent = Events::where('id_master', '=', Auth::id())->count();
-            
+
             // Modified active events counting to only include currently running events
             $eventAktif = Events::where('id_master', '=', Auth::id())
-                ->where(function($query) {
+                ->where(function ($query) {
                     $now = now();
                     $query->whereDate('event_date', '=', $now->toDateString())
                         ->where('event_start', '<=', $now->format('H:i:s'))
                         ->where('event_end', '>', $now->format('H:i:s'));
                 })->count();
-            
+
             // Fix for finished events counting
             $eventSelesai = Events::where('id_master', '=', Auth::id())
-                ->where(function($query) {
+                ->where(function ($query) {
                     $now = now();
                     $query->whereDate('event_date', '<', $now->toDateString())
-                        ->orWhere(function($q) use ($now) {
+                        ->orWhere(function ($q) use ($now) {
                             $q->whereDate('event_date', '=', $now->toDateString())
                                 ->where('event_end', '<=', $now->format('H:i:s'));
                         });
@@ -47,67 +47,70 @@ class HomeController extends Controller
                 ->with('eventParticipants')
                 ->get();
             $yourEvent = Events::where('id_master', '=', Auth::id())->get();
-            
+
             return view('home.index', compact('totalEvent', 'eventAktif', 'eventSelesai', 'event', 'yourEvent'));
         }
 
         // Admin view logic - modified active events counting
         $totalEvent = Events::all()->count();
-        $eventAktif = Events::where(function($query) {
+        $eventAktif = Events::where(function ($query) {
             $now = now();
             $query->whereDate('event_date', '=', $now->toDateString())
                 ->where('event_start', '<=', $now->format('H:i:s'))
                 ->where('event_end', '>', $now->format('H:i:s'));
         })->count();
-        
-        $eventSelesai = Events::where(function($query) {
+
+        $eventSelesai = Events::where(function ($query) {
             $now = now();
             $query->whereDate('event_date', '<', $now->toDateString())
-                ->orWhere(function($q) use ($now) {
+                ->orWhere(function ($q) use ($now) {
                     $q->whereDate('event_date', '=', $now->toDateString())
                         ->where('event_end', '<=', $now->format('H:i:s'));
                 });
         })->count();
-        
+
         $event = Events::all();
         $totalUser = User::all()->count();
         return view('dashboard', compact('totalEvent', 'totalUser', 'eventAktif', 'eventSelesai', 'event'));
     }
 
-    public function events(Request $request) {
-        if($request->ajax()) {
+    public function events(Request $request)
+    {
+        if ($request->ajax()) {
             $query = Events::query();
-            
+
             // Apply sorting based on category
-            switch($request->sort) {
+            switch ($request->sort) {
                 case 'upcoming':
-                    $query->whereDate('event_date', '>=', Carbon::now()->toDateString())
-                          ->orderBy('event_date', 'asc')
-                          ->orderBy('event_start', 'asc');
+                    $query->whereDate('event_date', '>=', $request['eventDate'] != 0 ? Carbon::parse($request['eventDate']) : Carbon::now()->toDateString())
+                        ->orderBy('event_date', 'asc')
+                        ->orderBy('event_start', 'asc')
+                        ->orderBy('created_at', 'desc');
                     break;
-                case 'created_at':
-                    $query->orderBy('created_at', 'desc');
+                case 'newest':
+                    $query->where('created_at', '<', $request['createdAt'] != 0 ? Carbon::parse($request['createdAt']) : Carbon::now()->toDateString())
+                        ->orderBy('created_at', 'desc');
                     break;
                 case 'all':
                     $query->orderBy('event_date', 'desc')
-                          ->orderBy('event_start', 'desc');
+                        ->orderBy('event_start', 'desc');
                     break;
             }
-                
-            if($request->createdAt) {
-                $query->where('created_at', '<', Carbon::parse($request->createdAt));
-            }
-            
+
+            // if($request->createdAt) {
+            //     $query->where('created_at', '<', Carbon::parse($request->createdAt));
+            // }
+
             $events = $query->take(20)->get()
-                ->map(function($event) {
+                ->map(function ($event) {
                     $eventDate = Carbon::parse($event->event_date);
                     $eventStart = Carbon::parse($event->event_start);
                     $eventEnd = Carbon::parse($event->event_end);
-                    
+
                     $event->formatted_date = $eventDate->setTimezone('Asia/Jakarta')->format('F d, Y');
                     $event->formatted_start = $eventStart->setTimezone('Asia/Jakarta')->format('g:i A');
                     $event->formatted_end = $eventEnd->setTimezone('Asia/Jakarta')->format('g:i A');
-                    
+
                     $eventDateTime = Carbon::parse($event->event_date . ' ' . $event->event_start)->setTimezone('Asia/Jakarta');
                     $eventEndDateTime = Carbon::parse($event->event_date . ' ' . $event->event_end)->setTimezone('Asia/Jakarta');
                     $now = Carbon::now()->setTimezone('Asia/Jakarta');
@@ -119,22 +122,23 @@ class HomeController extends Controller
                     } else {
                         $event->status = 'upcoming';
                     }
-                    
+
                     return $event;
                 });
-                
+
             return response()->json($events);
         }
         return view('home.events');
     }
 
-    public function joined(){
-        $event = Events::whereHas('eventParticipants', function($query) {
+    public function joined()
+    {
+        $event = Events::whereHas('eventParticipants', function ($query) {
             $query->where('id_user', Auth::id());
-        })->with(['eventParticipants' => function($query) {
+        })->with(['eventParticipants' => function ($query) {
             $query->where('id_user', Auth::id());
         }])->get();
-        
+
         return view('home.joined', compact('event'));
     }
 
@@ -148,10 +152,10 @@ class HomeController extends Controller
             $participant->update([
                 'status' => $request->status
             ]);
-            
+
             return response()->json(['success' => true]);
         }
-        
+
         return response()->json(['success' => false], 404);
     }
 

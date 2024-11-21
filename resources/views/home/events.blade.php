@@ -1,8 +1,15 @@
 @extends('layouts.user')
 
 @section('content')
-    <section id="Events" class="py-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+    <section id="Events" class="pb-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
         <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <select id="sort-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="upcoming">Upcoming Events</option>
+                    <option value="newest">Newest</option>
+                    <option value="all">All Events</option>
+                </select>
+            </div>
             <div class="grid grid-cols-[repeat(auto-fit,_minmax(16rem,_1fr))] gap-8" id="content">
                 <div
                     class="content-skeleton p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
@@ -57,13 +64,14 @@
 @section('script')
     <script>
         let createdat = 0;
+        let eventdate = 0;
         let loading = false;
 
         $(document).ready(function() {
             let index = 20;
 
             function getEventStatusClass(status) {
-                switch(status) {
+                switch (status) {
                     case 'ongoing':
                         return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
                     case 'ended':
@@ -80,31 +88,35 @@
             }
 
             function getEvent() {
-                if(loading) return;
+                if (loading) return;
                 loading = true;
-                
+
                 $.ajax({
-                    type: "get", 
+                    type: "get",
                     url: "{{ route('home.events') }}",
                     data: {
                         'createdAt': createdat,
+                        'eventDate': eventdate,
                         'sort': $('#sort-select').val()
                     },
                     success: function(response) {
-                        if(response.length === 0) {
+                        console.log(response);
+                        if (response.length === 0) {
                             $('.content-skeleton').addClass('hidden');
                             if (index === 20) {
-                                $('#content').html('<div class="col-span-full text-center text-gray-500">No events found</div>');
+                                $('#content').html(
+                                    '<div class="col-span-full text-center text-gray-500">No events found</div>'
+                                );
                             }
                             loading = false;
                             return;
                         }
 
                         $('.content-skeleton').addClass('hidden');
-                        
+
                         response.forEach((data) => {
                             const statusClass = getEventStatusClass(data.status);
-                            
+
                             $('#content').append(`
                                 <div class="max-w-[540px] p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
                                     <div class="relative">
@@ -133,8 +145,9 @@
                             `);
                         });
 
-                        createdat = response[response.length - 1].created_at;
                         index = response.length;
+                        createdat = response[index - 1].created_at;
+                        eventdate = response[index - 1].event_date;
                         if (index >= 20) {
                             $('.content-skeleton').removeClass('hidden').appendTo('#content');
                         }
@@ -146,16 +159,6 @@
                     }
                 });
             }
-
-            // Add sort select
-            $('#content').before(`
-                <div class="mb-4">
-                    <select id="sort-select" class="rounded-lg p-2 border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
-                        <option value="upcoming">Upcoming Events</option>
-                        <option value="all">All Events</option>
-                    </select>
-                </div>
-            `);
 
             $('#sort-select').change(function() {
                 createdat = 0;
@@ -171,8 +174,7 @@
                             getEvent();
                         }
                     });
-                },
-                {
+                }, {
                     root: null,
                     rootMargin: '0px',
                     threshold: 0.1

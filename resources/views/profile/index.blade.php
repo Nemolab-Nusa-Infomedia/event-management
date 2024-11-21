@@ -24,7 +24,7 @@
             </div>
             <div class="col-span-12">
                 <div class="mb-2 ml-2">Address</div>
-                <div class="relative p-2 rounded-lg border-2 dark:border-gray-600 h-12">{{ Auth::user()->alamat }}
+                <div class="relative p-2 rounded-lg border-2 dark:border-gray-600 h-12 min-h-max">{{ Auth::user()->alamat }}
                 </div>
             </div>
             <hr class="col-span-12 dark:border-gray-600">
