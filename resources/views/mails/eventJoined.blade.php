@@ -1,115 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
+    <title>OURevent - Event Joined</title>
     <style>
         body {
-            background-color: #1a202c;
-            color: #f7fafc;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            line-height: 1.6;
+            color: #333;
         }
 
         .container {
-            max-width: 800px;
-            margin: 2.5rem auto;
-            padding: 1.5rem;
-            background-color: #2d3748;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .header {
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
+        .qr-code {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .label {
             font-weight: bold;
-            color: #f7fafc;
-            margin-bottom: 1.5rem;
-        }
-
-        .header img {
-            height: 2rem;
-            margin-right: 0.75rem;
-        }
-
-        .content {
-            margin-bottom: 2rem;
-            color: #e2e8f0;
-        }
-
-        .content h1 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #f7fafc;
-            margin-bottom: 1rem;
-        }
-
-        .content p {
-            margin-bottom: 0.5rem;
-        }
-
-        .grid {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .grid-cols-1 {
-            grid-template-columns: 1fr;
-        }
-
-        @media (min-width: 640px) {
-            .grid-cols-2 {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .footer {
-            color: #a0aec0;
-            font-size: 0.875rem;
-            margin-top: 1.5rem;
+            color: #666;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <img src="{{ asset('vendor/img/Logo.png') }}" alt="OURevent Logo" />
-            <span>OURevent - Event Joined</span>
+        <h1>OURevent - Event Joined</h1>
+
+        <div class="section">
+            <p>Hello, <strong>{{ $user->name }}</strong>!</p>
+            <p>You have joined the event: <strong>{{ $event->name }}</strong></p>
         </div>
 
-        <!-- Content -->
-        <div class="content">
-            <p>Hello, <strong>{{$user->name}}</strong>!</p>
-            <p>You have joined the event: <strong>{{$event->name}}</strong></p>
+        <div class="qr-code">
+            <h3>Your Event QR Code</h3>
+            <img src="cid:qrcode.svg" alt="QR Code">
+            <p>Please show this QR code when attending the event</p>
         </div>
 
-        <!-- User Information -->
-        <div class="content">
-            <h1>Your Information</h1>
-            <div class="grid grid-cols-1 grid-cols-2">
-                <p><strong>Name:</strong> {{$user->name}}</p>
-                <p><strong>Email:</strong> {{$user->email}}</p>
-                <p><strong>Phone:</strong> {{$user->no_telp}}</p>
-                <p><strong>Address:</strong> {{$user->alamat}}</p>
-            </div>
+        <div class="section">
+            <h3>Your Information</h3>
+            <p><span class="label">Name:</span> {{ $user->name }}</p>
+            <p><span class="label">Email:</span> {{ $user->email }}</p>
+            <p><span class="label">Phone:</span> {{ $user->no_telp }}</p>
+            <p><span class="label">Address:</span> {{ $user->alamat }}</p>
         </div>
 
-        <!-- Event Details -->
-        <div class="content">
-            <h1>Event Details</h1>
-            <div class="grid grid-cols-1 grid-cols-2" style="color: #e2e8f0">
-                <p><strong>Event Name:</strong> {{ $event->name }}</p>
-                <p style="color: #e2e8f0"><strong>Event Date:</strong> {{ \Carbon\Carbon::parse($event->event_date)->format('F d, Y') }}</p>
-                <p><strong>Event Start:</strong> {{ \Carbon\Carbon::parse($event->event_start)->format('h:i A') }}</p>
-            </div>
+        <div class="section">
+            <h3>Event Details</h3>
+            <p><span class="label">Event Name:</span> {{ $event->name }}</p>
+            <p><span class="label">Event Date:</span> {{ \Carbon\Carbon::parse($event->event_date)->format('F d, Y') }}
+            </p>
+            <p><span class="label">Event Start:</span>
+                {{ \Carbon\Carbon::parse($event->event_start)->format('h:i A') }}</p>
         </div>
 
-        <!-- Footer -->
-        <div class="footer">
+        <div class="section">
             <p>Thank you for using OURevent. We look forward to seeing you at the event!</p>
         </div>
     </div>
 </body>
+
 </html>

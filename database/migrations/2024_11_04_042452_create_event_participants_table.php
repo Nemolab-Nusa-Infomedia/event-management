@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_user');
             $table->integer('id_event');
-            $table->enum('status', ['Present', 'Absent',]);
+            $table->enum('status', ['Present', 'Absent',])->default('Absent');
             $table->timestamps();
         });
     }

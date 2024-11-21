@@ -49,21 +49,24 @@ class EventParticipantsController extends Controller
             'id_event' => ['required', 'exists:events,id'],
             'id_user' => ['required', 'exists:users,id'],
         ]);
-
-
-        EventParticipants::create($validated);
-
+        
+        $eventParticipant = EventParticipants::create($validated);
+        
         $event = Events::findOrFail($request->id_event);
+        
         if ($event) {
-            MailSenderController::SendNotif($request);
-            return redirect()->route('participants.index')
+            MailSenderController::SendNotif($request, $eventParticipant->id);
+            return redirect()->route('home')
                 ->with('success', 'Participant added successfully.');
         }
+        
         if (Auth::user()->role !== 'admin' && $event->id_master !== Auth::id()) {
             return redirect()->route('home')
                 ->with('success', 'Participant added successfully.');
         }
+        
         return redirect()->route('participants.index')->with('fail', 'Cannot add participant');
+        
     }
 
     /**
