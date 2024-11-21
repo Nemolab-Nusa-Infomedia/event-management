@@ -55,7 +55,7 @@ class EventParticipantsController extends Controller
         $event = Events::findOrFail($request->id_event);
         
         if ($event) {
-            MailSenderController::SendNotif($request);
+            MailSenderController::SendNotif($request, $eventParticipant->id);
             return redirect()->route('joined')
                 ->with('success', 'Participant added successfully.');
         }
