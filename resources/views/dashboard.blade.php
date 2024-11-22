@@ -157,5 +157,56 @@
                 </div>
             </div>
         </div>
+
+        <!-- Your Events -->
+        <div class="flex flex-wrap mt-4 -mx-2">
+            <div class="w-full px-2">
+                <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Your Event</h3>
+                    </div>
+                    <div class="p-4">
+                        <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                            <thead>
+                                <tr
+                                    class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-sm text-left">
+                                    <th class="py-3 px-4 border-b dark:border-gray-700">Event Name</th>
+                                    <th class="py-3 px-4 border-b dark:border-gray-700">Date</th>
+                                    <th class="py-3 px-4 border-b dark:border-gray-700">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-700 dark:text-gray-300">
+                                @foreach ($yourEvent as $item)
+                                    @php
+                                        $now = now();
+                                        $eventDate = \Carbon\Carbon::parse($item->event_date);
+                                        $eventStart = \Carbon\Carbon::parse(
+                                            $item->event_date . ' ' . $item->event_start,
+                                        );
+                                        $eventEnd = \Carbon\Carbon::parse($item->event_date . ' ' . $item->event_end);
+                                    @endphp
+                                    <tr class="border-b dark:border-gray-700">
+                                        <td class="py-3 px-4">{{ $item->name }}</td>
+                                        <td class="py-3 px-4">{{ $item->event_date }}</td>
+                                        <td class="py-3 px-4">
+                                            @if ($eventDate->isToday() && $now->between($eventStart, $eventEnd))
+                                                <span
+                                                    class="px-2 py-1 bg-green-100 dark:bg-green-700 text-green-800 dark:text-green-200 rounded-full text-xs font-semibold">Active</span>
+                                            @elseif ($eventDate->isFuture() || ($eventDate->isToday() && $now->lt($eventStart)))
+                                                <span
+                                                    class="px-2 py-1 bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200 rounded-full text-xs font-semibold">Registration</span>
+                                            @else
+                                                <span
+                                                    class="px-2 py-1 bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200 rounded-full text-xs font-semibold">Finished</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @stop

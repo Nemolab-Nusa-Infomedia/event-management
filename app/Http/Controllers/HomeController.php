@@ -25,6 +25,7 @@ class HomeController extends Controller
         $totalUser = null;
         $eventSelesai = null;
         $event = null;
+        $yourEvent = null;
 
         if (Auth::user()->role !== 'admin') {
             $totalEvent = Events::where('id_master', '=', Auth::id())->count();
@@ -73,11 +74,13 @@ class HomeController extends Controller
                             ->where('event_end', '<=', $now->format('H:i:s'));
                     });
             })->count();
+            $yourEvent = Events::where('id_master', '=', Auth::id())->get();
+
 
             $event = Events::all();
             $totalUser = User::all()->count();
         }
-        return view('dashboard', compact('totalEvent', 'totalUser', 'eventAktif', 'eventSelesai', 'event'));
+        return view('dashboard', compact('totalEvent', 'totalUser', 'eventAktif', 'eventSelesai', 'event', 'yourEvent'));
     }
 
     // HomeController.php - modifikasi method events
