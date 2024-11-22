@@ -125,6 +125,7 @@
 
     <script>
         let id = null;
+        let qrId = null;
         document.querySelectorAll('.status-select').forEach(select => {
             select.addEventListener('change', function() {
                 const eventId = this.dataset.eventId;
@@ -158,7 +159,6 @@
         });
 
         $(document).ready(function() {
-            let qrId = null;
             $('.openTicket').click(function() {
                 qrId = $(this).data('qr-id');
                 $('#event_name').text($(this).data('event-name'));
