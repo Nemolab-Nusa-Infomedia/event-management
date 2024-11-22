@@ -41,7 +41,7 @@
                         clip-rule="evenodd" />
                 </svg>
                 <div class="ml-4">
-                    <p class="text-sm font-semibold">Event Joined</p>
+                    <p class="text-sm font-semibold">Joined Event</p>
                     <p class="text-lg font-bold">{{$eventJoined}}</p>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                         clip-rule="evenodd" />
                 </svg>
                 <div class="ml-4">
-                    <p class="text-sm font-semibold">Event Created</p>
+                    <p class="text-sm font-semibold">Created Event</p>
                     <p class="text-lg font-bold">{{$eventCreated}}</p>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                     <path d="M11 6.025a1 1 0 0 0-1.065-.998 8.5 8.5 0 1 0 9.038 9.039A1 1 0 0 0 17.975 13H11V6.025Z" />
                 </svg>
                 <div class="ml-4">
-                    <p class="text-sm font-semibold">Total Participant Event</p>
+                    <p class="text-sm font-semibold">Total Event Participant</p>
                     <p class="text-lg font-bold">{{$totalParticipant}}</p>
                 </div>
             </div>
