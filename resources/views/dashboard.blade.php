@@ -2,6 +2,14 @@
 
 @section('title', 'home')
 
+@section('style')
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+@stop
+
+@section('script_link')
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+@stop
+
 @section('content')
     <div class="p-4">
         <!-- Info boxes -->
@@ -80,7 +88,8 @@
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Current Event</h3>
                     </div>
                     <div class="p-4">
-                        <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                            id="sorting-table">
                             <thead>
                                 <tr
                                     class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-sm text-left">
@@ -209,4 +218,20 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+
+            if (document.getElementById("sorting-table") && typeof simpleDatatables.DataTable !== 'undefined') {
+                const dataTable = new simpleDatatables.DataTable("#sorting-table", {
+                    searchable: false,
+                    perPageSelect: false,
+                    sortable: true
+                });
+            }
+
+        });
+    </script>
 @stop
