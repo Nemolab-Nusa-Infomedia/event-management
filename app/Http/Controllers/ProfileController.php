@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EventParticipants;
+use App\Models\Events;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -12,7 +15,11 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        $eventJoined = EventParticipants::where('id_user', '=', Auth::id())->count();
+        $eventCreated = Events::where('id_master', '=', Auth::id())->count();
+        $totalParticipant = EventParticipants::whereIn('id_event', Events::where('id_master', '=', Auth::id())->pluck('id'))->count();
+        
+        return view('profile.index', compact('eventJoined', 'eventCreated', 'totalParticipant'));
     }
 
     /**

@@ -42,7 +42,7 @@
                 </svg>
                 <div class="ml-4">
                     <p class="text-sm font-semibold">Event Joined</p>
-                    <p class="text-lg font-bold"></p>
+                    <p class="text-lg font-bold">{{$eventJoined}}</p>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 </svg>
                 <div class="ml-4">
                     <p class="text-sm font-semibold">Event Created</p>
-                    <p class="text-lg font-bold"></p>
+                    <p class="text-lg font-bold">{{$eventCreated}}</p>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
                 </svg>
                 <div class="ml-4">
                     <p class="text-sm font-semibold">Total Participant Event</p>
-                    <p class="text-lg font-bold"></p>
+                    <p class="text-lg font-bold">{{$totalParticipant}}</p>
                 </div>
             </div>
         </div>

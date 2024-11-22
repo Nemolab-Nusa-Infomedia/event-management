@@ -71,15 +71,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/verification/{eventParticipan}', [EventParticipantsController::class, 'scan'])->name('participan.verification');
 
     Route::prefix('profile')->group(function () {
-        Route::get('/', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::get('/change-data', [ProfileController::class, 'show'])->name('profileData');
         Route::post('/update-picture/{user}', [UsersController::class, 'updateProfilePicture'])->name('user.update.picture');
         Route::post('/personal-data/{user}', [UsersController::class, 'updatePersonalData'])->name('change-personal-data');
     });
-
-    Route::get('/profile', function () {
-        return view('profile.index');
-    })->name('profile');
 
     // Route yang dapat diakses apabila sudah verifikasi
     Route::middleware(VerificationEmail::class)->group(function () {
