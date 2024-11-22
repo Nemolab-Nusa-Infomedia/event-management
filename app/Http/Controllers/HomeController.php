@@ -80,61 +80,74 @@ class HomeController extends Controller
         return view('dashboard', compact('totalEvent', 'totalUser', 'eventAktif', 'eventSelesai', 'event'));
     }
 
+    // HomeController.php - modifikasi method events
     public function events(Request $request)
     {
         if ($request->ajax()) {
             $query = Events::query();
 
-            // Apply sorting based on category
             switch ($request->sort) {
                 case 'upcoming':
-                    $query->whereDate('event_date', '>=', $request['eventDate'] != 0 ? Carbon::parse($request['eventDate']) : Carbon::now()->toDateString())
+                    $query->whereDate('event_date', '>=', Carbon::now())
                         ->orderBy('event_date', 'asc')
-                        ->orderBy('event_start', 'asc')
-                        ->orderBy('created_at', 'desc');
+                        ->orderBy('event_start', 'asc');
+                    if ($request->eventDate != 0) {
+                        $query->whereDate('event_date', '>', $request->eventDate);
+                    }
                     break;
+
                 case 'newest':
-                    $query->where('created_at', '<', $request['createdAt'] != 0 ? Carbon::parse($request['createdAt']) : Carbon::now()->toDateString())
-                        ->orderBy('created_at', 'desc');
+                    $query->orderBy('created_at', 'desc');
+                    if ($request->createdAt != 0 && $request->lastId != 0) {
+                        $query->where('created_at', '<=', $request->createdAt)
+                            ->where('id', '!=', $request->lastId);
+                    }
                     break;
+
                 case 'all':
                     $query->orderBy('event_date', 'desc')
                         ->orderBy('event_start', 'desc');
+                    if ($request->eventStart != 0 && $request->lastId != 0) {
+                        $query->whereDate('event_date', '<=', $request->eventDate)
+                            ->where('id', '!=', $request->lastId);
+                    }
                     break;
             }
 
-            // if($request->createdAt) {
-            //     $query->where('created_at', '<', Carbon::parse($request->createdAt));
-            // }
-
-            $events = $query->take(20)->get()
+            $events = $query->take(20)
+                ->get()
                 ->map(function ($event) {
-                    $eventDate = Carbon::parse($event->event_date);
-                    $eventStart = Carbon::parse($event->event_start);
-                    $eventEnd = Carbon::parse($event->event_end);
-
-                    $event->formatted_date = $eventDate->setTimezone('Asia/Jakarta')->format('F d, Y');
-                    $event->formatted_start = $eventStart->setTimezone('Asia/Jakarta')->format('g:i A');
-                    $event->formatted_end = $eventEnd->setTimezone('Asia/Jakarta')->format('g:i A');
-
-                    $eventDateTime = Carbon::parse($event->event_date . ' ' . $event->event_start)->setTimezone('Asia/Jakarta');
-                    $eventEndDateTime = Carbon::parse($event->event_date . ' ' . $event->event_end)->setTimezone('Asia/Jakarta');
-                    $now = Carbon::now()->setTimezone('Asia/Jakarta');
-
-                    if ($now->between($eventDateTime, $eventEndDateTime)) {
-                        $event->status = 'ongoing';
-                    } elseif ($now->greaterThan($eventEndDateTime)) {
-                        $event->status = 'ended';
-                    } else {
-                        $event->status = 'upcoming';
-                    }
-
-                    return $event;
+                    return $this->formatEventData($event);
                 });
 
             return response()->json($events);
         }
         return view('home.events');
+    }
+
+    private function formatEventData($event)
+    {
+        $eventDate = Carbon::parse($event->event_date);
+        $eventStart = Carbon::parse($event->event_start);
+        $eventEnd = Carbon::parse($event->event_end);
+        $now = Carbon::now();
+
+        $event->formatted_date = $eventDate->format('F d, Y');
+        $event->formatted_start = $eventStart->format('g:i A');
+        $event->formatted_end = $eventEnd->format('g:i A');
+
+        $eventDateTime = Carbon::parse($event->event_date . ' ' . $event->event_start);
+        $eventEndDateTime = Carbon::parse($event->event_date . ' ' . $event->event_end);
+
+        if ($now->between($eventDateTime, $eventEndDateTime)) {
+            $event->status = 'ongoing';
+        } elseif ($now->greaterThan($eventEndDateTime)) {
+            $event->status = 'ended';
+        } else {
+            $event->status = 'upcoming';
+        }
+
+        return $event;
     }
 
     public function joined()

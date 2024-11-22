@@ -153,6 +153,10 @@
             });
         });
 
+        $('#ticket-modal').on('click', function(){
+            $('#qr-' + qrId).appendTo('#qr-table-' + qrId);
+        });
+
         $(document).ready(function() {
             let qrId = null;
             $('.openTicket').click(function() {

@@ -28,7 +28,7 @@
             <img class="w-8 h-8 rounded-full"
                 src="{{ Auth::user()->profile_pict ? Storage::url('profile_pictures/' . Auth::user()->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}"
                 alt="user photo">
-            <p class="mx-4">by <strong>{{ $creator->name }}</strong></p>
+            <p class="mx-4 dark:text-gray-200 ">by <strong>{{ $creator->name }}</strong></p>
         </div>
     </div>
 
