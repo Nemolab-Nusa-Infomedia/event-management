@@ -1,4 +1,4 @@
-@extends('layouts.components.landingpage.app')
+@extends('layouts.app')
 
 @section('content')
     @if (session('fail'))
@@ -233,4 +233,8 @@
             });
         </script>
     @endauth
+@stop
+
+@section('footer')
+    @include('layouts.components.footer')
 @stop

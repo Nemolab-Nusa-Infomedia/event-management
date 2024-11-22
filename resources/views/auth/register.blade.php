@@ -1,5 +1,10 @@
-@include('layouts.components.header')
+@extends('layouts.components.header')
 
+@section('script_link')
+@vite('resources/js/darkmode.js')
+@stop
+
+@section('body')
 <body>
     <div
         class="h-screen bg-gradient-to-br dark:from-blue-800 dark:to-cyan-800 from-blue-600 to-cyan-300 flex justify-center items-center w-full">
@@ -107,4 +112,4 @@
     </div>
 </body>
 
-@include('layouts.components.footer')
+@stop

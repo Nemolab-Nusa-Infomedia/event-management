@@ -1,10 +1,10 @@
-@extends('layouts.user')
+@extends('layouts.app')
 
 @section('content')
 
     @include('layouts.components.profile.app')
 
-    <div class="text-black dark:text-white ">
+    <div class="text-black dark:text-white p-4">
         <div class="grid grid-cols-12 gap-4">
             <h2 class="text-center text-2xl font-semibold col-span-12 text-gray-900 dark:text-gray-200 mb-4">Profile</h2>
             <div class="lg:col-span-4 col-span-12">

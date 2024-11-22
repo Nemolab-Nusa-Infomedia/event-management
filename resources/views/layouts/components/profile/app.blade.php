@@ -1,1 +1,1 @@
-@include('layouts.components.profile.header')
+@include('layouts.components.profile.head')

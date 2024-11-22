@@ -41,7 +41,7 @@ class EventParticipantsController extends Controller
     public function store(Request $request)
     {
         $event = Events::findOrFail($request->id_event);
-
+        // return response()->json($request);
         if (!$event) return redirect()->back()->with('fail', 'Cannot add participant');
 
         // $event = Events::where('id', '=', $request['id_event'])->get();
@@ -55,25 +55,33 @@ class EventParticipantsController extends Controller
             'for_me' => ['sometimes'],
         ]);
 
-        if (Auth::check() && $validated['for_me'] == true) {
+        $validated['id_participant'] = null;
+
+        if (Auth::check() && $request->has('for_me') && $validated['for_me'] == true) {
             $user = User::findOrFail($validated['id_user'])->where('name', '=', $validated['name'])->where('email', '=', $validated['email'])->where('no_telp', '=', $validated['no_telp'])->where('alamat', '=', $validated['alamat'])->where('role', '=', 'user');
-
-            return redirect()->back()->with('fail', 'Use same data with your account');
         }
-
-        $eventParticipant = EventParticipants::create($validated);
 
         if (!$request->has('for_me')) {
             $data = [
-                'id_event' => $eventParticipant->id,
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'no_telp' => $validated['no_telp'],
                 'alamat' => $validated['alamat'],
             ];
-            Participants::create($data);
+
+            $validated['id_user'] = null;
+            $participant = Participants::firstOrCreate($data);
+            $validated['id_participant'] = $participant['id'];
         }
-        // return response()->json([$request, $validated]);
+
+        $data = [
+            'id_user' => $validated['id_user'],
+            'id_participant' => $validated['id_participant'],
+            'id_event' => $validated['id_event'],
+        ];
+        
+        $eventParticipant = EventParticipants::firstOrCreate($data);
+        // return response()->json([$request, $validated, $eventParticipant]);
 
 
         if ($event) {

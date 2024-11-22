@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.app')
 
 @section('title', 'Peserta (Nama Event)')
 
@@ -26,7 +26,7 @@
 @stop
 
 @section('script_link')
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
 @stop
 
 @section('content_header')
@@ -34,49 +34,40 @@
 @stop
 
 @section('content')
-    <div id="reader" class="bg-gray-200 dark:bg-gray-700 dark:text-white w-full md:w-96"></div>
-    <form class="hidden" method="post" id="scanForm">
-        @csrf
-        @method('put')
-        <input type="hidden" name="status" value="Present">
-    </form>
+    <div class="p-4">
+        <div id="reader" class="bg-gray-200 dark:bg-gray-700 dark:text-white w-full md:w-96"></div>
+        <form class="hidden" method="post" id="scanForm">
+            @csrf
+            @method('put')
+            <input type="hidden" name="status" value="Present">
+        </form>
+    </div>
+@stop
+
+@section('script')
     <script>
-        let url = null
-
         function onScanSuccess(decodedText, decodedResult) {
-            url = decodedText;
-            $('#scanForm').submit();
-        }
-        $('#scanForm').on('submit', function(e) {
-            e.preventDefault();
-            // alert(url)
-            $.ajax({
-                type: "post",
-                url: url,
-                data:  $(this).serialize(),
-                success: function(response) {
-                    console.log(response);
-                }
-            });
-
-        });
-
-        function onScanFailure(error) {
-            // handle scan failure, usually better to ignore and keep scanning.
-            // for example:
-            // console.warn(`Code scan error = ${error}`);
+            // Handle the scanned code as you like, for example:
+            console.log(`Code matched = ${decodedText}`, decodedResult);
         }
 
-        let html5QrcodeScanner = new Html5QrcodeScanner(
+        // const formatsToSupport = [
+        //     Html5QrcodeSupportedFormats.QR_CODE,
+        //     Html5QrcodeSupportedFormats.UPC_A,
+        //     Html5QrcodeSupportedFormats.UPC_E,
+        //     Html5QrcodeSupportedFormats.UPC_EAN_EXTENSION,
+        // ];
+        const html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", {
                 fps: 10,
                 qrbox: {
                     width: 250,
                     height: 250
-                }
+                },
+                formatsToSupport: Html5QrcodeSupportedFormats.QR_CODE
             },
             /* verbose= */
             false);
-        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        html5QrcodeScanner.render(onScanSuccess);
     </script>
 @stop

@@ -22,7 +22,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
-Route::get('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
 
 Route::get('/change-email', function () {
     return view('auth.register');
@@ -51,8 +50,9 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::get('events', [EventsController::class, 'detailEvent'])->name('event.detail');
+
 Route::get('all-events', [HomeController::class, 'events'])->name('home.events');
+Route::get('events', [EventsController::class, 'detailEvent'])->name('event.detail');
 
 Auth::routes();
 
@@ -103,6 +103,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/events/preview/{event}/update', [EventsController::class, 'updatePreview'])->name('events.preview.update');
     });
 });
+
+Route::get('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
 
 Route::any('{query}', function () {
     return redirect()->back();

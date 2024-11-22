@@ -1,10 +1,10 @@
-@extends('layouts.user')
+@extends('layouts.app')
 
 @section('content')
 
     @include('layouts.components.profile.app')
 
-    <div class="text-black dark:text-white ">
+    <div class="text-black dark:text-white px-4">
         <div class="flex xl:flex-row flex-col xl:gap-0 gap-4">
             <div class="p-2 border border-gray-400 rounded-lg xl:rounded-l-lg xl:rounded-r-none grow">
                 <div class=""><span class="text-gray-400 mr-2">Name :</span>{{ Auth::user()->name }}</div>
@@ -18,7 +18,7 @@
             @csrf
             <div>
                 <h4 class="mb-2">Phone Number</h4>
-                <div class="flex items-center relative">
+                <div class="flex relative">
                     <label for="dial_phone" id="dial" onclick="$('#dial_phone').focus()"
                         class="absolute left-3 w-12 text-center top-2 h-6 bg-gray-50 text-gray-900 dark:bg-gray-700 dark:text-white">+93    </label>
                     <select id="dial_phone" onchange="$('#dial').text($(this).val())" name="dial_phone"

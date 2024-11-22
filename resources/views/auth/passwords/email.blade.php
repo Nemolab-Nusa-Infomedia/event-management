@@ -1,5 +1,10 @@
-@include('layouts.components.header')
+@extends('layouts.components.header')
 
+@section('script_link')
+@vite('resources/js/darkmode.js')
+@stop
+
+@section('body')
 <body>
 
     @if (session('status'))
@@ -76,4 +81,4 @@
     </div>
 </body>
 
-@include('layouts.components.footer')
+@stop

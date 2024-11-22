@@ -8,6 +8,7 @@ class EventParticipants extends Model
 {
     protected $fillable = [
         'id_user',
+        'id_participant',
         'id_event',
         'status',
     ];
@@ -19,6 +20,10 @@ class EventParticipants extends Model
     
     public function user(){
         return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function participant(){
+        return $this->belongsTo(Participants::class, 'id_participant', 'id');
     }
     
     public function event(){

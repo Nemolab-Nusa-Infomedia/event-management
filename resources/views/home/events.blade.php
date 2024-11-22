@@ -1,8 +1,8 @@
-@extends('layouts.user')
+@extends('layouts.app')
 
 @section('content')
-    <section id="Events" class="pb-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
-        <div class="container mx-auto px-4 text-center">
+    <section class="py-4 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+        <div class="mx-auto px-4 text-center mb-14">
             <div class="mb-4">
                 <select id="sort-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="upcoming">Upcoming Events</option>
@@ -10,7 +10,7 @@
                     <option value="all">All Events</option>
                 </select>
             </div>
-            <div class="grid grid-cols-[repeat(auto-fit,_minmax(16rem,_1fr))] gap-8" id="content">
+            <div class="grid grid-cols-[repeat(auto-fit,_minmax(16rem,_1fr))] justify-center gap-8" id="content">
                 <div
                     class="content-skeleton p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
                     <div class="w-full h-48 bg-gray-300 rounded-lg mb-4 dark:bg-gray-700 animate-pulse"></div>

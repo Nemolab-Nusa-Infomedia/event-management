@@ -1,4 +1,4 @@
-<div class="flex xl:flex-row flex-col items-center">
+<div class="flex xl:flex-row flex-col items-center p-4">
     <div
         class="rounded-full min-h-20 min-w-20 outline-4 dark:outline-gray-500 outline-gray-300 p-1 box-content outline relative">
         <form action="{{ route('user.update.picture', Auth::user()) }}" method="POST" enctype="multipart/form-data"
@@ -78,7 +78,7 @@
         </div>
     </div>
 </div>
-<hr class="my-8 bg-gray-200 dark:border-gray-600">
+<hr class="my-8 mx-4 bg-gray-200 dark:border-gray-600">
 
 <!-- Profile Card -->
 <div id="default-modal" tabindex="-1" aria-hidden="true"

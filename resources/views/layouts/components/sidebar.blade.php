@@ -73,7 +73,7 @@
                         </svg>
                     </label>
                     <ul
-                        class="mx-2 transition-all @if(Auth::check() && Auth::user()->role == 'admin') max-h-[calc(100svh_-_37rem)] @elseif(Auth::check() && Auth::user()->role == 'user') max-h-[calc(100svh_-_34rem)] @endif overflow-y-scroll duration-100 opacity-0 peer-checked:opacity-100 text-sm dark:bg-slate-900 text-gray-700 bg-gray-50 dark:text-gray-200 hidden peer-checked:block">
+                        class="mx-2 transition-all @if(Auth::check() && Auth::user()->role == 'admin') max-h-[calc(100svh_-_37rem)] @elseif(Auth::check() && Auth::user()->role == 'user') max-h-[calc(100svh_-_34rem)] @endif overflow-y-auto duration-100 opacity-0 peer-checked:opacity-100 text-sm dark:bg-slate-900 text-gray-700 bg-gray-50 dark:text-gray-200 hidden peer-checked:block">
                         @if ($myEvents->isEmpty())
                             <li>
                                 <p class="block px-4 py-2">

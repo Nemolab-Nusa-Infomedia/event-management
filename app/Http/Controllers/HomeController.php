@@ -20,6 +20,12 @@ class HomeController extends Controller
 
     public function index()
     {
+        $totalEvent = null;
+        $eventAktif = null;
+        $totalUser = null;
+        $eventSelesai = null;
+        $event = null;
+
         if (Auth::user()->role !== 'admin') {
             $totalEvent = Events::where('id_master', '=', Auth::id())->count();
 
@@ -48,29 +54,29 @@ class HomeController extends Controller
                 ->get();
             $yourEvent = Events::where('id_master', '=', Auth::id())->get();
 
-            return view('home.index', compact('totalEvent', 'eventAktif', 'eventSelesai', 'event', 'yourEvent'));
+            // return view('home.index', compact('totalEvent', 'eventAktif', 'eventSelesai', 'event', 'yourEvent'));
+        } else {
+            // Admin view logic - modified active events counting
+            $totalEvent = Events::all()->count();
+            $eventAktif = Events::where(function ($query) {
+                $now = now();
+                $query->whereDate('event_date', '=', $now->toDateString())
+                    ->where('event_start', '<=', $now->format('H:i:s'))
+                    ->where('event_end', '>', $now->format('H:i:s'));
+            })->count();
+
+            $eventSelesai = Events::where(function ($query) {
+                $now = now();
+                $query->whereDate('event_date', '<', $now->toDateString())
+                    ->orWhere(function ($q) use ($now) {
+                        $q->whereDate('event_date', '=', $now->toDateString())
+                            ->where('event_end', '<=', $now->format('H:i:s'));
+                    });
+            })->count();
+
+            $event = Events::all();
+            $totalUser = User::all()->count();
         }
-
-        // Admin view logic - modified active events counting
-        $totalEvent = Events::all()->count();
-        $eventAktif = Events::where(function ($query) {
-            $now = now();
-            $query->whereDate('event_date', '=', $now->toDateString())
-                ->where('event_start', '<=', $now->format('H:i:s'))
-                ->where('event_end', '>', $now->format('H:i:s'));
-        })->count();
-
-        $eventSelesai = Events::where(function ($query) {
-            $now = now();
-            $query->whereDate('event_date', '<', $now->toDateString())
-                ->orWhere(function ($q) use ($now) {
-                    $q->whereDate('event_date', '=', $now->toDateString())
-                        ->where('event_end', '<=', $now->format('H:i:s'));
-                });
-        })->count();
-
-        $event = Events::all();
-        $totalUser = User::all()->count();
         return view('dashboard', compact('totalEvent', 'totalUser', 'eventAktif', 'eventSelesai', 'event'));
     }
 

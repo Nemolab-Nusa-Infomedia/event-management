@@ -16,12 +16,10 @@ class EventsController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            if (Auth::user()->role === 'admin') {
-                $event = Events::with('user')->get();
-                return view('admin.event', compact('event'));
-            }
-            $event = Events::where('id_master', Auth::id())->get();
-            return view('user.event', compact('event'));
+            $event = null;
+            if (Auth::user()->role === 'admin') $event = Events::with('user')->get();
+            else $event = Events::where('id_master', Auth::id())->get();
+            return view('event.index', compact('event'));
         }
     }
 
@@ -79,7 +77,11 @@ class EventsController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        $eventParticipants = Events::with('eventParticipants.user')->findOrFail($event->id);
+        $eventParticipants = Events::with('eventParticipants.user')->with('eventParticipants.participant')->findOrFail($event->id);
+
+        // return response()->json([
+        //     'event' => $eventParticipants,
+        // ]);
 
         return view('event.show', [
             'event' => $event,

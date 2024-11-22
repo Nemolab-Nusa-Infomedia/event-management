@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.app')
 
 @section('title', 'Peserta (Nama Event)')
 
@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <div class="relative overflow-x-auto sm:rounded-lg">
+    <div class="relative overflow-x-auto sm:rounded-lg p-4">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -38,10 +38,10 @@
                             {{ $no }}
                         </td>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $data['user']->name }}
+                            {{ $data['user'] == null ? $data['participant']->name : $data['user']->name }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $data['user']->email }}
+                            {{ $data['user'] == null ? $data['participant']->email : $data['user']->email }}
                         </td>
                         @if ($data['status'] == 'Present')
                             <td class="py-2 px-4">
@@ -81,7 +81,7 @@
     </div>
 
     <a href="{{ route('event.index') }}"
-        class="inline-flex items-center mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+        class="inline-flex items-center mt-4 mx-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
         <svg class="w-[24px] h-[24px] text-gray-800 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
             width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
             <path

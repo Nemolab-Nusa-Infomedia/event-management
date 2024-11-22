@@ -14,7 +14,8 @@ class Participants extends Model
         'alamat'
     ];
 
-    public function eventParticipants(){
-        return $this->belongsTo(EventParticipants::class, 'id_event', 'id');
+    public function eventParticipants()
+    {
+        return $this->hasMany(EventParticipants::class, 'id_user', 'id');
     }
 }
