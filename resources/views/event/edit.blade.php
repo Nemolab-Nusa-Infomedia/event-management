@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Event')
+@section('title', 'Edit (' . $event->name . ')')
 
 @section('content_header')
     <h1 class="text-2xl dark:text-gray-200 font-bold text-gray-700 mb-4">Edit Event: {{ $event->name }}</h1>

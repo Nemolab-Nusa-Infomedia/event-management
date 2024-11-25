@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Peserta (Nama Event)')
+@section('title', 'Scan (' . $event->name . ')')
 
 @section('style')
     <style>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'home')
+@section('title', 'Dashboard')
 
 @section('style')
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />

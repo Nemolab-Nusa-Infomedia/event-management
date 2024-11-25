@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Peserta (Nama Event)')
+@section('title', 'Peserta (' . $event->name . ')')
 
 @section('content_header')
     <h1 class="text-2xl font-bold dark:text-gray-200 text-gray-700 mb-4">Event Participant: {{ $event->name }}</h1>
@@ -62,7 +62,7 @@
                                     @method('DELETE')
                                     <button type="submit"
                                         class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded inline-flex items-center"
-                                        onclick="return confirm('Apakah Anda yakin ingin menghapus event ini?')">
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus pngguna ini dari daftar peserta??')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                             viewBox="0 0 24 24">

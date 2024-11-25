@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Detail Event (' . $event->name . ')')
+
 @section('content')
     @if (session('fail'))
     <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
@@ -34,7 +36,7 @@
     </div>
 
     <section id="info"
-        class="container mx-auto p-4 sm:p-16 md:p-24 mb-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+        class="container mx-auto p-4 sm:p-16 md:p-24 mb-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100"
         data-aos="fade-up" data-aos-offset="100">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
