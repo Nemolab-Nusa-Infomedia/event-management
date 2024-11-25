@@ -21,19 +21,19 @@ class="fixed flex items-center min-w-full w-svw h-16 z-20 top-0 bg-white dark:bo
                     class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">OURevent</span>
             </a>
         </div>
-        <form action="#" method="GET" class="hidden lg:block lg:pl-2">
+        <form @if(Route::is('home.events')) @else action="{{route('home.events')}}" method="get" @endif class="hidden lg:block lg:pl-2">
             <label for="topbar-search" class="sr-only">Search</label>
             <div class="relative mt-1 lg:w-96">
-                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                <button type="@if(Route::is('home.events'))button" onclick="search" @else submit" @endif class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                             stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
-                </div>
-                <input type="search" name="search" id="topbar-search"
+                </button>
+                <input type="text" name="search" id="topbar-search"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 pl-9 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Search">
+                    placeholder="Search Event">
             </div>
         </form>
     </div>

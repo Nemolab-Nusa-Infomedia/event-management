@@ -117,6 +117,10 @@ class HomeController extends Controller
                     break;
             }
 
+            if($request->search != null){
+                $query->where('name', 'LIKE', '%'.$request->search.'%');
+            }
+
             $events = $query->take(20)
                 ->get()
                 ->map(function ($event) {

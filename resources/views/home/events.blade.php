@@ -35,6 +35,12 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            const url = new URL(window.location.href);
+            const searchParams = new URLSearchParams(url.search);
+            let searchQuery = searchParams.get('search');
+            const searchInput = $('#topbar-search');
+            $(searchInput).val(searchQuery);
+            
             let createdat = 0;
             let eventdate = 0;
             let evenstart = 0;
@@ -42,11 +48,16 @@
             let loading = false;
             const ITEMS_PER_PAGE = 20;
 
+
             const statusClasses = {
                 ongoing: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
                 ended: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
                 upcoming: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300'
             };
+
+            function search(){
+
+            }
 
             function getEventStatusClass(status) {
                 return statusClasses[status] || '';
@@ -107,7 +118,8 @@
                         'eventDate': eventdate,
                         'eventStart': evenstart,
                         'lastId': lastid,
-                        'sort': $('#sort-select').val()
+                        'sort': $('#sort-select').val(),
+                        'search': searchQuery,
                     },
                     success: function(response) {
                         console.log(response);
@@ -115,7 +127,7 @@
                             if ($('#content').children().length === 0) {
                                 $('#content').html(
                                     '<div class="col-span-full text-center text-gray-500">No events found</div>'
-                                    );
+                                );
                                 hideSkeleton();
                             } else {
                                 hideSkeleton();

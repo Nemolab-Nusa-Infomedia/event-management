@@ -2,7 +2,7 @@
 
 @section('body')
 <body class="dark:bg-slate-900">
-    @include('layouts.components.landingpage.navbar')
+    @include('layouts.components.navbar')
     @include('layouts.components.sidebar')
 
     <div class="sm:ml-64 peer-checked:sm:ml-14 min-h-[calc(100svh_-_15.25rem)] mt-16">
