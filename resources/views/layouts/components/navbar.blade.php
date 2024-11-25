@@ -1,7 +1,7 @@
 <nav
 class="fixed flex items-center min-w-full w-svw h-16 z-20 top-0 bg-white dark:border-gray-700 px-2 sm:pr-6 sm:pl-5 py-2.5 dark:bg-gray-800 border-b border-gray-200">
 <div class="flex flex-wrap grow justify-between items-center">
-    <div class="flex justify-start items-center">
+    <div class="flex justify-start items-center max-w-[calc(100%_-_8rem)]">
         <div class="flex items-center justify-start rtl:justify-end">
             <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
                 aria-controls="logo-sidebar" type="button"
@@ -16,12 +16,12 @@ class="fixed flex items-center min-w-full w-svw h-16 z-20 top-0 bg-white dark:bo
             </button>
             <img onclick="$(document).ready(function () {$('#smallSidebar').prop('checked') ? $('#smallSidebar').prop('checked', false) : $('#smallSidebar').prop('checked', true)}); "
                 src="{{ asset('vendor/img/Logo.png') }}" class="hidden sm:block h-8 ms-3 sm:ms-0 sm-0 sm:me-3" alt="FlowBite Logo" />
-            <a href="/" class="flex ms-2 md:me-24">
+            <a href="/" class="flex ms-2 sm:me-20">
                 <span
-                    class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">OURevent</span>
+                    class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap hidden sm:block dark:text-white">OURevent</span>
             </a>
         </div>
-        <form @if(Route::is('home.events')) @else action="{{route('home.events')}}" method="get" @endif class="hidden lg:block lg:pl-2">
+        <form @if(Route::is('home.events')) @else action="{{route('home.events')}}" method="get" @endif class="block lg:pl-2">
             <label for="topbar-search" class="sr-only">Search</label>
             <div class="relative mt-1 lg:w-96">
                 <button type="@if(Route::is('home.events'))button" onclick="search" @else submit" @endif class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -32,7 +32,7 @@ class="fixed flex items-center min-w-full w-svw h-16 z-20 top-0 bg-white dark:bo
                     </svg>
                 </button>
                 <input type="text" name="search" id="topbar-search"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 pl-9 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 pl-9 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Search Event">
             </div>
         </form>
