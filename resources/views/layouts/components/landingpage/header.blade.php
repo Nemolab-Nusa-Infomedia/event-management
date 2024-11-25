@@ -8,7 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Laravel')</title>
+    <title>@yield('title')</title>
+    <link rel="icon" href="{{ asset('vendor/img/Logo.png') }}" type="image/x-icon">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">

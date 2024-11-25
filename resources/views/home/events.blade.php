@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'All Events')
+
 @section('content')
     <section class="py-4 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
         <div class="mx-auto px-4 text-center mb-14">

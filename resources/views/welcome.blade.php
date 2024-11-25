@@ -18,7 +18,7 @@
             <h2 class="text-4xl font-bold mb-4">Welcome to OURevent</h2>
             <p class="mb-6">Discover the best solution to manage your event efficiently.</p>
             <a href="#Events" class="text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-200">
-                See Resent Event
+                See Recent Event
             </a>
         </div>
     </section>
@@ -35,7 +35,7 @@
                             Our platform is the trusted choice of professionals across industries to boost productivity and
                             achieve seamless results.
                         </p>
-                        <a href="#" class="text-blue-600 hover:text-gray-500 py-3 font-semibold">
+                        <a href="#about" class="text-blue-600 hover:text-gray-500 py-3 font-semibold">
                             Read More ->
                         </a>
                     </div>

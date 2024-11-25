@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Edit Event (' . $event->name . ')')
+
 @section('content')
     <div class="container mx-auto p-4 sm:p-8 mb-4">
         <div class="w-full h-64 rounded-lg shadow-lg overflow-hidden mb-4" data-aos="fade-up" data-aos-offset="100">
@@ -35,7 +37,7 @@
 
 
     <section id="info"
-        class="container mx-auto p-4 sm:p-16 mb-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+        class="container mx-auto p-4 sm:p-16 mb-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100"
         data-aos="fade-up" data-aos-offset="100">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>

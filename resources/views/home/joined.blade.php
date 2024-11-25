@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'home')
+@section('title', 'Joined Events')
 
 @section('content')
 
