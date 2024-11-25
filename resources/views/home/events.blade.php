@@ -12,9 +12,7 @@
                 </select>
             </div>
             <div id="event-container">
-                <div id="content" class="grid grid-cols-[repeat(auto-fit,_minmax(16rem,_1fr))] justify-center gap-8"></div>
-                <div id="skeleton-container"
-                    class="grid grid-cols-[repeat(auto-fit,_minmax(16rem,_1fr))] justify-center gap-8">
+                <div id="content" class="grid grid-cols-[repeat(auto-fit,_minmax(16rem,_1fr))] justify-center gap-8">
                     @for ($i = 0; $i < 5; $i++)
                         <div
                             class="content-skeleton p-6 shadow-md rounded-lg bg-gray-200 dark:bg-gray-800 text-left hover:scale-105 transform transition duration-300">
@@ -26,6 +24,10 @@
                             <div class="h-10 bg-blue-700 rounded-lg dark:bg-blue-800 animate-pulse"></div>
                         </div>
                     @endfor
+                </div>
+                <div id="skeleton-container"
+                    class="grid grid-cols-[repeat(auto-fit,_minmax(16rem,_1fr))] justify-center gap-8">
+
                 </div>
             </div>
         </div>
@@ -40,7 +42,9 @@
             let searchQuery = searchParams.get('search');
             const searchInput = $('#topbar-search');
             $(searchInput).val(searchQuery);
-            
+
+            const contentSkeleton = $('.content-skeleton');
+
             let createdat = 0;
             let eventdate = 0;
             let evenstart = 0;
@@ -55,7 +59,7 @@
                 upcoming: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300'
             };
 
-            function search(){
+            function search() {
 
             }
 
@@ -99,11 +103,19 @@
             }
 
             function showSkeleton() {
-                $('#skeleton-container').show();
+                $('#content').append(contentSkeleton);
+                // $(contentSkeleton).removeClass('hidden');
+                // $('#skeleton-container').show();
             }
 
             function hideSkeleton() {
+                $('#skeleton-container').append(contentSkeleton);
                 $('#skeleton-container').hide();
+                // $(contentSkeleton).addClass('hidden');
+            }
+
+            function moveSkeleton() {
+                $('#content').append(contentSkeleton);
             }
 
             function getEvents() {
@@ -122,6 +134,8 @@
                         'search': searchQuery,
                     },
                     success: function(response) {
+                        hideSkeleton();
+                        // moveSkeleton();
                         console.log(response);
                         if (response.length === 0) {
                             if ($('#content').children().length === 0) {
@@ -147,6 +161,8 @@
                         lastid = lastItem.id;
                         if (response.length < ITEMS_PER_PAGE) {
                             hideSkeleton();
+                        } else {
+                            showSkeleton();
                         }
 
                         loading = false;
@@ -184,7 +200,9 @@
             );
 
             // Observe the skeleton container
-            observer.observe(document.querySelector('#skeleton-container'));
+            contentSkeleton.each(function(index, element) {
+                observer.observe(element);
+            });
 
             // Initial load
             getEvents();
