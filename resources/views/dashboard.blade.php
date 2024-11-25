@@ -143,6 +143,11 @@
                                                     @csrf
                                                     <input type="hidden" name="id_user" value="{{ Auth::id() }}">
                                                     <input type="hidden" name="id_event" value="{{ $item->id }}">
+                                                    <input type="hidden" name="name" @auth value="{{ Auth::user()->name }}" @endauth>
+                                                    <input type="hidden" name="email" @auth value="{{ Auth::user()->email }}" @endauth>
+                                                    <input type="hidden" name="no_telp" @auth value="{{ Auth::user()->no_telp }}" @endauth>
+                                                    <input type="hidden" name="alamat" @auth value="{{ Auth::user()->alamat }}" @endauth>
+                                                    <input type="hidden" name="for_me" value="">
                                                     <button type="submit"
                                                         class="flex items-center px-4 py-1 bg-green-500 dark:bg-green-600 text-white rounded hover:bg-green-600 dark:hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-700 focus:ring-opacity-50">
                                                         <svg class="w-6 h-6 mr-2 text-white" aria-hidden="true"
