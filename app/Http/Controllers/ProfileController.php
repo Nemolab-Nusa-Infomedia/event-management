@@ -15,11 +15,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $eventJoined = EventParticipants::where('id_user', '=', Auth::id())->count();
-        $eventCreated = Events::where('id_master', '=', Auth::id())->count();
-        $totalParticipant = EventParticipants::whereIn('id_event', Events::where('id_master', '=', Auth::id())->pluck('id'))->count();
-        
-        return view('profile.index', compact('eventJoined', 'eventCreated', 'totalParticipant'));
+        return view('profile.index');
     }
 
     /**
