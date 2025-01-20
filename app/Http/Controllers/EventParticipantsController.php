@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\User;
 use App\Models\Events;
 use App\Models\Participants;
 use Illuminate\Http\Request;
+use App\Mail\CertificateMailable;
 use App\Models\EventParticipants;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\MailSenderController;
 use App\Http\Requests\StoreEventParticipantsRequest;
 use App\Http\Requests\UpdateEventParticipantsRequest;
@@ -69,7 +76,7 @@ class EventParticipantsController extends Controller
                 'alamat' => $validated['alamat'],
             ];
 
-            $validated['id_user'] = null;
+            // $validated['id_user'] = null;
             $participant = Participants::firstOrCreate($data);
             $validated['id_participant'] = $participant['id'];
         }
@@ -152,18 +159,81 @@ class EventParticipantsController extends Controller
     }
 
     public function scan(Request $request, EventParticipants $eventParticipan)
-    {
-        $id_master = Events::find($eventParticipan->id_event, ['id_master']);
-        if (Auth::check() && Auth::id() == $id_master['id_master']) {
-            if ($eventParticipan->status == 'Present') return response()->json(['message' => 'Invalid or already used QR code.'], 409);
+{
+    // Temukan id_master berdasarkan id_event
+    $id_master = Events::find($eventParticipan->id_event, ['id_master']);
 
-            $validated = $request->validate([
-                'status' => ['required', 'regex:/^Present$/'],
-            ]);
+    // Pastikan user terautentikasi dan memiliki izin
+    if (Auth::check() && Auth::id() == $id_master['id_master']) {
 
-            $eventParticipan->update($validated);
-            return response()->json(['message' => 'QR code verified successfully.'], 200);
+        // Cek jika status sudah "Present"
+        if ($eventParticipan->status == 'Present') {
+            return response()->json(['message' => 'Invalid or already used QR code.'], 409);
         }
-        return response()->json(['message' => 'you not have permission'], 403);
+
+        // Update status ke "Present"
+        $eventParticipan->update([
+            'status' => 'Present'
+        ]);
+
+        // Buat nama file PDF tanpa spasi
+        $nameWithoutSpaces = str_replace(' ', '', $eventParticipan->participant->name);
+        $pdfPath = public_path("certificates/{$nameWithoutSpaces}_certificate.pdf");
+
+        // Pastikan folder "certificates" ada
+        if (!file_exists(public_path('certificates'))) {
+            mkdir(public_path('certificates'), 0775, true);
+        }
+
+        // Konfigurasi Dompdf
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+
+        // Render HTML dari view untuk sertifikat
+        $html = View::make('event.certificate.index', [
+            'name' => $eventParticipan->participant->name
+        ])->render();
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        // Simpan PDF ke local storage
+        $pdfContent = $dompdf->output();
+        file_put_contents($pdfPath, $pdfContent);
+
+        // Log untuk memastikan file PDF berhasil disimpan
+        Log::info("PDF file generated: {$pdfPath}");
+        
+        // Verifikasi apakah file PDF berhasil dibuat
+        if (!file_exists($pdfPath)) {
+            Log::error("Failed to generate PDF file: {$pdfPath}");
+            return response()->json(['message' => 'Failed to generate certificate.'], 500);
+        }
+
+        // Kirim email dengan sertifikat sebagai lampiran menggunakan Mailable
+        try {
+            Log::info("Attempting to send email with attachment: {$pdfPath}");
+            
+            Mail::to($eventParticipan->participant->email)
+                ->send(new CertificateMailable($eventParticipan, $eventParticipan->participant->name, $pdfPath));
+                
+            Log::info("Email sent successfully to {$eventParticipan->participant->email}");
+            
+        } catch (\Exception $e) {
+            Log::error("Failed to send email: " . $e->getMessage());
+            return response()->json(['message' => 'Failed to send email: ' . $e->getMessage()], 500);
+        }
+
+        // Kembalikan respon sukses
+        return redirect()->route('home')->with('success', 'QR code verified and certificate sent successfully.');
     }
+
+    // Jika user tidak memiliki izin
+    return response()->json(['message' => 'You do not have permission.'], 403);
+}
+
+
 }

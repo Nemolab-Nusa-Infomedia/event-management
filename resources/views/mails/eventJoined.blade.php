@@ -43,7 +43,7 @@
 
         <div class="qr-code">
             <h3>Your Event QR Code</h3>
-            <img src="cid:qrcode.svg" alt="QR Code">
+            <img src="{{ $message->embed($qrCodePath) }}" alt="QR Code">
             <p>Please show this QR code when attending the event</p>
         </div>
 

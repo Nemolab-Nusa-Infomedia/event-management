@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -34,8 +35,10 @@ class EventJoined extends Mailable
      */
     public function build()
     {
-        $qrCode = QrCode::format('svg')->size(256)->generate(route('participan.verification', $this->participant_id));
-        $qrCodeBase64 = base64_encode($qrCode);
+        $randomString = Str::random(10);
+        $qrCode = QrCode::format('png')->size(300)->generate($this->participant_id);
+        $qrCodePath = public_path('qrcodes/' . $this->participant_id.'-' . $randomString . '.png');
+        file_put_contents($qrCodePath, $qrCode);
 
         return $this->subject('Event Joined - ' . $this->event['name'])
             ->view('mails.eventJoined')
@@ -43,9 +46,7 @@ class EventJoined extends Mailable
                 'event' => $this->event,
                 'user' => $this->user,
                 'participant_id' => $this->participant_id,
-            ])
-            ->attachData(base64_decode($qrCodeBase64), 'qrcode.svg', [
-                'mime' => 'image/svg+xml',
+                'qrCodePath' => $qrCodePath
             ]);
     }
 }
