@@ -184,7 +184,7 @@
                         @enderror
                     </div>
                     @csrf
-                    <input type="hidden" name="id_user" value="{{ Auth::id() }}">
+                    <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="id_event" value="{{ $event->id }}">
                     <button type="submit"
                         class="block mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
