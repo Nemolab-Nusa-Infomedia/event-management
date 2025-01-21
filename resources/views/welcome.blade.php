@@ -11,7 +11,7 @@
 @section('content')
 
     <!-- Hero Section -->
-    <section
+    {{-- <section
         class="text-gray-900 dark:text-gray-100 dark:bg-blue-950 py-20 text-center dark:bg-[url(http://127.0.0.1:8000/vendor/img/Gracile-digital-art-artwork-illustration-concept-art-environment-2200837-wallhere.com-m.jpg)] lg:dark:bg-[url(http://127.0.0.1:8000/vendor/img/Gracile-digital-art-artwork-illustration-concept-art-environment-2200837-wallhere.com.jpg)] bg-[url(http://127.0.0.1:8000/vendor/img/Light2.jpg)] bg-cover"
         data-aos="fade-down">
         <div class=" mx-auto px-4">
@@ -21,28 +21,30 @@
                 See Recent Event
             </a>
         </div>
-    </section>
+    </section> --}}
 
     <section id="info" class="py-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
-        <div class=" mx-auto px-6 lg:px-8 lg:px-12" data-aos="fade-in" data-aos-delay="200">
+        <div class="mx-auto px-6 lg:px-8 lg:px-12" data-aos="zoom-in-up" data-aos-delay="200">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="p-8  h-full flex flex-col justify-center items-center" data-aos="fade-right">
-                    <div class="text-left">
+                <!-- Gambar -->
+                <div class="order-1 lg:order-2" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="{{ url('image-section.png') }}" alt="Juguran Komunitas"
+                        class="rounded-lg object-cover rounded-lg transform transition duration-300 hover:bg-gray-300 dark:hover:bg-gray-800 hover:scale-105">
+                </div>
+                <!-- Konten Teks -->
+                <div class="p-8 h-full flex flex-col justify-center items-center order-2 lg:order-1" data-aos="zoom-in-up">
+                    <div class="text-center sm:text-left">
                         <h2
                             class="lg:text-6xl md:text-4xl text-3xl font-bold mb-4 text-gray-900 text-uppercase dark:text-gray-100">
-                            Empower your event management with ease and efficiency</h2>
+                            "Merajut Kebersamaan, Berbagi Cerita Komunitas"
+                        </h2>
                         <p class="text-lg text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                            Our platform is the trusted choice of professionals across industries to boost productivity and
-                            achieve seamless results.
+                            Selamat Datang di Juguran Komunitas – Ruang berbagi, inspirasi, dan kolaborasi untuk menciptakan perubahan positif bersama!
                         </p>
-                        <a href="#about" class="text-blue-600 hover:text-gray-500 py-3 font-semibold">
+                        {{-- <a href="#about" class="text-blue-600 hover:text-gray-500 py-3 font-semibold">
                             Read More ->
-                        </a>
+                        </a> --}}
                     </div>
-                </div>
-                <div data-aos="fade-left" data-aos-delay="300">
-                    <img src="{{ asset('vendor/img/8d5f781f-9f15-4c39-9781-635555306206.png') }}" alt="OURevent Image"
-                        class="rounded-lg object-cover rounded-lg transform transition duration-300 hover:bg-gray-300 dark:hover:bg-gray-800 hover:scale-105">
                 </div>
             </div>
         </div>
@@ -50,10 +52,10 @@
 
 
     <!-- Events Section -->
-    <section id="Events" class="py-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+    <section id="Events" class="mb-5 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
         <div class=" mx-auto px-4 text-center">
             <h2 class="text-3xl font-semibold mb-8">Recent Events</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
                 @php
                     $delay = 0;
                 @endphp
