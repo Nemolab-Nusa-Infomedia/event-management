@@ -60,7 +60,7 @@
                     $delay = 0;
                 @endphp
                 @forelse ($events->take(4) as $event)
-                    <div data-aos="fade-right" data-aos-offset="-100" data-aos-delay="{{ $delay }}">
+                    <div data-aos="fade-up" data-aos-offset="-100" data-aos-delay="{{ $delay }}">
                         @php
                             $delay += 50;
                         @endphp
