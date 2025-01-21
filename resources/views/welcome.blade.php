@@ -26,7 +26,7 @@
     <section id="info" class="py-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
         <div class=" mx-auto px-6 lg:px-8 lg:px-12" data-aos="fade-in" data-aos-delay="200">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="p-8  h-full flex flex-col justify-center items-center" data-aos="fade-right">
+                <div class="p-8  h-full flex flex-col justify-center items-center" data-aos="fade-in">
                     <div class="text-left">
                         <h2
                             class="lg:text-6xl md:text-4xl text-3xl font-bold mb-4 text-gray-900 text-uppercase dark:text-gray-100">
@@ -40,7 +40,7 @@
                         </a>
                     </div>
                 </div>
-                <div data-aos="fade-left" data-aos-delay="300">
+                <div data-aos="fade-up" data-aos-delay="300">
                     <img src="{{ asset('vendor/img/8d5f781f-9f15-4c39-9781-635555306206.png') }}" alt="OURevent Image"
                         class="rounded-lg object-cover rounded-lg transform transition duration-300 hover:bg-gray-300 dark:hover:bg-gray-800 hover:scale-105">
                 </div>
@@ -58,7 +58,7 @@
                     $delay = 0;
                 @endphp
                 @forelse ($events->take(4) as $event)
-                    <div data-aos="fade-right" data-aos-offset="-100" data-aos-delay="{{ $delay }}">
+                    <div data-aos="fade-up" data-aos-offset="-100" data-aos-delay="{{ $delay }}">
                         @php
                             $delay += 50;
                         @endphp
