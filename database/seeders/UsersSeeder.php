@@ -67,5 +67,16 @@ class UsersSeeder extends Seeder
         //         'email_verification_expired_at' => $expirationAt,
         //     ]);
         // }
+
+         User::create([
+                'name' => 'Minnemo',
+                'email' => 'admin1@nemolab.id',
+                'password' => Hash::make('adminnemo1945'),
+                'role' => 'admin',
+                'no_telp' => null,
+                'alamat' => 'Jl. Yudistira No.12, Dusun 2, Pandak, Kec. Baturaden, Kabupaten Banyumas, Jawa Tengah 53151',
+                'email_verified_at' => Carbon::now(),
+                'email_verification_expired_at' => Carbon::now(),
+            ]);
     }
 }
