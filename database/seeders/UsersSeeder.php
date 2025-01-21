@@ -69,8 +69,8 @@ class UsersSeeder extends Seeder
         // }
 
          User::create([
-                'name' => 'Minnemo',
-                'email' => 'admin1@nemolab.id',
+                'name' => 'Juguran Komunitas',
+                'email' => 'admin@jugurankomunitas.id',
                 'password' => Hash::make('adminnemo1945'),
                 'role' => 'admin',
                 'no_telp' => null,
