@@ -15,8 +15,8 @@
         class="text-gray-900 dark:text-gray-100 dark:bg-blue-950 py-20 text-center dark:bg-[url(http://127.0.0.1:8000/vendor/img/Gracile-digital-art-artwork-illustration-concept-art-environment-2200837-wallhere.com-m.jpg)] lg:dark:bg-[url(http://127.0.0.1:8000/vendor/img/Gracile-digital-art-artwork-illustration-concept-art-environment-2200837-wallhere.com.jpg)] bg-[url(http://127.0.0.1:8000/vendor/img/Light2.jpg)] bg-cover"
         data-aos="fade-down">
         <div class=" mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-4">Welcome to Juguran Komunitas</h2>
-            <p class="mb-6">Discover the best solution to manage your event efficiently.</p>
+            <h2 class="text-4xl font-bold mb-4">Selamat Datang di Juguran Komunitas</h2>
+            <p class="mb-6">Merajut Kebersamaan, Berbagi Cerita Komunitas.</p>
             <a href="#Events" class="text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-200">
                 See Recent Event
             </a>
@@ -150,17 +150,6 @@
             </div>
         </div>
     @endforeach
-
-    <!-- About Section -->
-    <section id="about" class="py-16 text-gray-800 dark:text-gray-100" data-aos="fade-up" data-aos-offset="-200">
-        <div class=" mx-auto px-4 text-center">
-            <h2 class="text-3xl font-semibold mb-4">About Us</h2>
-            <p class="mb-6">We are committed to delivering exceptional event management solutions that simplify your
-                workflow.</p>
-            <p>Trusted by professionals across industries, our platform empowers you to maximize efficiency and achieve
-                outstanding results.</p>
-        </div>
-    </section>
 
 
 @stop
