@@ -18,7 +18,7 @@
                         src="{{ asset('vendor/img/Logo.png') }}" class="hidden sm:block h-8 ms-3 sm:ms-0 sm-0 sm:me-3" alt="FlowBite Logo" />
                     <a href="/" class="flex ms-2 md:me-24">
                         <span
-                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">OURevent</span>
+                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Juguran Komunitas</span>
                     </a>
                 </div>
                 <form action="#" method="GET" class="hidden lg:block lg:pl-2">

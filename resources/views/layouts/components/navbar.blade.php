@@ -14,11 +14,9 @@ class="fixed flex items-center min-w-full w-svw h-16 z-20 top-0 bg-white dark:bo
                         d="M5 7h14M5 12h14M5 17h14" />
                 </svg>
             </button>
-            <img onclick="$(document).ready(function () {$('#smallSidebar').prop('checked') ? $('#smallSidebar').prop('checked', false) : $('#smallSidebar').prop('checked', true)}); "
-                src="{{ asset('vendor/img/Logo.png') }}" class="hidden sm:block h-8 ms-3 sm:ms-0 sm-0 sm:me-3" alt="FlowBite Logo" />
             <a href="/" class="flex ms-2 sm:me-20">
                 <span
-                    class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap hidden sm:block dark:text-white">OURevent</span>
+                    class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap hidden sm:block dark:text-white">Juguran Komunitas</span>
             </a>
         </div>
         <form @if(Route::is('home.events')) @else action="{{route('home.events')}}" method="get" @endif class="block lg:pl-2">
@@ -150,16 +148,6 @@ class="fixed flex items-center min-w-full w-svw h-16 z-20 top-0 bg-white dark:bo
                 </ul>
             </div>
         @else
-            <a href="{{ route('login') }}"
-                class="p-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:stroke-gray-400 dark:hover:stroke-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
-                <!-- Icon -->
-
-                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                    height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
-                </svg>
-            </a>
         @endauth
     </div>
 </div>
