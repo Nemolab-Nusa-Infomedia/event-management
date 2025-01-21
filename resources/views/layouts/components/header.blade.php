@@ -18,7 +18,7 @@
 
     <!-- css -->
     @yield('style')
-    @vite('resources/css/app.css')
+    @vite('resources/sass/app.scss')
 
     <!-- Scripts -->
     @vite('resources/js/app.js')
