@@ -186,8 +186,6 @@
                     @csrf
                     @auth
                     <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
-                    @else
-                        <p></p>
                     @endauth
                     <input type="hidden" name="id_event" value="{{ $event->id }}">
                     <button type="submit"
