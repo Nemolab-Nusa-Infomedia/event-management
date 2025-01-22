@@ -56,7 +56,7 @@ Route::get('events', [EventsController::class, 'detailEvent'])->name('event.deta
 
 Auth::routes();
 
-Route::get('/events/preview/{event}', [EventsController::class, 'showPreview'])->name('events.preview');
+Route::get('/events/preview/{slug}', [EventsController::class, 'showPreview'])->name('events.preview');
 
 Route::post('/join', [EventParticipantsController::class, 'store'])->name('join');
 

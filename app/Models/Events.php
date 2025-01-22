@@ -15,6 +15,7 @@ class Events extends Model
         'location',
         'user_id',
         'about',
+        'slug',
         'quad_img',
         'thumbnail_img'
     ];

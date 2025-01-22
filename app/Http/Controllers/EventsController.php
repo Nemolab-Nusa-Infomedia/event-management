@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EventParticipants;
-use App\Models\Events;
 use App\Models\User;
+use App\Models\Events;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\EventParticipants;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -55,7 +56,7 @@ class EventsController extends Controller
         if ($request->hasFile('thumbnail_img')) {
             $thumbnailPath = $request->file('thumbnail_img')->store('event-thumbnails', 'public');
         }
-
+        $slug = Str::of($validated['name'])->slug('-');
         $event = Events::create([
             'id_master' => Auth::id(),
             'name' => $validated['name'],
@@ -65,13 +66,14 @@ class EventsController extends Controller
             'location' => $validated['location'],
             'thumbnail_img' => $thumbnailPath,
             'user_id' => auth::id(),
+            'slug' => $slug,
         ]);
 
         return redirect()->route('event.index')
             ->with('success', 'Event created successfully.');
     }
 
-    public function show(Events $event)
+    public function show(Events $slug)
     {
         if (Auth::user()->role !== 'admin' && $event->id_master !== Auth::id()) {
             abort(403, 'Unauthorized action.');
