@@ -83,7 +83,7 @@
                             @foreach ($myEvents as $item)
                                 <li>
                                     <a href="{{ route('event.show', $item->id) }}"
-                                        class="{{ Request::url() == route('event.show', $item->id) ? 'hover:bg-gray-300 bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 active:bg-gray-400 ' : 'hover:bg-gray-100 dark:hover:bg-gray-600 active:bg-gray-200 dark:hover:text-white' }} block px-4 py-2 dark:hover:text-white">
+                                        class="{{ Request::url() == route('event.show', $item->slug) ? 'hover:bg-gray-300 bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 active:bg-gray-400 ' : 'hover:bg-gray-100 dark:hover:bg-gray-600 active:bg-gray-200 dark:hover:text-white' }} block px-4 py-2 dark:hover:text-white">
                                         {{ $item->name }}
                                     </a>
                                 </li>
