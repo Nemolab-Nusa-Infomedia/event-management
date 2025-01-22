@@ -34,7 +34,7 @@
 
 <body>
     <div class="container">
-        <h1>OURevent - Event Joined</h1>
+        <h1>Juguran Komunitas</h1>
 
         <div class="section">
             <p>Hello, <strong>{{ $user['name'] }}</strong>!</p>
@@ -52,7 +52,7 @@
             <p><span class="label">Name:</span> {{ $user['name'] }}</p>
             <p><span class="label">Email:</span> {{ $user['email'] }}</p>
             <p><span class="label">Phone:</span> {{ $user['no_telp'] }}</p>
-            <p><span class="label">Address:</span> {{ $user['alamat'] }}</p>
+            <p><span class="label">Instansi:</span> {{ $user['alamat'] }}</p>
         </div>
 
         <div class="section">
