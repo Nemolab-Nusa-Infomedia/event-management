@@ -29,7 +29,7 @@
             data-aos-offset="100">{{ $event->name }}</h1>
         <div class="flex items-center" data-aos="fade-right" data-aos-offset="100">
             <img class="w-8 h-8 rounded-full"
-                src="{{ $creator->profile_pict ? Storage::url('profile_pictures/' . $creator->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}"
+                src="{{ $creator->profile_pict ? asset('storage/profile_pictures/' . $creator->profile_pict) : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' }}"
                 alt="user photo">
             <p class="mx-4 dark:text-gray-200 ">by <strong>{{ $creator->name }}</strong></p>
         </div>
