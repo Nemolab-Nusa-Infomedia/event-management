@@ -93,6 +93,7 @@ class EventsController extends Controller
 
     public function showPreview($slug)
     {
+        $event = Events::where('slug', $slug)->firstOrFail();
         // Format dates using Carbon
         $formattedDate = \Carbon\Carbon::parse($event->event_date)->format('l, F d, Y');
         $formattedStartTime = \Carbon\Carbon::parse($event->event_start)->format('H:i');
@@ -101,7 +102,6 @@ class EventsController extends Controller
             : null;
 
         // Get creator information
-        $event = Events::where('slug', $slug)->firstOrFail();
         $creator = User::find($event->id_master);
 
         return view('home.detailEvent', [
