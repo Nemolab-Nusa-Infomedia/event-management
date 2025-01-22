@@ -24,7 +24,7 @@
 
         .sertificate{
             position: absolute;
-            top: 47%;
+            top: 45%;
             left: 50%;
             transform: translate(-50%, -50%); /* Pusatkan konten secara vertikal dan horizontal */
             text-align: center;
@@ -33,7 +33,7 @@
         }
 
         .sertificate span{
-            font-size: 60px;
+            font-size: 55px;
             font-weight: 800;
             color: #263581;
         }
