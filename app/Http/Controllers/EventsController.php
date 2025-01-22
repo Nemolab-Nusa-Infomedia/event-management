@@ -73,8 +73,9 @@ class EventsController extends Controller
             ->with('success', 'Event created successfully.');
     }
 
-    public function show(Events $slug)
+    public function show($slug)
     {
+        $event = Events::where('slug', $slug)->firstOrFail();
         if (Auth::user()->role !== 'admin' && $event->id_master !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
