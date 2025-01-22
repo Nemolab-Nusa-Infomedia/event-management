@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>OURevent - Event Joined</title>
+    <title>Juguran Komunitas - Event Joined</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,22 +29,40 @@
             font-weight: bold;
             color: #666;
         }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>OURevent - Event Joined</h1>
+        <h1>Juguran Komunitas - Event Joined</h1>
 
         <div class="section">
             <p>Hello, <strong>{{ $name }}</strong>!</p>
-            <p>Your Certificate</strong></p>
-             <a href="{{ $pdfUrl }}" target="_blank">Download Certificate</a>
+            <p>Your Certificate</p>
+            <a href="{{ $pdfUrl }}" class="btn" target="_blank">Download Certificate</a>
         </div>
 
-
         <div class="section">
-            <p>Thank you for using OURevent. We look forward to seeing you at the event!</p>
+            <p>Thank you for using Juguran Komunitas. We look forward to seeing you at the event!</p>
         </div>
     </div>
 </body>
