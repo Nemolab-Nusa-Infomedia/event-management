@@ -1,7 +1,7 @@
 @extends('layouts.components.header')
 
 @section('script_link')
-@vite('resources/js/darkmode.js')
+{{-- @vite('resources/js/darkmode.js') --}}
 @stop
 
 @section('body')
