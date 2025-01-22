@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Participants;
+use App\Models\EventParticipants;
 use Illuminate\Database\Eloquent\Model;
 
 class Events extends Model
