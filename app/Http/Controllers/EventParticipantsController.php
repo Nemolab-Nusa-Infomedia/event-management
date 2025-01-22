@@ -53,7 +53,6 @@ class EventParticipantsController extends Controller
 
         // $event = Events::where('id', '=', $request['id_event'])->get();
         $validated = $request->validate([
-            'id_user' => ['sometimes'],
             'id_event' => ['required', 'exists:events,id'],
             'name' => ['required'],
             'email' => ['required'],
@@ -82,7 +81,7 @@ class EventParticipantsController extends Controller
         }
 
         $data = [
-            'id_user' => $validated['id_user'],
+            'id_user' => $request->id_user,
             'id_participant' => $validated['id_participant'],
             'id_event' => $validated['id_event'],
         ];
