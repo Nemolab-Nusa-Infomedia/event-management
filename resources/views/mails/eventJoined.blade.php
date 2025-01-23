@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>OURevent - Event Joined</title>
+    <title>Juguran Komunitas - Event Joined</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,7 +65,7 @@
         </div>
 
         <div class="section">
-            <p>Thank you for using OURevent. We look forward to seeing you at the event!</p>
+            <p>Thank you for using Juguran Komunitas. We look forward to seeing you at the event!</p>
         </div>
     </div>
 </body>
