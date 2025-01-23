@@ -9,8 +9,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'OurEvent')</title>
-    <link rel="icon" href="{{ asset('vendor/img/Logo.png') }}" type="image/x-icon">
+    <title>@yield('title', 'Juguran Komunitas | Merajut Kebersamaan, Berbagi Cerita Komunitas')</title>
+    <link rel="icon" href="{{ url('logo-juguran-komunitas.png') }}" type="image/x-icon">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
