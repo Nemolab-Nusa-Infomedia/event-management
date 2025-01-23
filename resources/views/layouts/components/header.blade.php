@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Juguran Komunitas | Merajut Kebersamaan, Berbagi Cerita Komunitas')</title>
-    <link rel="icon" href="{{ url('logo-juguran-komunitas.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url('icon-juguran-komunitas.png') }}" type="image/x-icon">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
