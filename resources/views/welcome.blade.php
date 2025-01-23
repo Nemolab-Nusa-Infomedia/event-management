@@ -24,7 +24,7 @@
     </section> --}}
     @if (session('success'))
         <div class="alert alert-success bg-green-500 text-white p-4 rounded-lg shadow-md flex justify-between items-center">
-            <span>Berhasil Mendaftar Event !</span>
+            <span>Berhasil Mendaftar Event ! Silahkan Cek Kotak Masuk Email Anda.</span>
             <button type="button" class="ml-4 text-white" onclick="this.parentElement.style.display='none'">×</button>
         </div>
     @endif
