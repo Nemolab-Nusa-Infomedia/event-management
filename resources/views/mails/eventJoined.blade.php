@@ -37,14 +37,14 @@
         <h1>Juguran Komunitas</h1>
 
         <div class="section">
-            <p>Hello, <strong>{{ $user['name'] }}</strong>!</p>
-            <p>You have joined the event: <strong>{{ $event->name }}</strong></p>
+            <p>Hii, <strong>{{ $user['name'] }}</strong>!</p>
+            <p>Kamu telah bergabung di event: <strong>{{ $event->name }}</strong></p>
         </div>
 
         <div class="qr-code">
             <h3>Your Event QR Code</h3>
             <img src="{{ $message->embed($qrCodePath) }}" alt="QR Code">
-            <p>Please show this QR code when attending the event</p>
+            <p>Mohon tunjukan Kode QR ini saat menghadiri acara</p>
         </div>
 
         <div class="section">
@@ -65,7 +65,7 @@
         </div>
 
         <div class="section">
-            <p>Thank you for using Juguran Komunitas. We look forward to seeing you at the event!</p>
+            <p>Terimakasih telah bergabung di Juguran Komunitas. Sampai Jumpa di Event Selanjutnya bersama Juguran Komunitas!</p>
         </div>
     </div>
 </body>
