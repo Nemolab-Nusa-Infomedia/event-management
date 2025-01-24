@@ -44,7 +44,7 @@
         <div class="qr-code">
             <h3>Your Event QR Code</h3>
             <img src="{{ $message->embed($qrCodePath) }}" alt="QR Code">
-            <p>Mohon tunjukan Kode QR ini saat menghadiri acara</p>
+            <p>Mohon tunjukan Kode QR ini saat menghadiri acara, untuk daftar ulang dan pemberian e-sertifikat</p>
         </div>
 
         <div class="section">
