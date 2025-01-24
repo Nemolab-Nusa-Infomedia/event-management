@@ -33,7 +33,7 @@
         }
 
         .sertificate span{
-            font-size: 40px;
+            font-size: 35px;
             font-weight: 800;
             color: #263581;
         }
